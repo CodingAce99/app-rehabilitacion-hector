@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'VideoPlayerScreen.dart';
 
-class VideosScreen extends StatelessWidget {
+class VideosScreen extends StatefulWidget {
+  @override
+  State<VideosScreen> createState() => _VideosScreenState();
+}
+
+class _VideosScreenState extends State<VideosScreen> {
+  String filtro = '';
+
+  /// Mapa de videos por categoría
   final Map<String, List<Map<String, String>>> videosPorCategoria = {
     'Fisioterapia': [
       {
@@ -43,91 +51,124 @@ class VideosScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Videos Educativos')),
-      body: ListView(
-        children:
-            videosPorCategoria.entries.map((entry) {
-              final categoria = entry.key;
-              final videos = entry.value;
+      body: Column(
+        children: [
+          // Buscador
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Buscar video...',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              onChanged: (texto) {
+                setState(() {
+                  filtro = texto.toLowerCase();
+                });
+              },
+            ),
+          ),
+          Expanded(
+            child: ListView(
+              children:
+                  videosPorCategoria.entries.map((entry) {
+                    final categoria = entry.key;
+                    final videos =
+                        entry.value
+                            .where(
+                              (video) => video['titulo']!
+                                  .toLowerCase()
+                                  .contains(filtro),
+                            )
+                            .toList();
 
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Título de la categoría
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    child: Text(
-                      categoria,
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                    if (videos.isEmpty) return SizedBox();
 
-                  // Lista de videos dentro de la categoría
-                  ...videos.map((video) {
-                    final videoId = YoutubePlayer.convertUrlToId(
-                      video['url'] ?? '',
-                    );
-                    if (videoId == null) return SizedBox(); // seguridad
-
-                    final thumbnailUrl =
-                        'https://img.youtube.com/vi/$videoId/0.jpg';
-
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder:
-                                (_) => VideoPlayerScreen(
-                                  videoId: videoId,
-                                  titulo: video['titulo']!,
-                                ),
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 12,
                           ),
-                        );
-                      },
-                      child: Card(
-                        margin: EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
-                        elevation: 4,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(12),
-                              ),
-                              child: Image.network(
-                                thumbnailUrl,
-                                width: double.infinity,
-                                height: 200,
-                                fit: BoxFit.cover,
-                              ),
+                          child: Text(
+                            categoria,
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
                             ),
-                            Padding(
-                              padding: EdgeInsets.all(12),
-                              child: Text(
-                                video['titulo']!,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        ...videos.map((video) {
+                          final videoId = YoutubePlayer.convertUrlToId(
+                            video['url'] ?? '',
+                          );
+                          if (videoId == null) return SizedBox();
+
+                          final thumbnailUrl =
+                              'https://img.youtube.com/vi/$videoId/0.jpg';
+
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder:
+                                      (_) => VideoPlayerScreen(
+                                        videoId: videoId,
+                                        titulo: video['titulo']!,
+                                      ),
                                 ),
+                              );
+                            },
+                            child: Card(
+                              margin: EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 8,
+                              ),
+                              elevation: 4,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(12),
+                                    ),
+                                    child: Image.network(
+                                      thumbnailUrl,
+                                      width: double.infinity,
+                                      height: 200,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(12),
+                                    child: Text(
+                                      video['titulo']!,
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
+                          );
+                        }).toList(),
+                      ],
                     );
                   }).toList(),
-                ],
-              );
-            }).toList(),
+            ),
+          ),
+        ],
       ),
     );
   }
