@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart'; // Para poder usar Material Design
 import 'screens/welcome_screen.dart'; // Para poder usar la pantalla de bienvenida
+import 'providers/diario_provider.dart'; // Para poder usar el provider del diario
+import 'package:provider/provider.dart'; // Para poder usar el provider
+import 'screens/diario_screen.dart'; // Para poder usar la pantalla del diario
 
 // Punto de entrada de la aplicación
 void main() {
-  runApp(AppRehab());
+  runApp(
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => DiarioProvider())],
+      child: MyApp(),
+    ),
+  );
 }
 
 /*
@@ -12,7 +20,7 @@ void main() {
   MaterialApp es el contenedor base para toda la app Flutter,
   con su configuración de navegación, tema y título
 */
-class AppRehab extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

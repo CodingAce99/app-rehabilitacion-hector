@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'VideoPlayerScreen.dart';
 
+// Pantalla principal que muestra los videos por categoría
 class VideosScreen extends StatefulWidget {
   @override
   State<VideosScreen> createState() => _VideosScreenState();
@@ -10,7 +11,8 @@ class VideosScreen extends StatefulWidget {
 class _VideosScreenState extends State<VideosScreen> {
   String filtro = '';
 
-  /// Mapa de videos por categoría
+  /// Mapa que agrupa los videos por categoría (clave: nombre de la categoría)
+  /// Cada categoría contiene una lista de mapas con título y URL de YouTube
   final Map<String, List<Map<String, String>>> videosPorCategoria = {
     'Fisioterapia': [
       {
@@ -51,9 +53,11 @@ class _VideosScreenState extends State<VideosScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Videos Educativos')),
+
+      // Columna principal: buscador + lista de videos
       body: Column(
         children: [
-          // Buscador
+          // Campo de búsqueda
           Padding(
             padding: const EdgeInsets.all(12),
             child: TextField(
@@ -65,12 +69,15 @@ class _VideosScreenState extends State<VideosScreen> {
                 ),
               ),
               onChanged: (texto) {
+                // Actualiza el filtro cada vez que se escribe algo
                 setState(() {
                   filtro = texto.toLowerCase();
                 });
               },
             ),
           ),
+
+          // Lista expandible con las categoría y sus videos
           Expanded(
             child: ListView(
               children:
@@ -85,11 +92,14 @@ class _VideosScreenState extends State<VideosScreen> {
                             )
                             .toList();
 
+                    // Si no hay videos que coincidan con el filtro, no muestra nada
                     if (videos.isEmpty) return SizedBox();
 
+                    // Contruye el widget para una categoría
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // Título de la categoría
                         Padding(
                           padding: EdgeInsets.symmetric(
                             horizontal: 16,
@@ -103,17 +113,22 @@ class _VideosScreenState extends State<VideosScreen> {
                             ),
                           ),
                         ),
+
+                        // Muestra cada video como una tarjeta con miniatura y título
                         ...videos.map((video) {
+                          // Extrae el ID del video desde la URL
                           final videoId = YoutubePlayer.convertUrlToId(
                             video['url'] ?? '',
                           );
                           if (videoId == null) return SizedBox();
 
+                          // URL de la miniatura del video
                           final thumbnailUrl =
                               'https://img.youtube.com/vi/$videoId/0.jpg';
 
                           return GestureDetector(
                             onTap: () {
+                              // Al pulsar, navega a la pantalla del reproductor
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -137,6 +152,7 @@ class _VideosScreenState extends State<VideosScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  // Miniatura del video
                                   ClipRRect(
                                     borderRadius: BorderRadius.vertical(
                                       top: Radius.circular(12),
