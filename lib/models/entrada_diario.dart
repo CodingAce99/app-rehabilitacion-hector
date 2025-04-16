@@ -12,12 +12,20 @@ class EntradaDiario {
   // Estado de ánimo del usuario
   final String estadoAnimo;
 
+  // Etiquetas asociadas a la entrada
+  final List<String> etiquetas;
+
+  // Ruta de la imagen asociada a la entrada (opcional)
+  final String? imagenPath;
+
   // Constructor de la clase
   EntradaDiario({
     required this.id,
     required this.fecha,
     required this.texto,
     required this.estadoAnimo,
+    required this.etiquetas,
+    this.imagenPath,
   });
 
   // Método que convierte esta entrada a un Map (estructura clave-valor)
@@ -27,6 +35,8 @@ class EntradaDiario {
     'fecha': fecha.toIso8601String(),
     'texto': texto,
     'estadoAnimo': estadoAnimo,
+    'etiquetas': etiquetas,
+    'imagenPath': imagenPath,
   };
 
   // Método de fábrica que crea una instancia de EntradaDiario desde un Map (JSON)
@@ -38,6 +48,8 @@ class EntradaDiario {
       texto: json['texto'],
       estadoAnimo:
           json['estadoAnimo'] ?? '😐', // Valor por defecto si es antiguo
+      etiquetas: List<String>.from(json['etiquetas'] ?? []),
+      imagenPath: json['imagenPath'], // Recuperamos la lista
     );
   }
 }

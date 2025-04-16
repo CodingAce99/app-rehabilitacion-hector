@@ -1,277 +1,239 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:image_picker/image_picker.dart';
 import '../providers/diario_provider.dart';
 import '../models/entrada_diario.dart';
+import 'dart:io';
 
 class DiarioScreen extends StatefulWidget {
   @override
   _DiarioScreenState createState() => _DiarioScreenState();
 }
 
-// State asociado al widget principal
 class _DiarioScreenState extends State<DiarioScreen> {
-  // Controlador para el campo de texto (permite leer lo que escribe el usuario)
   final _controller = TextEditingController();
 
-  // Emoji seleccionado como estado de ánimo (inicializado como "neutral")
   String _estadoSeleccionado = '😐';
 
-  //Función que se llama al pulsar el botón de "Guardar entrada"
+  final List<String> _etiquetasDisponibles = [
+    'Dolor',
+    'Ejercicio',
+    'Mejora',
+    'Cansancio',
+    'Terapia',
+  ];
+
+  List<String> _etiquetasSeleccionadas = [];
+  List<String> _etiquetasFiltro = [];
+  File? _imagenSeleccionada; // Ruta de la imagen seleccionada
+
   void _guardarEntrada() {
-    final texto = _controller.text.trim(); // Elimina espacios al inicio y final
+    final texto = _controller.text.trim();
     if (texto.isNotEmpty) {
-      // Usamos Provider para acceder al DiarioProvider y llamar a agregarEntrada
-      // listen: false porque no necesitamos redibujar la pantalla tras esto
-      Provider.of<DiarioProvider>(
-        context,
-        listen: false,
-      ).agregarEntrada(texto, _estadoSeleccionado);
-      _controller.clear(); // Limpiamos el campo de texto{
+      Provider.of<DiarioProvider>(context, listen: false).agregarEntrada(
+        texto,
+        _estadoSeleccionado,
+        _etiquetasSeleccionadas,
+        imagenPath: _imagenSeleccionada?.path,
+      );
+
+      _controller.clear();
       setState(() {
-        _estadoSeleccionado = '😐'; // Reiniciamos el emoji a neutral
+        _estadoSeleccionado = '😐';
+        _etiquetasSeleccionadas = [];
+        _imagenSeleccionada = null; // Reinicia la imagen seleccionada
       });
     }
   }
 
-  void _mostrarDialogoEditar(entrada) {
-    final controller = TextEditingController(text: entrada.texto);
-    String estadoSeleccionado = entrada.estadoAnimo;
+  Future<void> _seleccionarImagen() async {
+    final picker = ImagePicker();
+    final imagen = await picker.pickImage(source: ImageSource.gallery);
 
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Editar entrada'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: controller,
-                maxLines: 3,
-                decoration: InputDecoration(labelText: 'Texto del diario'),
-              ),
-              SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children:
-                    ['😃', '😐', '😞'].map((emoji) {
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            estadoSeleccionado = emoji;
-                          });
-                          Navigator.of(context).pop();
-                          _mostrarDialogoEditar(
-                            EntradaDiario(
-                              id: entrada.id,
-                              fecha: entrada.fecha,
-                              texto: controller.text,
-                              estadoAnimo: emoji,
-                            ),
-                          );
-                        },
-                        child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: 6),
-                          padding: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color:
-                                  estadoSeleccionado == emoji
-                                      ? Colors.blue
-                                      : Colors.grey,
-                            ),
-                          ),
-                          child: Text(emoji, style: TextStyle(fontSize: 24)),
-                        ),
-                      );
-                    }).toList(),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              child: Text('Cancelar'),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            ElevatedButton(
-              child: Text('Guardar'),
-              onPressed: () {
-                Provider.of<DiarioProvider>(
-                  context,
-                  listen: false,
-                ).editarEntrada(
-                  entrada.id,
-                  controller.text,
-                  estadoSeleccionado,
-                );
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+    if (imagen != null) {
+      setState(() {
+        _imagenSeleccionada = File(imagen.path); // Guarda la ruta
+      });
+    }
   }
 
-  // Widget que construye la fila de selección de emojis de estado de ánimo
   Widget _selectorEstadoAnimo() {
-    final estados = ['😃', '😐', '😞']; // Opciones posibles de estado
-
-    // Usamos Row + map para crear un widget por cada emoji
+    final estados = ['😃', '😐', '😞'];
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center, // Centra horizontalmente
+      mainAxisAlignment: MainAxisAlignment.center,
       children:
           estados.map((emoji) {
-            final bool seleccionado = _estadoSeleccionado == emoji;
-
+            final seleccionado = _estadoSeleccionado == emoji;
             return GestureDetector(
-              //usamos GestureDetector porque queremos controlar que pasa al tocar el emoji
-              onTap: () {
-                setState(() {
-                  _estadoSeleccionado = emoji; // Cambia el emoji seleccionado
-                });
-              },
+              onTap: () => setState(() => _estadoSeleccionado = emoji),
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 8),
                 padding: EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color:
-                      seleccionado
-                          ? Colors.blue[100]
-                          : null, // Color solo si está seleccionado
+                  color: seleccionado ? Colors.blue[100] : null,
                   border: Border.all(
-                    color:
-                        seleccionado
-                            ? Colors.blue
-                            : Colors.grey, // Color del borde
+                    color: seleccionado ? Colors.blue : Colors.grey,
                   ),
                 ),
-                child: Text(
-                  emoji,
-                  style: TextStyle(
-                    fontSize: 28, // Tamaño del emoji
-                  ),
-                ),
+                child: Text(emoji, style: TextStyle(fontSize: 28)),
               ),
             );
-          }).toList(), // Convertimos el map en lista de widgets
+          }).toList(),
     );
   }
 
-  // Widget que construye la lista de entradas del diario
+  Widget _selectorEtiquetas() {
+    return Wrap(
+      spacing: 8,
+      runSpacing: 4,
+      children:
+          _etiquetasDisponibles.map((etiqueta) {
+            final seleccionada = _etiquetasSeleccionadas.contains(etiqueta);
+            return FilterChip(
+              label: Text(etiqueta),
+              selected: seleccionada,
+              selectedColor: Colors.blue[100],
+              onSelected: (valor) {
+                setState(() {
+                  if (valor) {
+                    _etiquetasSeleccionadas.add(etiqueta);
+                  } else {
+                    _etiquetasSeleccionadas.remove(etiqueta);
+                  }
+                });
+              },
+            );
+          }).toList(),
+    );
+  }
+
+  Widget _filtroEtiquetas() {
+    return Wrap(
+      spacing: 8,
+      children:
+          _etiquetasDisponibles.map((etiqueta) {
+            final seleccionada = _etiquetasFiltro.contains(etiqueta);
+            return FilterChip(
+              label: Text(etiqueta),
+              selected: seleccionada,
+              selectedColor: Colors.lightBlue[100],
+              onSelected: (valor) {
+                setState(() {
+                  if (valor) {
+                    _etiquetasFiltro.add(etiqueta);
+                  } else {
+                    _etiquetasFiltro.remove(etiqueta);
+                  }
+                });
+              },
+            );
+          }).toList(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Obtenemos el provider para acceder a las entradas del diario
     final diario = Provider.of<DiarioProvider>(context);
+
+    final entradasFiltradas =
+        _etiquetasFiltro.isEmpty
+            ? diario.entradas
+            : diario.entradas.where((entrada) {
+              return _etiquetasFiltro.every(
+                (tag) => entrada.etiquetas.contains(tag),
+              );
+            }).toList();
 
     return Scaffold(
       appBar: AppBar(title: Text('Diario Personal')),
-
-      // Cuerpo principal con columna (elementos apilados verticalmente)
       body: Column(
         children: [
-          // Campo de texto para que el usuario escriba su entrada
           Padding(
             padding: const EdgeInsets.all(12),
             child: TextField(
-              controller: _controller, // Permite recuperar el texto escrito
+              controller: _controller,
               decoration: InputDecoration(
                 hintText: 'Escribe tu entrada aquí...',
                 border: OutlineInputBorder(),
               ),
-              maxLines: 3, // Permite varias líneas (estilo "nota")
+              maxLines: 3,
             ),
           ),
-
-          // Muestra los emojis para elegir estado de ánimo
           _selectorEstadoAnimo(),
-
-          // Botón para guardar la entrada
+          SizedBox(height: 10),
+          Text('Etiquetas:', style: TextStyle(fontWeight: FontWeight.bold)),
+          _selectorEtiquetas(),
+          SizedBox(height: 10),
           ElevatedButton(
             onPressed: _guardarEntrada,
             child: Text('Guardar entrada'),
           ),
-
-          Divider(), // Línea separadora entre formulario y lista
-          // Lista de entradas ya creadas
+          Divider(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Filtrar por etiqueta:',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                _filtroEtiquetas(),
+              ],
+            ),
+          ),
           Expanded(
             child:
-                diario.entradas.isEmpty
-                    ? Center(child: Text('No hay entradas aún.'))
+                entradasFiltradas.isEmpty
+                    ? Center(child: Text('No hay entradas que coincidan.'))
                     : ListView.builder(
-                      itemCount: diario.entradas.length,
+                      itemCount: entradasFiltradas.length,
                       itemBuilder: (context, index) {
-                        final entrada = diario.entradas[index];
+                        final entrada = entradasFiltradas[index];
                         return Card(
                           margin: EdgeInsets.symmetric(
                             horizontal: 12,
                             vertical: 6,
                           ),
                           elevation: 2,
-                          child: ListTile(
-                            leading: Text(
-                              entrada.estadoAnimo,
-                              style: TextStyle(fontSize: 28),
-                            ),
-                            title: Text(entrada.texto),
-                            subtitle: Text(
-                              DateFormat(
-                                'dd/MM/yyyy – HH:mm',
-                              ).format(entrada.fecha),
-                            ),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
+                          child: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                IconButton(
-                                  icon: Icon(Icons.edit),
-                                  onPressed:
-                                      () => _mostrarDialogoEditar(entrada),
+                                Row(
+                                  children: [
+                                    Text(
+                                      entrada.estadoAnimo,
+                                      style: TextStyle(fontSize: 28),
+                                    ),
+                                    SizedBox(width: 10),
+                                    Expanded(
+                                      child: Text(
+                                        entrada.texto,
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                IconButton(
-                                  icon: Icon(Icons.delete),
-                                  onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder:
-                                          (context) => AlertDialog(
-                                            title: Text(
-                                              'Confirmar eliminación',
-                                            ),
-                                            content: Text(
-                                              '¿Estás seguro de que deseas eliminar esta entrada?',
-                                            ),
-                                            actions: [
-                                              TextButton(
-                                                child: Text('Cancelar'),
-                                                onPressed:
-                                                    () =>
-                                                        Navigator.of(
-                                                          context,
-                                                        ).pop(), // Cierra el diálogo
-                                              ),
-                                              ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor: Colors.red,
-                                                  foregroundColor: Colors.white,
-                                                ),
-                                                child: Text('Eliminar'),
-                                                onPressed: () {
-                                                  Provider.of<DiarioProvider>(
-                                                    context,
-                                                    listen: false,
-                                                  ).eliminarEntrada(entrada.id);
-                                                  Navigator.of(
-                                                    context,
-                                                  ).pop(); // Cierra el diálogo
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                    );
-                                  },
+                                SizedBox(height: 4),
+                                Text(
+                                  DateFormat(
+                                    'dd/MM/yyyy – HH:mm',
+                                  ).format(entrada.fecha),
+                                  style: TextStyle(color: Colors.grey),
+                                ),
+                                Wrap(
+                                  spacing: 6,
+                                  children:
+                                      entrada.etiquetas.map((tag) {
+                                        return Chip(
+                                          label: Text(tag),
+                                          backgroundColor: Colors.grey[200],
+                                        );
+                                      }).toList(),
                                 ),
                               ],
                             ),
