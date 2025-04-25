@@ -37,24 +37,29 @@ class DiarioProvider with ChangeNotifier {
   // Reemplaza una entrada por otra con el mismo ID
   void editarEntrada(
     String id,
+    String titulo,
     String texto,
     String estadoAnimo,
     List<String> etiquetas, [
     String? imagenPath,
   ]) {
+    // Nota: indexWhere busca el primer elemento que cumple la condición
+    // en este caso, el indice de la entrada cuyo id coincida con el que se quiere editar
     final index = _entradas.indexWhere((entradas) => entradas.id == id);
+    // El if (index != -1) verifica es una verificación de seguridad.
+    // En Dart, indexWhere devuelve -1 si no encuentra el elemento.
     if (index != -1) {
       _entradas[index] = EntradaDiario(
         id: id,
         fecha: _entradas[index].fecha, // Mantenemos la fecha original
-        titulo: _entradas[index].titulo, // Mantenemos el título original
+        titulo: titulo, // Usa el nuevo título original
         texto: texto,
         estadoAnimo: estadoAnimo,
         etiquetas: etiquetas,
         imagenPath: imagenPath,
       );
-      guardarEntradas();
-      notifyListeners();
+      guardarEntradas(); // Guarda en SharedPreferences
+      notifyListeners(); // Actualiza la UI donde se usa el provider
     }
   }
 

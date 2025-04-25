@@ -432,115 +432,126 @@ class _DiarioScreenState extends State<DiarioScreen> {
 
   void _mostrarDialogoEditar(BuildContext context, EntradaDiario entrada) {
     final controller = TextEditingController(text: entrada.texto);
+    final tituloController = TextEditingController(text: entrada.titulo);
     String estadoSeleccionado = entrada.estadoAnimo;
-    File? _imagenSeleccionada =
+    File? imagenSeleccionada =
         entrada.imagenPath != null ? File(entrada.imagenPath!) : null;
-
-    void seleccionarImagenNueva() async {
-      final picker = ImagePicker();
-      final imagen = await picker.pickImage(source: ImageSource.gallery);
-      if (imagen != null) {
-        setState(() => _imagenSeleccionada = File(imagen.path));
-        Navigator.of(context).pop(); // Cierra el modal
-        _mostrarDialogoEditar(
-          context,
-          EntradaDiario(
-            id: entrada.id,
-            fecha: entrada.fecha,
-            titulo: entrada.titulo,
-            texto: controller.text,
-            estadoAnimo: estadoSeleccionado,
-            etiquetas: entrada.etiquetas,
-            imagenPath: imagen.path,
-          ),
-        );
-      }
-    }
 
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: Text('Editar entrada'),
-          content: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  controller: controller,
-                  maxLines: 3,
-                  decoration: InputDecoration(labelText: 'Texto del diario'),
-                ),
-                SizedBox(height: 10),
-                StatefulBuilder(
-                  builder: (context, setModalState) {
-                    final estados = ['Feliz', 'Neutral', 'Triste'];
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Estado anímico:',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+        return StatefulBuilder(
+          builder: (context, setModalState) {
+            return GestureDetector(
+              onTap:
+                  () => FocusScope.of(context).unfocus(), // oculta el teclado
+              child: AlertDialog(
+                title: Text('Editar entrada'),
+                content: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextField(
+                        controller: tituloController,
+                        decoration: InputDecoration(
+                          labelText: 'Título',
+                          border: OutlineInputBorder(),
                         ),
-                        Wrap(
-                          spacing: 10,
-                          children:
-                              estados.map((estado) {
-                                final seleccionado =
-                                    estadoSeleccionado == estado;
-                                return ChoiceChip(
-                                  label: Text(estado),
-                                  selected: seleccionado,
-                                  selectedColor: Colors.blue[100],
-                                  onSelected: (_) {
-                                    setModalState(
-                                      () => estadoSeleccionado = estado,
-                                    );
-                                  },
-                                );
-                              }).toList(),
+                      ),
+                      SizedBox(height: 10),
+                      SizedBox(height: 10),
+                      TextField(
+                        controller: controller,
+                        maxLines: 3,
+                        decoration: InputDecoration(
+                          labelText: 'Texto del diario',
+                          border: OutlineInputBorder(),
                         ),
-                      ],
-                    );
-                  },
-                ),
-
-                SizedBox(height: 10),
-                ElevatedButton.icon(
-                  onPressed: seleccionarImagenNueva,
-                  icon: Icon(Icons.image),
-                  label: Text('Cambiar imagen'),
-                ),
-                if (_imagenSeleccionada != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Image.file(_imagenSeleccionada!, height: 150),
+                      ),
+                      SizedBox(height: 12),
+                      Text(
+                        'Estado anímico:',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Wrap(
+                        spacing: 10,
+                        children:
+                            ['Feliz', 'Neutral', 'Triste'].map((estado) {
+                              final seleccionado = estadoSeleccionado == estado;
+                              return ChoiceChip(
+                                label: Text(estado),
+                                selected: seleccionado,
+                                selectedColor: Colors.blue[100],
+                                onSelected: (_) {
+                                  setModalState(
+                                    () => estadoSeleccionado = estado,
+                                  );
+                                },
+                              );
+                            }).toList(),
+                      ),
+                      SizedBox(height: 12),
+                      ElevatedButton.icon(
+                        onPressed: () async {
+                          final picker = ImagePicker();
+                          final image = await picker.pickImage(
+                            source: ImageSource.gallery,
+                          );
+                          if (image != null) {
+                            setModalState(() {
+                              imagenSeleccionada = File(image.path);
+                            });
+                          }
+                        },
+                        icon: Icon(Icons.image),
+                        label: Text('Seleccionar imagen'),
+                      ),
+                      if (imagenSeleccionada != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.file(
+                              imagenSeleccionada!,
+                              height: 150,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
-              ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              child: Text('Cancelar'),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            ElevatedButton(
-              child: Text('Guardar'),
-              onPressed: () {
-                Provider.of<DiarioProvider>(
-                  context,
-                  listen: false,
-                ).editarEntrada(
-                  entrada.id,
-                  controller.text,
-                  estadoSeleccionado,
-                  entrada.etiquetas,
-                  _imagenSeleccionada?.path,
-                );
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+                ),
+                actions: [
+                  TextButton(
+                    child: Text('Cancelar'),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  ElevatedButton(
+                    child: Text('Guardar'),
+                    onPressed: () {
+                      final texto = controller.text.trim();
+                      final titulo = tituloController.text.trim();
+
+                      if (titulo.isNotEmpty && texto.isNotEmpty) {
+                        Provider.of<DiarioProvider>(
+                          context,
+                          listen: false,
+                        ).editarEntrada(
+                          entrada.id,
+                          titulo,
+                          texto,
+                          estadoSeleccionado,
+                          entrada.etiquetas,
+                          imagenSeleccionada?.path,
+                        );
+                        Navigator.of(context).pop();
+                      }
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
         );
       },
     );
