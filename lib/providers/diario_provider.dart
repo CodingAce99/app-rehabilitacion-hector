@@ -14,6 +14,7 @@ class DiarioProvider with ChangeNotifier {
   }
 
   void agregarEntrada(
+    String titulo,
     String texto,
     String estadoAnimo,
     List<String> etiquetas, {
@@ -22,6 +23,7 @@ class DiarioProvider with ChangeNotifier {
     final nueva = EntradaDiario(
       id: const Uuid().v4(),
       fecha: DateTime.now(),
+      titulo: titulo,
       texto: texto,
       estadoAnimo: estadoAnimo,
       etiquetas: etiquetas,
@@ -37,16 +39,19 @@ class DiarioProvider with ChangeNotifier {
     String id,
     String texto,
     String estadoAnimo,
-    List<String> etiquetas,
-  ) {
+    List<String> etiquetas, [
+    String? imagenPath,
+  ]) {
     final index = _entradas.indexWhere((entradas) => entradas.id == id);
     if (index != -1) {
       _entradas[index] = EntradaDiario(
         id: id,
         fecha: _entradas[index].fecha, // Mantenemos la fecha original
+        titulo: _entradas[index].titulo, // Mantenemos el título original
         texto: texto,
         estadoAnimo: estadoAnimo,
         etiquetas: etiquetas,
+        imagenPath: imagenPath,
       );
       guardarEntradas();
       notifyListeners();

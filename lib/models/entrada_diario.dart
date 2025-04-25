@@ -6,6 +6,9 @@ class EntradaDiario {
   // Fecha y hora en la que se creó la entrada
   final DateTime fecha;
 
+  // Título de la entrada
+  final String titulo;
+
   // Texto escrito por el usuario en esa entrada
   final String texto;
 
@@ -22,6 +25,7 @@ class EntradaDiario {
   EntradaDiario({
     required this.id,
     required this.fecha,
+    required this.titulo,
     required this.texto,
     required this.estadoAnimo,
     required this.etiquetas,
@@ -33,6 +37,7 @@ class EntradaDiario {
   Map<String, dynamic> toJson() => {
     'id': id,
     'fecha': fecha.toIso8601String(),
+    'titulo': titulo,
     'texto': texto,
     'estadoAnimo': estadoAnimo,
     'etiquetas': etiquetas,
@@ -45,6 +50,7 @@ class EntradaDiario {
     return EntradaDiario(
       id: json['id'],
       fecha: DateTime.parse(json['fecha']),
+      titulo: json['titulo'],
       texto: json['texto'],
       estadoAnimo:
           json['estadoAnimo'] ?? '😐', // Valor por defecto si es antiguo

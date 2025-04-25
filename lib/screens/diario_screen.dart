@@ -1,10 +1,11 @@
+import 'dart:io';
+import 'package:app_rehab/screens/detalle_entrada_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
-import 'package:image_picker/image_picker.dart';
 import '../providers/diario_provider.dart';
 import '../models/entrada_diario.dart';
-import 'dart:io';
 
 class DiarioScreen extends StatefulWidget {
   @override
@@ -13,8 +14,9 @@ class DiarioScreen extends StatefulWidget {
 
 class _DiarioScreenState extends State<DiarioScreen> {
   final _controller = TextEditingController();
-
-  String _estadoSeleccionado = '😐';
+  final _tituloController = TextEditingController();
+  String _estadoSeleccionado = 'Neutral';
+  File? _imagenSeleccionada;
 
   final List<String> _etiquetasDisponibles = [
     'Dolor',
@@ -26,59 +28,226 @@ class _DiarioScreenState extends State<DiarioScreen> {
 
   List<String> _etiquetasSeleccionadas = [];
   List<String> _etiquetasFiltro = [];
-  File? _imagenSeleccionada; // Ruta de la imagen seleccionada
+
+  Future<void> _seleccionarImagen() async {
+    final picker = ImagePicker();
+    final imagen = await picker.pickImage(source: ImageSource.gallery);
+    if (imagen != null) {
+      setState(() => _imagenSeleccionada = File(imagen.path));
+    }
+  }
 
   void _guardarEntrada() {
     final texto = _controller.text.trim();
+    final titulo = _tituloController.text.trim();
     if (texto.isNotEmpty) {
       Provider.of<DiarioProvider>(context, listen: false).agregarEntrada(
+        titulo,
         texto,
         _estadoSeleccionado,
         _etiquetasSeleccionadas,
         imagenPath: _imagenSeleccionada?.path,
       );
-
       _controller.clear();
+      _tituloController.clear();
       setState(() {
-        _estadoSeleccionado = '😐';
+        _estadoSeleccionado = 'Neutral';
         _etiquetasSeleccionadas = [];
-        _imagenSeleccionada = null; // Reinicia la imagen seleccionada
+        _imagenSeleccionada = null;
       });
+      Navigator.of(context).pop(); // Cierra el modal
     }
   }
 
-  Future<void> _seleccionarImagen() async {
-    final picker = ImagePicker();
-    final imagen = await picker.pickImage(source: ImageSource.gallery);
+  void _abrirFormularioNuevaEntrada() {
+    // variables locales para el modal
+    String estadoSeleccionado = _estadoSeleccionado;
+    List<String> etiquetasSeleccionadas = List.from(_etiquetasSeleccionadas);
+    File? imagenTemporal = _imagenSeleccionada;
 
-    if (imagen != null) {
-      setState(() {
-        _imagenSeleccionada = File(imagen.path); // Guarda la ruta
-      });
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setModalState) {
+            return GestureDetector(
+              onTap:
+                  () => FocusScope.of(context).unfocus(), // oculta el teclado
+              child: SafeArea(
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(
+                    16,
+                    20,
+                    16,
+                    MediaQuery.of(context).viewInsets.bottom + 32,
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextField(
+                          controller: _tituloController,
+                          decoration: InputDecoration(
+                            hintText: 'Título de la entrada',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        SizedBox(height: 12),
+                        TextField(
+                          controller: _controller,
+                          maxLines: 3,
+                          decoration: InputDecoration(
+                            hintText: 'Escribe tu entrada...',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        SizedBox(height: 12),
+                        Text(
+                          'Estado anímico:',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Wrap(
+                          spacing: 10,
+                          children:
+                              ['Feliz', 'Neutral', 'Triste'].map((estado) {
+                                final seleccionado =
+                                    estadoSeleccionado == estado;
+                                return ChoiceChip(
+                                  label: Text(estado),
+                                  selected: seleccionado,
+                                  onSelected: (_) {
+                                    setModalState(
+                                      () => estadoSeleccionado = estado,
+                                    );
+                                  },
+                                );
+                              }).toList(),
+                        ),
+                        SizedBox(height: 12),
+                        Text(
+                          'Etiquetas:',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Wrap(
+                          spacing: 8,
+                          children:
+                              _etiquetasDisponibles.map((etiqueta) {
+                                final seleccionada = etiquetasSeleccionadas
+                                    .contains(etiqueta);
+                                return FilterChip(
+                                  label: Text(etiqueta),
+                                  selected: seleccionada,
+                                  onSelected: (valor) {
+                                    setModalState(() {
+                                      if (valor) {
+                                        etiquetasSeleccionadas.add(etiqueta);
+                                      } else {
+                                        etiquetasSeleccionadas.remove(etiqueta);
+                                      }
+                                    });
+                                  },
+                                );
+                              }).toList(),
+                        ),
+                        SizedBox(height: 12),
+                        ElevatedButton.icon(
+                          icon: Icon(Icons.image),
+                          label: Text('Seleccionar imagen'),
+                          onPressed: () async {
+                            final picker = ImagePicker();
+                            final image = await picker.pickImage(
+                              source: ImageSource.gallery,
+                            );
+                            if (image != null) {
+                              setModalState(
+                                () => imagenTemporal = File(image.path),
+                              );
+                            }
+                          },
+                        ),
+                        if (imagenTemporal != null)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: Image.file(imagenTemporal!, height: 150),
+                          ),
+                        SizedBox(height: 16),
+                        Center(
+                          child: ElevatedButton(
+                            child: Text('Guardar entrada'),
+                            onPressed: () {
+                              final titulo = _tituloController.text.trim();
+                              final texto = _controller.text.trim();
+
+                              if (titulo.isNotEmpty && texto.isNotEmpty) {
+                                _estadoSeleccionado = estadoSeleccionado;
+                                _etiquetasSeleccionadas =
+                                    etiquetasSeleccionadas;
+                                _imagenSeleccionada = imagenTemporal;
+
+                                Provider.of<DiarioProvider>(
+                                  context,
+                                  listen: false,
+                                ).agregarEntrada(
+                                  titulo,
+                                  texto,
+                                  _estadoSeleccionado,
+                                  _etiquetasSeleccionadas,
+                                  imagenPath: _imagenSeleccionada?.path,
+                                );
+
+                                _controller.clear();
+                                _tituloController.clear();
+                                _imagenSeleccionada = null;
+
+                                Navigator.of(context).pop(); // Cierra el modal
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  String _estadoAEmoji(String estado) {
+    switch (estado) {
+      case 'Feliz':
+        return '😃';
+      case 'Triste':
+        return '😞';
+      case 'Neutral':
+      default:
+        return '😐';
     }
   }
 
   Widget _selectorEstadoAnimo() {
-    final estados = ['😃', '😐', '😞'];
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    final estados = ['Feliz', 'Neutral', 'Triste'];
+
+    return Wrap(
+      spacing: 10,
       children:
-          estados.map((emoji) {
-            final seleccionado = _estadoSeleccionado == emoji;
-            return GestureDetector(
-              onTap: () => setState(() => _estadoSeleccionado = emoji),
-              child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 8),
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: seleccionado ? Colors.blue[100] : null,
-                  border: Border.all(
-                    color: seleccionado ? Colors.blue : Colors.grey,
-                  ),
-                ),
-                child: Text(emoji, style: TextStyle(fontSize: 28)),
-              ),
+          estados.map((estado) {
+            final seleccionado = _estadoSeleccionado == estado;
+
+            return ChoiceChip(
+              label: Text(estado),
+              selected: seleccionado,
+              selectedColor: Colors.blue[100],
+              onSelected: (_) {
+                setState(() => _estadoSeleccionado = estado);
+              },
             );
           }).toList(),
     );
@@ -136,7 +305,6 @@ class _DiarioScreenState extends State<DiarioScreen> {
   @override
   Widget build(BuildContext context) {
     final diario = Provider.of<DiarioProvider>(context);
-
     final entradasFiltradas =
         _etiquetasFiltro.isEmpty
             ? diario.entradas
@@ -147,103 +315,234 @@ class _DiarioScreenState extends State<DiarioScreen> {
             }).toList();
 
     return Scaffold(
-      appBar: AppBar(title: Text('Diario Personal')),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: TextField(
-              controller: _controller,
-              decoration: InputDecoration(
-                hintText: 'Escribe tu entrada aquí...',
-                border: OutlineInputBorder(),
-              ),
-              maxLines: 3,
+      appBar: AppBar(title: Text('Mi diario')),
+      body: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Entradas guardadas:',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-          ),
-          _selectorEstadoAnimo(),
-          SizedBox(height: 10),
-          Text('Etiquetas:', style: TextStyle(fontWeight: FontWeight.bold)),
-          _selectorEtiquetas(),
-          SizedBox(height: 10),
-          ElevatedButton(
-            onPressed: _guardarEntrada,
-            child: Text('Guardar entrada'),
-          ),
-          Divider(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Filtrar por etiqueta:',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+            SizedBox(height: 10),
+            Expanded(
+              child:
+                  entradasFiltradas.isEmpty
+                      ? Center(child: Text('No hay entradas todavía.'))
+                      : ListView.builder(
+                        padding: EdgeInsets.zero,
+                        itemCount: diario.entradas.length,
+                        itemBuilder: (context, index) {
+                          final entrada = diario.entradas[index];
+
+                          return Card(
+                            margin: EdgeInsets.symmetric(vertical: 6),
+                            elevation: 2,
+                            child: ListTile(
+                              leading: Text(
+                                _estadoAEmoji(entrada.estadoAnimo),
+                                style: TextStyle(fontSize: 28),
+                              ),
+                              title: Text(
+                                entrada.titulo,
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                DateFormat(
+                                  'dd/MM/yyyy – HH:mm',
+                                ).format(entrada.fecha),
+                              ),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(
+                                    icon: Icon(Icons.edit),
+                                    onPressed:
+                                        () => _mostrarDialogoEditar(
+                                          context,
+                                          entrada,
+                                        ),
+                                  ),
+                                  IconButton(
+                                    icon: Icon(Icons.delete),
+                                    onPressed:
+                                        () => _confirmarEliminar(
+                                          context,
+                                          entrada.id,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder:
+                                        (_) => DetalleEntradaScreen(
+                                          entrada: entrada,
+                                        ),
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      ),
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _abrirFormularioNuevaEntrada,
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+
+  void _confirmarEliminar(BuildContext context, String id) {
+    showDialog(
+      context: context,
+      builder:
+          (context) => AlertDialog(
+            title: Text('¿Eliminar entrada?'),
+            content: Text('Esta acción no se puede deshacer.'),
+            actions: [
+              TextButton(
+                child: Text('Cancelar'),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
                 ),
-                _filtroEtiquetas(),
+                child: Text('Eliminar'),
+                onPressed: () {
+                  Provider.of<DiarioProvider>(
+                    context,
+                    listen: false,
+                  ).eliminarEntrada(id);
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+    );
+  }
+
+  void _mostrarDialogoEditar(BuildContext context, EntradaDiario entrada) {
+    final controller = TextEditingController(text: entrada.texto);
+    String estadoSeleccionado = entrada.estadoAnimo;
+    File? _imagenSeleccionada =
+        entrada.imagenPath != null ? File(entrada.imagenPath!) : null;
+
+    void seleccionarImagenNueva() async {
+      final picker = ImagePicker();
+      final imagen = await picker.pickImage(source: ImageSource.gallery);
+      if (imagen != null) {
+        setState(() => _imagenSeleccionada = File(imagen.path));
+        Navigator.of(context).pop(); // Cierra el modal
+        _mostrarDialogoEditar(
+          context,
+          EntradaDiario(
+            id: entrada.id,
+            fecha: entrada.fecha,
+            titulo: entrada.titulo,
+            texto: controller.text,
+            estadoAnimo: estadoSeleccionado,
+            etiquetas: entrada.etiquetas,
+            imagenPath: imagen.path,
+          ),
+        );
+      }
+    }
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Editar entrada'),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: controller,
+                  maxLines: 3,
+                  decoration: InputDecoration(labelText: 'Texto del diario'),
+                ),
+                SizedBox(height: 10),
+                StatefulBuilder(
+                  builder: (context, setModalState) {
+                    final estados = ['Feliz', 'Neutral', 'Triste'];
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Estado anímico:',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Wrap(
+                          spacing: 10,
+                          children:
+                              estados.map((estado) {
+                                final seleccionado =
+                                    estadoSeleccionado == estado;
+                                return ChoiceChip(
+                                  label: Text(estado),
+                                  selected: seleccionado,
+                                  selectedColor: Colors.blue[100],
+                                  onSelected: (_) {
+                                    setModalState(
+                                      () => estadoSeleccionado = estado,
+                                    );
+                                  },
+                                );
+                              }).toList(),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+
+                SizedBox(height: 10),
+                ElevatedButton.icon(
+                  onPressed: seleccionarImagenNueva,
+                  icon: Icon(Icons.image),
+                  label: Text('Cambiar imagen'),
+                ),
+                if (_imagenSeleccionada != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Image.file(_imagenSeleccionada!, height: 150),
+                  ),
               ],
             ),
           ),
-          Expanded(
-            child:
-                entradasFiltradas.isEmpty
-                    ? Center(child: Text('No hay entradas que coincidan.'))
-                    : ListView.builder(
-                      itemCount: entradasFiltradas.length,
-                      itemBuilder: (context, index) {
-                        final entrada = entradasFiltradas[index];
-                        return Card(
-                          margin: EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 6,
-                          ),
-                          elevation: 2,
-                          child: Padding(
-                            padding: EdgeInsets.all(8),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      entrada.estadoAnimo,
-                                      style: TextStyle(fontSize: 28),
-                                    ),
-                                    SizedBox(width: 10),
-                                    Expanded(
-                                      child: Text(
-                                        entrada.texto,
-                                        style: TextStyle(fontSize: 16),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 4),
-                                Text(
-                                  DateFormat(
-                                    'dd/MM/yyyy – HH:mm',
-                                  ).format(entrada.fecha),
-                                  style: TextStyle(color: Colors.grey),
-                                ),
-                                Wrap(
-                                  spacing: 6,
-                                  children:
-                                      entrada.etiquetas.map((tag) {
-                                        return Chip(
-                                          label: Text(tag),
-                                          backgroundColor: Colors.grey[200],
-                                        );
-                                      }).toList(),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-          ),
-        ],
-      ),
+          actions: [
+            TextButton(
+              child: Text('Cancelar'),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            ElevatedButton(
+              child: Text('Guardar'),
+              onPressed: () {
+                Provider.of<DiarioProvider>(
+                  context,
+                  listen: false,
+                ).editarEntrada(
+                  entrada.id,
+                  controller.text,
+                  estadoSeleccionado,
+                  entrada.etiquetas,
+                  _imagenSeleccionada?.path,
+                );
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
