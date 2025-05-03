@@ -1,13 +1,11 @@
 class Terapia {
-  final String nombre;
-  final String descripcionBreve;
-  final String descripcionDetallada;
-  final String imagePath;
+  final String titulo;
+  final String descripcion;
+  final String assetImage;
 
   Terapia({
-    required this.nombre,
-    required this.descripcionBreve,
-    required this.descripcionDetallada,
-    required this.imagePath,
+    required this.titulo,
+    required this.descripcion,
+    required this.assetImage,
   });
 }

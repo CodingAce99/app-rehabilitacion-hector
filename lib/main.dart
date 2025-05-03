@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart'; // Para poder usar Material Design
-import 'screens/welcome_screen.dart'; // Para poder usar la pantalla de bienvenida
-import 'providers/diario_provider.dart'; // Para poder usar el provider del diario
-import 'package:provider/provider.dart'; // Para poder usar el provider
-import 'screens/diario_screen.dart'; // Para poder usar la pantalla del diario
+import 'package:flutter/material.dart';
+import 'screens/welcome_screen.dart';
+import 'providers/diario_provider.dart';
+import 'package:provider/provider.dart';
+import 'screens/diario_screen.dart';
+import 'screens/dashboard_screen.dart';
 
 // Punto de entrada de la aplicación
 void main() {
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Color(0xFFF9F9FB),
         primarySwatch: Colors.blue,
       ),
-      home: WelcomeScreen(), // Muestra la pantalla de bienvenida
+      home: DashboardScreen(), // Muestra la pantalla de Dashboard al inicio
     );
   }
 }

@@ -1,106 +1,167 @@
 import 'package:flutter/material.dart';
-import '../models/terapia.dart';
 import 'detalle_terapia_screen.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import '../models/terapia.dart';
 
-class TerapiasScreen extends StatelessWidget {
-  final List<Terapia> terapias = [
+class TerapiasScreen extends StatefulWidget {
+  // Constructor de la clase TerapiasScreen
+  TerapiasScreen({Key? key}) : super(key: key);
+
+  @override
+  // Método para crear el estado de la pantalla
+  State<TerapiasScreen> createState() => _TerapiasScreenState();
+}
+
+// Esta clase representa la pantalla de Terapias
+class _TerapiasScreenState extends State<TerapiasScreen>
+        // Implementamos TickerProviderStateMixin para las animaciones.
+        with
+        TickerProviderStateMixin {
+  final List<Terapia> _terapias = [
     Terapia(
-      nombre: 'Fisioterapia',
-      descripcionBreve: 'Ejercicios y masajes para la recuperación física',
-      descripcionDetallada:
-          'La fisioterapia es una disciplina de la salud que ofrece una alternativa terapéutica no farmacológica...',
-      imagePath: 'assets/images/fisioterapia.svg',
+      titulo: 'Fisioterapia',
+      descripcion: 'Ejercicios para la recuperación física',
+      assetImage: 'assets/images/fisioterapia_icon.png',
     ),
     Terapia(
-      nombre: 'Logopedia',
-      descripcionBreve:
-          'Ejercicios para la recuperación del habla y la comunicación',
-      descripcionDetallada:
-          'La logopedia es una disciplina que se encarga de la prevención, evaluación, diagnóstico y tratamiento de los trastornos de la comunicación...',
-      imagePath: 'assets/images/logopedia.jpg',
+      titulo: 'Logopedia',
+      descripcion: 'Mejora la comunicación y el lenguaje',
+      assetImage: 'assets/images/logopedia_icon.png',
     ),
     Terapia(
-      nombre: 'Productos Ortopedia',
-      descripcionBreve: 'Productos para la movilidad y la vida diaria',
-      descripcionDetallada:
-          'La ortopedia es una especialidad médica que se dedica a corregir o evitar las deformidades o traumas del sistema musculoesquelético...',
-      imagePath: 'assets/images/ortopedia.jpg',
+      titulo: 'Ortopedia',
+      descripcion: 'Ayuda a corregir lesiones',
+      assetImage: 'assets/images/ortopedia_icon.png',
     ),
     Terapia(
-      nombre: 'Psicología',
-      descripcionBreve: 'Apoyo emocional y terapia psicológica',
-      descripcionDetallada:
-          'La psicología es la ciencia que estudia los procesos mentales, las sensaciones, las percepciones y el comportamiento del ser humano...',
-      imagePath: 'assets/images/psicologia.jpg',
+      titulo: 'Psicología',
+      descripcion: 'Apoyo emocional y mental',
+      assetImage: 'assets/images/psicologia_icon.png',
     ),
     Terapia(
-      nombre: 'Terapia Ocupacional',
-      descripcionBreve: 'Actividades para la vida diaria y la autonomía',
-      descripcionDetallada:
-          'La terapia ocupacional es una disciplina socio-sanitaria que se encarga de la rehabilitación y reinserción de personas con discapacidades físicas, mentales, sensoriales o sociales...',
-      imagePath: 'assets/images/terapia_ocupacional.jpg',
+      titulo: 'Terapia Ocupacional',
+      descripcion: 'Mejora la calidad de vida',
+      assetImage: 'assets/images/terapia_ocupacional_icon.png',
     ),
+    // Agregar más terapias según sea necesario.
   ];
+
+  // ANIMACIONES...
+
+  // Declaración de variables para las animaciones.
+  final List<AnimationController> _controllers = [];
+  final List<Animation<Offset>> _animations = [];
+
+  // Método para inicializar las animaciones.
+  @override
+  void initState() {
+    super.initState();
+
+    // Recorre la lista de terapias y crea animaciones para cada una.
+    for (int i = 0; i < _terapias.length; i++) {
+      // Inicializamos el controlador de animación.
+      final controller = AnimationController(
+        vsync: this,
+        duration: Duration(milliseconds: 400),
+      );
+
+      // Definimos la animación de desplazamiento desde la izquierda.
+      final animation = Tween<Offset>(
+        begin: Offset(1, 0),
+        end: Offset.zero,
+      ).animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+
+      // Guardamos el controlador y la animación en listas.
+      _controllers.add(controller);
+      _animations.add(animation);
+    }
+
+    // Retrasamos el comienzo de las animaciones para que no choquen.
+    Future.delayed(Duration(milliseconds: 400), () {
+      for (int i = 0; i < _controllers.length; i++) {
+        // Cada animación espera 100ms más que la anterior.
+        Future.delayed(Duration(milliseconds: 100 * i), () {
+          // mounted es una comprobación para asegurarnos de que el widget aún esté en el árbol de widgets.
+          // (Evita errores si el usuario sale rápido de la pantalla).
+          if (mounted) _controllers[i].forward();
+        });
+      }
+    });
+  }
+
+  // Método para liberar los recursos de las animaciones. (Obligatorio para evitar fugas de memoria).
+  @override
+  void dispose() {
+    for (final controller in _controllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Terapias')),
+      appBar: AppBar(title: Text('Terapias', style: TextStyle(fontSize: 22))),
       body: ListView.builder(
-        itemCount: terapias.length,
+        padding: EdgeInsets.all(16),
+        itemCount: _terapias.length,
         itemBuilder: (context, index) {
-          final terapia = terapias[index];
+          return SlideTransition(
+            position: _animations[index],
+            child: _buildTerapiaCard(context, _terapias[index]),
+          );
+        },
+      ),
+    );
+  }
 
-          return InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DetalleTerapiaScreen(terapia: terapia),
-                ),
-              );
-            },
-            borderRadius: BorderRadius.circular(15),
-            child: Card(
-              margin: EdgeInsets.all(10),
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
+  Widget _buildTerapiaCard(BuildContext context, Terapia terapia) {
+    return Card(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      elevation: 3,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => DetalleTerapiaScreen(terapia: terapia),
+            ),
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                terapia.assetImage,
+                width: 70,
+                height: 70,
+                fit: BoxFit.contain,
               ),
-              child: Padding(
-                padding: EdgeInsets.all(12),
-                child: Row(
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // SVG a la izquierda
-                    SvgPicture.asset(terapia.imagePath, width: 60, height: 60),
-                    SizedBox(width: 16),
-                    // Info textual a la derecha
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            terapia.nombre,
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 6),
-                          Text(
-                            terapia.descripcionBreve,
-                            style: TextStyle(fontSize: 14),
-                          ),
-                        ],
+                    Text(
+                      terapia.titulo,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
                       ),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      terapia.descripcion,
+                      style: TextStyle(fontSize: 16, color: Colors.grey[700]),
                     ),
                   ],
                 ),
               ),
-            ),
-          );
-        },
+            ],
+          ),
+        ),
       ),
     );
   }

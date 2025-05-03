@@ -1,27 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../models/terapia.dart';
 
 class DetalleTerapiaScreen extends StatelessWidget {
   final Terapia terapia;
 
-  const DetalleTerapiaScreen({super.key, required this.terapia});
+  const DetalleTerapiaScreen({Key? key, required this.terapia})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(terapia.nombre)),
+      appBar: AppBar(title: Text(terapia.titulo)),
       body: SingleChildScrollView(
         child: Column(
           children: [
             SizedBox(height: 20),
-            SvgPicture.asset(terapia.imagePath, width: 200, height: 200),
+            Image.asset(terapia.assetImage, width: 200, height: 200),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                terapia.descripcionDetallada,
-                style: TextStyle(fontSize: 18),
-              ),
+              child: Text(terapia.descripcion, style: TextStyle(fontSize: 18)),
             ),
 
             // Botón volver
@@ -37,8 +34,6 @@ class DetalleTerapiaScreen extends StatelessWidget {
                 textStyle: TextStyle(fontSize: 16),
               ),
             ),
-
-            SizedBox(height: 0),
             //Se puede añadir mas contenido aquí, como enlaces o videos
           ],
         ),
