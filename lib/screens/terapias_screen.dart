@@ -21,26 +21,76 @@ class _TerapiasScreenState extends State<TerapiasScreen>
       titulo: 'Fisioterapia',
       descripcion: 'Ejercicios para la recuperación física',
       assetImage: 'assets/images/fisioterapia_icon.png',
+      objetivos: [
+        'Mejorar la movilidad',
+        'Aliviar el dolor',
+        'Rehabilitar lesiones',
+      ],
+      beneficios: [
+        'Aumenta la fuerza muscular',
+        'Mejora la flexibilidad',
+        'Previene lesiones futuras',
+      ],
     ),
     Terapia(
       titulo: 'Logopedia',
       descripcion: 'Mejora la comunicación y el lenguaje',
       assetImage: 'assets/images/logopedia_icon.png',
+      objetivos: [
+        'Desarrollar habilidades de habla',
+        'Mejorar la comprensión del lenguaje',
+        'Aumentar la confianza al comunicarse',
+      ],
+      beneficios: [
+        'Facilita la interacción social',
+        'Aumenta la autoestima',
+        'Mejora la calidad de vida',
+      ],
     ),
     Terapia(
       titulo: 'Ortopedia',
       descripcion: 'Ayuda a corregir lesiones',
       assetImage: 'assets/images/ortopedia_icon.png',
+      objetivos: [
+        'Corregir deformidades',
+        'Aliviar el dolor',
+        'Mejorar la función física',
+      ],
+      beneficios: [
+        'Aumenta la movilidad',
+        'Previene complicaciones',
+        'Mejora la calidad de vida',
+      ],
     ),
     Terapia(
       titulo: 'Psicología',
       descripcion: 'Apoyo emocional y mental',
       assetImage: 'assets/images/psicologia_icon.png',
+      objetivos: [
+        'Mejorar la salud mental',
+        'Desarrollar habilidades de afrontamiento',
+        'Aumentar la autoestima',
+      ],
+      beneficios: [
+        'Reduce la ansiedad y el estrés',
+        'Mejora las relaciones interpersonales',
+        'Aumenta la calidad de vida',
+      ],
     ),
     Terapia(
       titulo: 'Terapia Ocupacional',
       descripcion: 'Mejora la calidad de vida',
       assetImage: 'assets/images/terapia_ocupacional_icon.png',
+      objetivos: [
+        'Desarrollar habilidades para la vida diaria',
+        'Mejorar la independencia',
+        'Aumentar la participación en actividades significativas',
+      ],
+      beneficios: [
+        'Aumenta la autoestima',
+        'Mejora la calidad de vida',
+        'Facilita la reintegración social',
+      ],
     ),
     // Agregar más terapias según sea necesario.
   ];
