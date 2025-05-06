@@ -1,3 +1,5 @@
+import 'package:app_rehab/features/terapias/models/ficha_rehabilitaci%C3%B3n.dart';
+import 'package:app_rehab/features/terapias/screens/detalle_ficha_screen.dart';
 import 'package:flutter/material.dart';
 import '../models/terapia.dart';
 
@@ -6,8 +8,7 @@ class DetalleTerapiaScreen extends StatelessWidget {
   final Terapia terapia;
 
   // Constructor de la clase DetalleTerapiasScreen
-  const DetalleTerapiaScreen({Key? key, required this.terapia})
-    : super(key: key);
+  DetalleTerapiaScreen({Key? key, required this.terapia}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -123,20 +124,48 @@ class DetalleTerapiaScreen extends StatelessWidget {
             const SizedBox(height: 30),
 
             // Botón para volver
-            Center(
-              child: ElevatedButton.icon(
-                onPressed: () => Navigator.pop(context),
-                icon: Icon(Icons.arrow_back),
-                label: Text('Volver'),
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                  textStyle: TextStyle(fontSize: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => DetalleFichaScreen(ficha: fichaEjemplo),
+                      ),
+                    );
+                  },
+                  child: Text('Ver Ficha de Ejemplo'),
                 ),
-              ),
+                //Boton para volver a la lista de terapias
+                const SizedBox(width: 16),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Volver'),
+                ),
+              ],
             ),
           ],
         ),
       ),
     );
   }
+
+  final fichaEjemplo = FichaRehabilitacion(
+    titulo: 'Bipedestación en espalderas',
+    descripcionTerapia:
+        'Ejercicio que busca mejorar el control postural y fortalecer los músculos del tronco y miembros inferiores.',
+    indicaciones:
+        'Indicado en pacientes con debilidad muscular, alteraciones del equilibrio o en proceso de recuperación motora.',
+    comoSeRealiza:
+        'El paciente se sitúa de pie, apoyado en unas espalderas, intentando mantener la postura el mayor tiempo posible.',
+    observacionesTecnica:
+        'Supervisar la alineación del cuerpo y evitar compensaciones. Comenzar con tiempos cortos y aumentar progresivamente.',
+    saberMas:
+        'Este ejercicio puede integrarse con otras técnicas como la fisioterapia neurológica o la terapia ocupacional.',
+    profesionales: ['Fisioterapeuta', 'Terapeuta Ocupacional'],
+    videoURL: 'https://www.youtube.com/watch?v=qY24xPXy2HY',
+  );
 }
