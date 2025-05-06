@@ -122,7 +122,7 @@ class DetalleTerapiaScreen extends StatelessWidget {
             ),
             const SizedBox(height: 30),
 
-            // Botón de para volver
+            // Botón para volver
             Center(
               child: ElevatedButton.icon(
                 onPressed: () => Navigator.pop(context),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fl_chart/fl_chart.dart';
-import '../providers/diario_provider.dart';
+import '../features/diario/providers/diario_provider.dart';
 
 class EstadisticasScreen extends StatelessWidget {
   @override

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'screens/welcome_screen.dart';
-import 'providers/diario_provider.dart';
+import 'features/diario/providers/diario_provider.dart';
 import 'package:provider/provider.dart';
-import 'screens/diario_screen.dart';
+import 'features/diario/screens/diario_screen.dart';
 import 'screens/dashboard_screen.dart';
 
 // Punto de entrada de la aplicación

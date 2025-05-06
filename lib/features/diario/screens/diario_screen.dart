@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:app_rehab/screens/detalle_entrada_screen.dart';
+import 'package:app_rehab/features/diario/screens/detalle_entrada_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';

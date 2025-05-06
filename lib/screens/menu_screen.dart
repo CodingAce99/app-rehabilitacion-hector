@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart'; // Importamos Material Design para usar sus widgets
-import 'terapias_screen.dart'; // Importamos la pantalla de terapias
-import 'videos_screen.dart'; // Importamos la pantalla de videos
-import 'diario_screen.dart'; // Importamos la pantalla de diario
+import '../features/terapias/screens/terapias_screen.dart'; // Importamos la pantalla de terapias
+import '../features/videos/screens/videos_screen.dart'; // Importamos la pantalla de videos
+import '../features/diario/screens/diario_screen.dart'; // Importamos la pantalla de diario
 import 'estadisticas_screen.dart'; // Importamos la pantalla de estadísticas
 
 class MenuScreen extends StatelessWidget {

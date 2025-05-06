@@ -1,8 +1,8 @@
 import 'package:app_rehab/screens/estadisticas_screen.dart';
 import 'package:flutter/material.dart';
-import 'terapias_screen.dart';
-import 'diario_screen.dart';
-import 'videos_screen.dart';
+import '../features/terapias/screens/terapias_screen.dart';
+import '../features/diario/screens/diario_screen.dart';
+import '../features/videos/screens/videos_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({Key? key}) : super(key: key);
