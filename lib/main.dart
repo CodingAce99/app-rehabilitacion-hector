@@ -4,12 +4,16 @@ import 'features/diario/providers/diario_provider.dart';
 import 'package:provider/provider.dart';
 import 'features/diario/screens/diario_screen.dart';
 import 'screens/dashboard_screen.dart';
+import 'features/terapias/providers/fichas_provider.dart';
 
 // Punto de entrada de la aplicación
 void main() {
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => DiarioProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => DiarioProvider()),
+        Provider<FichasProvider>(create: (_) => FichasProvider()),
+      ],
       child: MyApp(),
     ),
   );

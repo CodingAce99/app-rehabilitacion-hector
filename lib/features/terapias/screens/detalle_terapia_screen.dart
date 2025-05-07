@@ -1,7 +1,9 @@
-import 'package:app_rehab/features/terapias/models/ficha_rehabilitaci%C3%B3n.dart';
-import 'package:app_rehab/features/terapias/screens/detalle_ficha_screen.dart';
+import '../models/ficha_rehabilitación.dart';
 import 'package:flutter/material.dart';
 import '../models/terapia.dart';
+import 'detalle_ficha_screen.dart';
+import 'package:provider/provider.dart';
+import '../providers/fichas_provider.dart'; // Ensure this is the correct path
 
 class DetalleTerapiaScreen extends StatelessWidget {
   // Creamos una variable final para almacenar la terapia seleccionada.
@@ -12,6 +14,11 @@ class DetalleTerapiaScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Accedemos al provider para obtener las fichas de esta terapia.
+    final fichasProvider = Provider.of<FichasProvider>(context, listen: false);
+    final List<FichaRehabilitacion> fichas = fichasProvider
+        .obtenerFichasPorCategoria(terapia.titulo);
+
     return Scaffold(
       appBar: AppBar(title: Text(terapia.titulo)),
       // Usamos SingleChildScrollView para evitar el desbordamiento vertical.
@@ -20,14 +27,8 @@ class DetalleTerapiaScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Aquí iran los bloques siguientes:
-
-            // Imagen de la terapia
-
-            /*
-            ClipRRect da esquinas redondeadas. fit: BoxFit.cover
-            para que la imagen ocupe todo el espacio disponible.
-            */
+            // ClipRRect da esquinas redondeadas. fit: BoxFit.cover
+            // para que la imagen ocupe todo el espacio disponible.
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Image.asset(
@@ -38,114 +39,47 @@ class DetalleTerapiaScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            // Título y descripción de la terapia
+            // Título
             Text(
               terapia.titulo,
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-
+            // Descripción
             Text(
               terapia.descripcion,
               style: TextStyle(fontSize: 16, color: Colors.grey[800]),
             ),
             const SizedBox(height: 24),
 
-            // Objetivos terapeuticos con Card
-            Card(
-              elevation: 2,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Objetivos Terapéuticos',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    /*
-                    Usamos .map() para recorrer la lista de objetivos
-                    y crear un widget Row para cada uno.
-                    */
-                    ...terapia.objetivos.map(
-                      (objetivo) => Row(
-                        children: [
-                          Icon(Icons.check_circle_outline, color: Colors.green),
-                          const SizedBox(width: 8),
-                          Expanded(child: Text(objetivo)),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
+            // Objetivos
+            _buildObjetivosYBeneficios(terapia),
+            const SizedBox(height: 24),
 
-            // Beneficios con Card
-            Card(
-              elevation: 2,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Beneficios',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    ...terapia.beneficios.map(
-                      (beneficio) => Row(
-                        children: [
-                          Icon(Icons.arrow_right, color: Colors.blue),
-                          const SizedBox(width: 8),
-                          Expanded(child: Text(beneficio)),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            Text(
+              'Fichas disponibles',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 10),
 
-            // Botón para volver
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
+            // Fichas de rehabilitación
+            ...fichas.map(
+              (ficha) => Card(
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                child: ListTile(
+                  title: Text(ficha.titulo),
+                  subtitle: Text(ficha.objetivo),
+                  trailing: Icon(Icons.arrow_forward_ios),
+                  onTap: () {
+                    Navigator.push(
+                      context,
                       MaterialPageRoute(
-                        builder: (_) => DetalleFichaScreen(ficha: fichaEjemplo),
+                        builder: (context) => DetalleFichaScreen(ficha: ficha),
                       ),
                     );
                   },
-                  child: Text('Ver Ficha de Ejemplo'),
                 ),
-                //Boton para volver a la lista de terapias
-                const SizedBox(width: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Volver'),
-                ),
-              ],
+              ),
             ),
           ],
         ),
@@ -153,19 +87,59 @@ class DetalleTerapiaScreen extends StatelessWidget {
     );
   }
 
-  final fichaEjemplo = FichaRehabilitacion(
-    titulo: 'Bipedestación en espalderas',
-    descripcionTerapia:
-        'Ejercicio que busca mejorar el control postural y fortalecer los músculos del tronco y miembros inferiores.',
-    indicaciones:
-        'Indicado en pacientes con debilidad muscular, alteraciones del equilibrio o en proceso de recuperación motora.',
-    comoSeRealiza:
-        'El paciente se sitúa de pie, apoyado en unas espalderas, intentando mantener la postura el mayor tiempo posible.',
-    observacionesTecnica:
-        'Supervisar la alineación del cuerpo y evitar compensaciones. Comenzar con tiempos cortos y aumentar progresivamente.',
-    saberMas:
-        'Este ejercicio puede integrarse con otras técnicas como la fisioterapia neurológica o la terapia ocupacional.',
-    profesionales: ['Fisioterapeuta', 'Terapeuta Ocupacional'],
-    videoURL: 'https://www.youtube.com/watch?v=qY24xPXy2HY',
-  );
+  Widget _buildObjetivosYBeneficios(Terapia terapia) {
+    return Column(
+      children: [
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Objetivos Terapéuticos',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                ...terapia.objetivos.map(
+                  (o) => Row(
+                    children: [
+                      Icon(Icons.check_circle, color: Colors.green),
+                      const SizedBox(width: 8),
+                      Expanded(child: Text(o)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Beneficios',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                ...terapia.beneficios.map(
+                  (b) => Row(
+                    children: [
+                      Icon(Icons.arrow_right, color: Colors.blue),
+                      const SizedBox(width: 8),
+                      Expanded(child: Text(b)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }

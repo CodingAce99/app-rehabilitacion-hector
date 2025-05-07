@@ -39,7 +39,7 @@ class DetalleFichaScreen extends StatelessWidget {
               'Profesionales implicados',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
-            ...ficha.profesionales.map(
+            ...ficha.quienesLaRealizan.map(
               (p) =>
                   ListTile(leading: Icon(Icons.person_outline), title: Text(p)),
             ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'detalle_terapia_screen.dart';
 import '../models/terapia.dart';
+import 'package:provider/provider.dart';
+import '../providers/fichas_provider.dart'; // Ensure this path is correct
 
 class TerapiasScreen extends StatefulWidget {
   // Constructor de la clase TerapiasScreen
@@ -105,6 +107,8 @@ class _TerapiasScreenState extends State<TerapiasScreen>
   @override
   void initState() {
     super.initState();
+    // Carga las fichas de rehabilitación desde el provider.
+    Provider.of<FichasProvider>(context, listen: false).cargarFichasDesdeJson();
 
     // Recorre la lista de terapias y crea animaciones para cada una.
     for (int i = 0; i < _terapias.length; i++) {

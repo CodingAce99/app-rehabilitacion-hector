@@ -1,0 +1,27 @@
+{
+  "Fisioterapia": [
+    {
+      "id": "f01",
+      "titulo": "Bicicleta Estática",
+      "objetivo": "Aumentar la fuerza y la resistencia de miembros inferiores del paciente.",
+      "indicaciones": "Indicado en pacientes con alteraciones en miembros inferiores y baja resistencia.",
+      "descripcionTerapia": "El paciente sentado se coloca delante de los pedales... (truncado)",
+      "comoSeRealiza": "Se puede ajustar la resistencia de los pedales... (truncado)",
+      "observacionesProfesionales": "Dependiendo del grado de dependencia física o cognitiva...",
+      "observacionesTecnica": "En algunos casos se pueden colocar sujeciones para los pies...",
+      "saberMas": "Si hay alguna duda en el uso de esta técnica... Duración aproximada entre 15 y 30 minutos...",
+      "videoUrl": "https://www.youtube.com/watch?v=XXXX",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Celador",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Fisioterapia",
+        "Rehabilitación (facultativo)"
+      ]
+    }
+  ]
+}
