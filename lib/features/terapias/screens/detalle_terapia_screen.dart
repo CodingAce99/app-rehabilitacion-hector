@@ -67,9 +67,13 @@ class DetalleTerapiaScreen extends StatelessWidget {
               (ficha) => Card(
                 margin: const EdgeInsets.symmetric(vertical: 8),
                 child: ListTile(
-                  title: Text(ficha.titulo),
-                  subtitle: Text(ficha.objetivo),
-                  trailing: Icon(Icons.arrow_forward_ios),
+                  leading: Icon(Icons.assignment_outlined),
+
+                  title: Text(
+                    '${ficha.idTerapia.toUpperCase()} - ${ficha.titulo}',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  trailing: Icon(Icons.arrow_forward_ios_outlined),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -129,7 +133,7 @@ class DetalleTerapiaScreen extends StatelessWidget {
                 ...terapia.beneficios.map(
                   (b) => Row(
                     children: [
-                      Icon(Icons.arrow_right, color: Colors.blue),
+                      Icon(Icons.keyboard_arrow_right, color: Colors.blue),
                       const SizedBox(width: 8),
                       Expanded(child: Text(b)),
                     ],

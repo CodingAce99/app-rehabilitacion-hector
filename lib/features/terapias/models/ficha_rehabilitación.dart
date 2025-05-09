@@ -9,7 +9,7 @@ class FichaRehabilitacion {
   observacionesProfesionales; // Recomendaciones profesionales adicionales
   final String observacionesTecnica; // Observaciones técnicas
   final String saberMas; // Información extra o consejos
-  final String? videoURL; // URL del video relacionado (opcional)
+  final String videoURL; // URL del video relacionado (opcional)
   final List<String>
   quienesLaRealizan; // Lista de profesionales que la realizan
   final List<String> areasIntervencion; // Áreas de intervención
@@ -24,7 +24,7 @@ class FichaRehabilitacion {
     required this.observacionesTecnica,
     required this.comoSeRealiza,
     required this.saberMas,
-    this.videoURL,
+    required this.videoURL,
     required this.quienesLaRealizan,
     required this.areasIntervencion,
   });
@@ -34,13 +34,13 @@ class FichaRehabilitacion {
       idTerapia: json['id'],
       titulo: json['titulo'],
       objetivo: json['objetivo'],
-      indicaciones: json['indicaciones'],
-      descripcionTerapia: json['descripcionTerapia'],
+      indicaciones: json['indicacion'],
+      descripcionTerapia: json['descripcion'],
       comoSeRealiza: json['comoSeRealiza'],
       observacionesProfesionales: json['observacionesProfesionales'],
       observacionesTecnica: json['observacionesTecnica'],
       saberMas: json['saberMas'],
-      videoURL: json['videoURL'],
+      videoURL: json['videoUrl'],
       quienesLaRealizan: List<String>.from(json['quienesLaRealizan']),
       areasIntervencion: List<String>.from(json['areasIntervencion']),
     );

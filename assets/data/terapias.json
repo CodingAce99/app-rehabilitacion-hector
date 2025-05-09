@@ -1,11 +1,11 @@
 {
-  "Fisioterapia": [
+  "fisioterapia": [
     {
       "id": "f01",
       "titulo": "Bicicleta Estática",
       "objetivo": "Aumentar la fuerza y la resistencia de miembros inferiores del paciente.",
-      "indicaciones": "Indicado en pacientes con alteraciones en miembros inferiores y baja resistencia.",
-      "descripcionTerapia": "El paciente sentado se coloca delante de los pedales... (truncado)",
+      "indicacion": "Indicado en pacientes con alteraciones en miembros inferiores y baja resistencia.",
+      "descripcion": "El paciente sentado se coloca delante de los pedales... (truncado)",
       "comoSeRealiza": "Se puede ajustar la resistencia de los pedales... (truncado)",
       "observacionesProfesionales": "Dependiendo del grado de dependencia física o cognitiva...",
       "observacionesTecnica": "En algunos casos se pueden colocar sujeciones para los pies...",
@@ -22,6 +22,147 @@
         "Fisioterapia",
         "Rehabilitación (facultativo)"
       ]
+    },
+
+    {
+      "id": "f02",
+      "titulo": "Bipedestación en espalderas",
+      "objetivo": "La reeducación en las transferencias, el paso a bipedestación, la distribución de cargas en ambos miembros, inferiores y la mejoría del equilibrio.",
+      "indicacion": "Indicado en pacientes con alteración de la deambulación y las transferencias.",
+      "descripcion": "Colocación del paciente frente a las espalderas el cual, cogiéndose de las barras, realiza bipedestación.",
+      "comoSeRealiza": "Colocar la silla del paciente frente a las espalderas, frenada y muy cerca. El paciente se coge de una barra a la altura de los hombros y con las dos manos hace fuerza intentando, como mínimo, despegar la pelvis de la silla y conseguir progresivamente que coloque las rodillas en extensión y se ponga de pie. Cuando consigue ponerse de pie, intentar mantenerse el mayor tiempo posible sin que se produzca un agotamiento.",
+      "observacionesProfesionales": "Dependiendo del grado de dependencia física o cognitiva del paciente, se debe realizar una supervisión, la cual puede incluir una sujeción de seguridad a nivel de la cintura del paciente o simplemente supervisión visual.",
+      "observacionesTecnica": "El profesional está al lado del paciente y puede ayudarlo cogiéndolo por el brazo, pero sin realizar demasiada fuerza",
+      "saberMas": "Si hay alguna duda en el uso de esta técnica... Duración aproximada entre 15 y 30 minutos...",
+      "videoUrl": "https://youtu.be/qY24PXy2HY",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Terapia Ocupacional",
+        "Técnico en Cuidados de Enf.",
+        "Celador",
+        "Médico Rehabilitador",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Fisioterapia",
+        "Rehabilitación (facultativo)"
+      ]
+    },
+
+    {
+      "id": "f06",
+      "titulo": "Colocación brazo pléjico o parético en sedestación",
+      "objetivo": "Evitar la subluxación de hombro que generaría un hombro doloroso.",
+      "indicacion": "En pacientes con una plejia y paresia braquial de tipo flácida",
+      "descripcion": "Una técnica postural para la correcta colocación del miembro superior afecto, la cual permite evitar complicaciones.",
+      "comoSeRealiza": "Se debe colocar al paciente en posición de sedestación con la espalda recta y la cabeza apoyada, situar el miembro superior afectado reposando sobre una almohada con el codo ligeramente flexionado, la mano abierta con la palma hacia abajo y el pulgar separado.",
+      "observacionesProfesionales": "Técnica no complicada que se puede realizar con un mínimo aprendizaje.",
+      "observacionesTecnica": "Nunca movilizar al paciente tirando del brazo pléjico. No pinchar las cánulas en el brazo pléjico. Se debe comprobar que el estado del paciente permita la movilización del brazo afecto.",
+      "saberMas": "Transferencias y recomendaciones posturales en pacientes afectados de Ictus. \nDocumento para el curso de cuidadores. \nEl tiempo de aplicación de esta técnica dependerá del tiempo que el paciente permanezca en bipedestación, caminando o haciendo transferencias (en posición sentada o tumbada no está indicada, debiendo colocar almohadas o similar para que el brazo quede en una posición cómoda, indolora y alineada).",
+      "videoUrl": "https://youtu.be/Db_qJjV4HVI",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Celador",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Fisioterapia",
+        "Terapia Ocupacional",
+        "Rehabilitación"
+      ]
+    },
+
+    {
+      "id": "f09",
+      "titulo": "Ejercitador de tobillo",
+      "objetivo": "El objetivo principal es la movilización y activación de la musculatura del pie, tanto dorsiflexores como flexores plantares. El paciente utilizando el dispositivo realiza un ejercicio autoasistido en el cual el lado sano asiste el movimiento del lado parético o debilitado. ",
+      "indicacion": "Indicado en pacientes con hemiparesia o con debilidad en miembros inferiores.",
+      "descripcion": "Se trata de un dispositivo con una polea en el cual se adaptan las dos plantas de los pies. Si un pie sube (dorsiflexión de tobillo) por tracción de la cuerda y de la polea el otro baja (flexión plantar de tobillo) y así sucesivamente. El movimiento debe ser fluido y constante. ",
+      "comoSeRealiza": "Se debe colocar al paciente en posición de sedestación con la espalda recta, caderas y rodillas formando un ángulo de 90º. Ambos pies bien situados sobre el dispositivo con contacto completo de la planta del pie. ",
+      "observacionesProfesionales": "Técnica no complicada que se puede realizar con un mínimo aprendizaje. ",
+      "observacionesTecnica": "Comprobar que pies estén bien adaptados al dispositivo, en caso contrario podemos ayudarnos de cinchas para mantenerlos en la posición correcta. ",
+      "saberMas": "Ejercicios autoasistidos de miembros inferiores",
+      "videoUrl": "https://www.youtu.be/XXXXXXXXXXXX",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Terapia Ocupacional",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Celador",
+        "Médico Rehabilitador",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Fisioterapia",
+        "Rehabilitación (facultativo)"
+      ]
+    }
+  ],
+  "logopedia": [
+    {
+      "id": "l01",
+      "titulo": "Terapia del habla",
+      "objetivo": "Mejorar la articulación y pronunciación verbal.",
+      "indicacion": "Indicado en pacientes con dificultades del lenguaje.",
+      "descripcion": "Ejercicios de repetición y articulación guiados por logopeda.",
+      "comoSeRealiza": "Sesiones individuales con uso de apoyos visuales y auditivos.",
+      "observacionesProfesionales": "Ajustar la terapia según la evolución del paciente.",
+      "observacionesTecnica": "Evitar sobrecarga vocal. Incluir pausas activas.",
+      "saberMas": "Complementar con ejercicios en casa. Requiere constancia.",
+      "videoUrl": "https://www.youtube.com/watch?v=abcd",
+      "quienesLaRealizan": ["Logopeda"],
+      "areasIntervencion": ["Logopedia"]
+    }
+  ],
+  "ortopedia": [
+    {
+      "id": "o1",
+      "titulo": "Uso de ortesis de tobillo",
+      "objetivo": "Estabilizar la articulación tras esguince o cirugía.",
+      "indicacion": "Pacientes con inestabilidad articular.",
+      "descripcion": "Colocación de ortesis y entrenamiento en marcha.",
+      "comoSeRealiza": "Supervisión por ortopedista y práctica asistida.",
+      "observacionesProfesionales": "Verificar presión y ajuste correcto.",
+      "observacionesTecnica": "Controlar signos de roce o irritación cutánea.",
+      "saberMas": "Puede alternarse con sesiones de fisioterapia.",
+      "videoUrl": "https://www.youtube.com/watch?v=efgh",
+      "quienesLaRealizan": ["Ortopedista"],
+      "areasIntervencion": ["Ortopedia"]
+    }
+  ],
+  "psicologia": [
+    {
+      "id": "p01",
+      "titulo": "Relajación progresiva",
+      "objetivo": "Reducir la ansiedad y mejorar el sueño.",
+      "indicacion": "Pacientes con trastornos del estado de ánimo.",
+      "descripcion": "Ejercicios guiados de relajación muscular y respiración.",
+      "comoSeRealiza": "En consulta o mediante grabaciones, con seguimiento.",
+      "observacionesProfesionales": "Evaluar la receptividad del paciente.",
+      "observacionesTecnica": "Evitar en pacientes con antecedentes psicóticos graves.",
+      "saberMas": "Se puede combinar con técnicas de visualización o mindfulness.",
+      "videoUrl": "https://www.youtube.com/watch?v=ijkl",
+      "quienesLaRealizan": ["Psicólogo"],
+      "areasIntervencion": ["Psicología"]
+    }
+  ],
+  "terapia_ocupacional": [
+    {
+      "id": "t01",
+      "titulo": "Tareas cotidianas asistidas",
+      "objetivo": "Fomentar la autonomía personal en el entorno del hogar.",
+      "indicacion": "Pacientes con dependencia leve o moderada.",
+      "descripcion": "Ejercicios prácticos centrados en autocuidado y movilidad.",
+      "comoSeRealiza": "Guiado por terapeuta con materiales adaptados.",
+      "observacionesProfesionales": "Valorar capacidades previas y progresos.",
+      "observacionesTecnica": "Adaptar el entorno para seguridad y accesibilidad.",
+      "saberMas": "Clave para la reintegración funcional del paciente.",
+      "videoUrl": "https://www.youtube.com/watch?v=mnop",
+      "quienesLaRealizan": ["Terapeuta Ocupacional"],
+      "areasIntervencion": ["Terapia Ocupacional"]
     }
   ]
 }
+

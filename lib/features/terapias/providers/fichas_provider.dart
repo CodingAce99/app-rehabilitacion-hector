@@ -22,8 +22,10 @@ class FichasProvider {
     final Map<String, dynamic> data = json.decode(jsonString);
     // Itera sobre cada categoría del JSON
     data.forEach((categoria, lista) {
+      // Convierte la categoría a minúsculas para asegurar consistencia
+      final clave = categoria.toLowerCase();
       // Convierte cada elemento de la lista en una instancia de FichaRehabilitacion
-      _fichasPorCategoria[categoria] =
+      _fichasPorCategoria[clave] =
           (lista as List)
               .map((item) => FichaRehabilitacion.fromJson(item))
               .toList();
@@ -33,6 +35,6 @@ class FichasProvider {
   // Método para obtener las fichas de una categoría específica
   List<FichaRehabilitacion> obtenerFichasPorCategoria(String categoria) {
     // Si la categoría no existe, devuelve una lista vacía
-    return _fichasPorCategoria[categoria] ?? [];
+    return _fichasPorCategoria[categoria.toLowerCase()] ?? [];
   }
 }
