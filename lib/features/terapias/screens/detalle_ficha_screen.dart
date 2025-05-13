@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:ui';
 
 import '../models/ficha_rehabilitación.dart';
 import '../../videos/widgets/video_card.dart';
-import 'package:app_rehab/features/videos/widgets/video_card.dart';
 
 // Pantalla que muestra el detalle completo de una ficha de rehabilitación
 class DetalleFichaScreen extends StatefulWidget {
@@ -12,7 +10,7 @@ class DetalleFichaScreen extends StatefulWidget {
   final FichaRehabilitacion ficha;
 
   // Constructor de clase
-  const DetalleFichaScreen({Key? key, required this.ficha}) : super(key: key);
+  const DetalleFichaScreen({super.key, required this.ficha});
 
   @override
   State<DetalleFichaScreen> createState() => _DetalleFichaScreenState();
@@ -116,12 +114,9 @@ class _DetalleFichaScreenState extends State<DetalleFichaScreen> {
 
                   // Botón opcional para abrir el video en el navegador
                   if (ficha.videoURL.isNotEmpty)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: VideoCard(
-                        videoUrl: ficha.videoURL,
-                        titulo: ficha.titulo,
-                      ),
+                    VideoCard(
+                      videoUrl: ficha.videoURL,
+                      titulo: 'Ver video explicativo',
                     ),
                 ],
               ),
@@ -141,7 +136,7 @@ class _DetalleFichaScreenState extends State<DetalleFichaScreen> {
     return ClipRRect(
       borderRadius: BorderRadius.circular(12),
       child: Card(
-        color: Color.fromARGB(255, 225, 230, 224).withOpacity(0.8),
+        color: Color.fromARGB(255, 225, 230, 224),
         margin: const EdgeInsets.only(bottom: 16),
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -167,7 +162,7 @@ class _DetalleFichaScreenState extends State<DetalleFichaScreen> {
                       style: GoogleFonts.montserrat(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: Color.fromARGB(255, 119, 141, 139),
+                        color: Color.fromARGB(255, 119, 140, 139),
                       ),
                     ),
                   ),

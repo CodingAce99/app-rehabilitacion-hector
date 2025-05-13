@@ -2,7 +2,7 @@
   "fisioterapia": [
     {
       "id": "f01",
-      "titulo": "Bicicleta Estática",
+      "titulo": "Bicicleta estática",
       "objetivo": "Aumentar la fuerza y la resistencia de miembros inferiores del paciente.",
       "indicacion": "Indicado en pacientes con alteraciones en miembros inferiores y baja resistencia.",
       "descripcion": "El paciente sentado se coloca delante de los pedales... (truncado)",
@@ -10,7 +10,7 @@
       "observacionesProfesionales": "Dependiendo del grado de dependencia física o cognitiva...",
       "observacionesTecnica": "En algunos casos se pueden colocar sujeciones para los pies...",
       "saberMas": "Si hay alguna duda en el uso de esta técnica... Duración aproximada entre 15 y 30 minutos...",
-      "videoUrl": "https://www.youtube.com/watch?v=XXXX",
+      "videoUrl": "",
       "quienesLaRealizan": [
         "Fisioterapeuta",
         "Enfermera",
@@ -84,7 +84,7 @@
       "observacionesProfesionales": "Técnica no complicada que se puede realizar con un mínimo aprendizaje. ",
       "observacionesTecnica": "Comprobar que pies estén bien adaptados al dispositivo, en caso contrario podemos ayudarnos de cinchas para mantenerlos en la posición correcta. ",
       "saberMas": "Ejercicios autoasistidos de miembros inferiores",
-      "videoUrl": "https://www.youtu.be/XXXXXXXXXXXX",
+      "videoUrl": "",
       "quienesLaRealizan": [
         "Fisioterapeuta",
         "Terapia Ocupacional",
@@ -98,7 +98,238 @@
         "Fisioterapia",
         "Rehabilitación (facultativo)"
       ]
+    },
+
+    {
+      "id": "f10",
+      "titulo": "Incentivador respiratorio",
+      "objetivo": "Aumentar / recuperar el volumen pulmonar; favoreciendo el drenaje de secreciones y mejorando el intercambio de gases. ",
+      "indicacion": "Indicado en pacientes que desarrollan complicaciones pulmonares.",
+      "descripcion": "Técnica que debe adaptarse a las características y patología de cada paciente por lo que antes de entregar el dispositivo paciente y familiares recbiran formación para su correcto uso. ",
+      "comoSeRealiza": "El paciente en sedestación se coloca la boquilla del incentivador en la boca, asegurándose de que se hace un buen sellado de la boquilla con sus labios. \nEl paciente debe conseguir mover las bolas hacia arriba. \nDos posiciones: \n• Con el incentivador hacia arriba → 10 inhalaciones \n• Con el incentivador hacia abajo → 10 exhalaciones",
+      "observacionesProfesionales": "Dependiendo del grado de dependencia física o cognitiva del paciente, se debe realizar una supervisión y dar asistencia.",
+      "observacionesTecnica": "Técnica que requiere instrucción por parte del personal de rehabilitación ya que según la patología y características del paciente variará su desarrollo. ",
+      "saberMas": "Para dudas sobre el uso de este dispotivo, consultar con el personal de rehabilitación.",
+      "videoUrl": "https://www.youtu.be/oJWKUiqU1SY",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Médico Rehabilitador",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Fisioterapia",
+        "Rehabilitación (facultativo)"
+      ]
+    },
+
+    {
+      "id": "f12",
+      "titulo": "Marcha en barra fija",
+      "objetivo": "Conseguir una reeducación estable de la marcha del paciente, mejorando el patrón de la marcha.",
+      "indicacion": "Indicado en pacientes que están en la última fase de reeducación de la marcha y tienen una alteración del equilibrio mínima o con un peligro de caída muy bajo y necesitan un apoyo.",
+      "descripcion": "Realizar marcha con ayuda de la barra fija anclada en la pared.",
+      "comoSeRealiza": "El paciente se coloca al lado de la barra fija y se agarra a la barra con la mano. Cada paso que da el paciente tiene que avanzar la mano deslizándola por la barra fija. \n• Con ayuda → el profesional se coloca en el lado libre que le queda al paciente y le da un apoyo desde ese lado (mano, brazo o del pantalón por la parte de atrás. \n• Con supervisión → el profesional se coloca en lado libre que le queda al p",
+      "observacionesProfesionales": "Técnica que implica riesgo de caídas por lo que se pautará desde rehabilitación siempre previo entrenamiento de paciente y/o familiares. Siempre se desarrollará con supervisión u asistencia. ",
+      "observacionesTecnica": "El tiempo de desarrollo de la técnica variará dependiendo la tolerancia de cada paciente. Se recomienda realizar pausas cortas pero frecuentes. ",
+      "saberMas": "Consultar con el personal de rehabilitación para mas información.",
+      "videoUrl": "",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Terapia Ocupacional",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Celador",
+        "Médico Rehabilitador",
+        "Neurólogo",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Fisioterapia",
+        "Terapia Ocupacional",
+        "Rehabilitación (facultativo)"
+      ]
+    },
+
+    {
+      "id": "f13",
+      "titulo": "Marcha sin ayudas técnicas",
+      "objetivo": "Conseguir una reeducación de la marcha del paciente y mejorar su autonomía.",
+      "indicacion": "Indicado en pacientes que poseen una marcha estable pero sigue necesitando supervisión.",
+      "descripcion": "El paciente puede andar por el pasillo o por el hospital sin ayudas técnicas, aunque siempre debería estar supervisado. Acompañar al paciente y dar asistencia si es necesario.",
+      "comoSeRealiza": "La persona que asiste al paciente se coloca a un lado del paciente y camina a su lado al mismo ritmo que el paciente. Es necesario mantener la atención en todo momento en el paciente y evitar las distracciones, ya que en caso de necesitar asistencia, esta debe ser rápida y efectiva. En el caso de observar pequeños desequilibrios en el paciente, será conveniente tener cogido el paciente de la parte trasera del pantalón y colocar una mano en el hombro para equilibrar el tronco en caso de necesidad.",
+      "observacionesProfesionales": "Dependiendo del grado de dependencia física o cognitiva del paciente, se debe realizar una supervisión y dar asistencia.",
+      "observacionesTecnica": "En ocasiones el paciente no tiene dificultad en la marcha, pero puede necesitar orientación en la dirección que debe tomar por sufrir algún tipo de deterioro cognitivo o psicológico.",
+      "saberMas": "El tiempo de aplicación de la técnica dependerá del grado de independencia del paciente y su necesidad de moverse. Normalmente se debería realizar 2-3 veces al día durante 10-15 minutos cada vez, pero este tiempo dependerá de cada paciente. En caso de duda, consultar con el fisioterapeuta o médico rehabilitador.",
+      "videoUrl": "",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Celador",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Fisioterapia"
+      ]
+    },
+
+    {
+      "id": "f14",
+      "titulo": "Pedaleador de manos",
+      "objetivo": "El objetivo principal es la movilización y activación de la musculatura de los miembros superiores.",
+      "indicacion": "Indicado en pacientes con déficit de movilidad o debilidad muscular en miembros superiores.",
+      "descripcion": "La técnica consiste en que el paciente mueva los pedales con las manos. La velocidad no debe ser demasiado alta (pacientes impulsivos), es mas beneficioso una velocidad moderada que sea funcional para el paciente. Podría darse el caso de que el paciente necesite asistencia para completar el movimiento en el proceso de aprendizaje.",
+      "comoSeRealiza": "Se debe colocar al paciente en posición de sedestación con la espalda recta, caderas y rodillas formando un ángulo de 90º. La distancia correcta entre el dispositivo y el paciente es la distancia suficiente para que el paciente pueda agarrar bien los pedales y que sus codos queden ligeramente flexionados en el punto más alejado. Es importante también regular la altura a la que se encuentran los pedales siendo esta la ideal a la altura de pecho del paciente.",
+      "observacionesProfesionales": "En ocasiones si el paciente no consigue mantener el agarre del lado parético, se puede poner una venda para sostener el agarre de la mano al pedal.",
+      "observacionesTecnica": "Comprobar la correcta posición del paciente y si está bien adaptado el agarre.",
+      "saberMas": "Se pueden complementar con: Ejercicios autoasistidos de miembros superiores (poleas). \nEl tiempo de aplicación de la técnica será de 1-2 veces al día durante 15 minutos aproximadamente como forma habitual, pero este tiempo dependerá de la capacidad y voluntad del paciente.",
+      "videoUrl": "",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Terapia Ocupacional",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Celador",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Fisioterapia",
+        "Rehabilitación (facultativo)"
+      ]
+    },
+
+    {
+      "id": "f15",
+      "titulo": "Poleas de hombro",
+      "objetivo": "El objetivo principal es la movilización y activación de la musculatura de los miembros superiores. ",
+      "descripcion": "La técnica consiste en movimientos activos en flexo-extensión de ambos hombros del paciente utilizando un sistema de poleas correctamente adaptado a las características específicas del enfermo. ",
+      "indicacion": "Indicado en pacientes con déficit de movilidad o debilidad muscular en miembros superiores. \nCONTRAINDICADO EN PACIENTES CON HEMIPLEJIA ",
+      "comoSeRealiza": "Se debe colocar al paciente en posición de sedestación con la espalda recta, caderas y rodillas formando un ángulo de 90º. A continuación se adapta la longitud de la cuerda a las características del paciente para que pueda realizar el movimiento deseado. Los agarres para manos deben estar accesibles dejando el codo del paciente semiflexionado. De esta forma utilizando el sistema de poleas cuando un brazo sube (flexión) el otro brazo baja (extensión) y viceversa. La técnica se debe realizar de manera autónoma por el paciente y de forma dinámica y fluida. ",
+      "observacionesProfesionales": "Técnica no complicada que se puede realizar con un mínimo aprendizaje. Si el paciente refiere dolor en hombros detener actividad.",
+      "observacionesTecnica": "Comprobar posición del paciente y si está bien adaptado el agarre. Utilizando el mismo sistema de poleas se pueden realizar diferentes movimientos por parte del paciente como por ejemplo apertura y cierre de brazos, en tal caso el paciente será instruido para ello y será pautado por rehabilitación. ",
+      "saberMas": "Se pueden complementar con: Ejercicios autoasistidos de miembros superiores (poleas).",
+      "videoUrl": "",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Terapia Ocupacional",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Celador",
+        "Médico Rehabilitador",
+        "Neurólogo",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Fisioterapia",
+        "Terapia Ocupacional",
+        "Rehabilitación (facultativo)"
+      ]
+    },
+
+    {
+      "id": "f17",
+      "titulo": "Transferencias",
+      "objetivo": "Fomentar la capacidad del paciente para pasar de la silla de ruedas a la cama y viceversa. También la transferencia al sillón, al baño y al coche si se desarrolla suficiente habilidad por parte del paciente.",
+      "descripcion": "La transferencia se puede realizar con tabla (los pies deben quedar apoyados en un escalón o similar) o con asistencia de una persona que debe situarse de frente al paciente y acompañarlo en el giro una vez se ha puesto de pie. El asistente sostiene al paciente cogiéndolo del pantalón normalmente e indicando al paciente el movimiento que debe realizar, poniéndose de acuerdo en el momento de su realización (por ejemplo, contando hasta tres).",
+      "indicacion": "Pacientes que colaboran de alguna forma en la transferencia y necesitan ligera ayuda o una pequeña asistencia.",
+      "comoSeRealiza": "En primer lugar hay que colocar la silla de ruedas en el lado que el paciente pueda colaborar de forma más fácil (habitualmente el lado sano o más fuerte del lado donde va a pasar). Frenar ambas superficies (silla-cama-sillón). Igualar las dos alturas o un poco más baja la superficie hacia dónde vamos a pasar. Pedir al paciente que realice la transferencia o que colabore en su realización (dar instrucciones precisas de lo que el paciente tiene que hacer en caso de ser necesario).",
+      "observacionesProfesionales": "Evitar traccionar al paciente del lado afecto, especialmente del brazo.\nEvitar girar a la vez que realizamos un esfuerzo, es mejor acercarse al paciente y dar pequeños pasos acompañando el giro del paciente.\nColocar al paciente lo más cerca posible de nuestro cuerpo, en el caso de que el paciente necesite más ayuda.",
+      "observacionesTecnica": "Ante mucha dificultad para realizar la transferencia, consultar con el fisioterapeuta que ha realizado la intervención, que indique cómo se debe realizar.\nEn caso de nula colaboración, riesgo de caídas o imposibilidad de realizarse, utilizar la grúa e informar al fisioterapeuta.",
+      "saberMas": "Para mas información sobre la terapia consultar con el personal de rehabilitación.",
+      "videoUrl": "",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Terapia Ocupacional",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Celador",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Fisioterapia"
+      ]
+    },
+
+    {
+      "id": "f18",
+      "titulo": "Uso de cabestrillo",
+      "objetivo": "Evitar o reducir el dolor y la tumefacción del miembro superior afecto (plejico/paretico), así como la subluxación del hombro durante la sedestación del paciente en silla de ruedas o bipedestación/marcha. Inmovilizando el hombro a la abducción y rotación.",
+      "descripcion": "Una ayuda técnica que consigue una correcta colocación del brazo e inmovilización del hombro. Consiguiendo un soporte seguro y confortable para el paciente evitando dolor y lesiones.",
+      "indicacion": "En pacientes con una plejia braquial o una paresia braquial severa durante los traslados en lasilla de ruedas o en bipedestación o marcha.",
+      "comoSeRealiza": "- Colocar el soporte del brazo y adaptar alrededor del codo. El codo ha de quedar ajustado en el extremo cerrado.\n- Ajustar la longitud del soporte doblando el extremo distal hacia el interior, hasta obtener el largo deseado.\n- Cerrar el soporte sobre la mano aplicando la cinta de cierre con anillas, la anilla central debe estar siempre situada en la parte superior del brazo. La posición de la segunda anilla puede situarse en la parte anterior o posterior y permite variantes de la fijación en el inmovilizador.\n- Para mantener el brazo en la posición correcta, pasar la cinta del soporte por detrás de la espalda y recogerla al lado del cuello. Pasarla a través de la anilla central, fijándola a la altura deseada mediante el velcro.\n- Para inmovilizar el hombro fijar un extremo del cinturón inmovilizador a nivel del codo. Pasarlo alrededor de la espalda del paciente.\n- El otro extremo se fija a la otra anilla de la cinta de cierre con anillas.\n- El cinturón inmovilizador puede ajustarse a voluntad con el fin de ofrecer la comodidad y la seguridad necesaria. Es fácil de aplicar, de ajustar y muy cómodo para el paciente.",
+      "observacionesProfesionales": "El profesional sanitario debe comprobar la correcta colocación de la ortesis.",
+      "observacionesTecnica": "Comprobar siempre que la mano quede situada más alta que el codo. Nunca ejercer presión excesiva en los cierres velcro.",
+      "saberMas": "Su uso y tiempo de utilización vendrá pautado por rehabilitación. Ante cualquier consulta contactar con su fisioterapeuta.",
+      "videoUrl": "",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Terapia Ocupacional",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Celador",
+        "Médico Rehabilitador",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Fisioterapia",
+        "Rehabilitación (facultativo)",
+        "Otras Áreas definidas"
+      ]
+    },
+
+    {
+      "id": "f19",
+      "titulo": "Control de tronco en sedestación en espalderas",
+      "objetivo": "Reforzar balance muscular del tronco y mejorar equilibrio en sedestación.",
+      "descripcion": "Colocación del paciente frente a las espalderas sentado, se coge las manos y realiza flexión anterior de tronco para alcanzar las barras de las espalderas a diferentes alturas y direcciones.",
+      "indicacion": "Indicado en pacientes con debilidad muscular generalizada y déficit control postural en sedestación.",
+      "comoSeRealiza": "Colocar la silla del paciente frente a las espalderas, frenada, con tacos y muy cerca. El paciente se coge de las manos y realiza movimientos de flexo-extensión de tronco para tocar diferentes puntos de referencia en las espalderas. Hemos de intentar separar la espalda del respaldo de la silla de ruedas.",
+      "observacionesProfesionales": "Dependiendo del grado de dependencia física o cognitiva del paciente, se debe realizar una supervisión o leve asistencia para ayudar al paciente a separar la espalda del respaldo.",
+      "observacionesTecnica": "La duración del ejercicio dependerá de la condición física del paciente. Tiempo recomendado de duración 5 min.",
+      "saberMas": "Consultar con el personal de rehabilitación para mas información.",
+      "videoUrl": "",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Terapia Ocupacional",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Celador",
+        "Médico Rehabilitador",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Fisioterapia",
+        "Rehabilitación (facultativo)"
+      ]
+    },
+
+    {
+      "id": "f20",
+      "titulo": "Fisioterapia Respiratoria. Dispositivo PEP Acapella",
+      "objetivo": "Facilitar la eliminación de las secreciones pulmonares.",
+      "descripcion": "Dispositivo empleado en fisioterapia respiratoria que mediante una presión espiratoria positiva PEP nos ayuda a movilizar las secreciones pulmonares para facilitar su expulsión.\n\nTécnica que debe adaptarse a las características y patología de cada paciente por lo que antes de entregar el dispositivo paciente y familiares recibirán formación para su correcto uso.",
+      "indicacion": "Está indicado para pacientes con fibrosis quística, enfermedad pulmonar obstructiva crónica EPOC, asma y enfermedades pulmonares con problemas de secreción.",
+      "comoSeRealiza": "1. Nos aseguramos de que el ajuste de dificultad está en la posición indicada.\n2. Sostenemos el dispositivo con la mano en una posición cómoda, podemos ayudarnos de una mesa para apoyar el brazo.\n3. Ajustamos bien la boquilla del dispositivo a la boca realizando un cierre hermético con los labios y a continuación cogemos aire por la nariz o por la boca para llenar los pulmones de forma moderada.\n4. Manteniendo un buen sellado entre labios y boquilla espiramos, es decir, soltamos el aire a través del dispositivo alargando la maniobra hasta unos 4 o 5 segundos. Es recomendable contraer el abdomen suavemente durante la espiración.\n5. Combina 10 o 20 respiraciones con Acapella con 2 o 3 espiraciones forzadas con glotis abierta (como si quisiera empañar un cristal).\n6. Realiza el ejercicio varias veces hasta completar el tiempo que tiene indicado.",
+      "observacionesProfesionales": "Dependiendo del grado de dependencia física o cognitiva del paciente se debe realizar con supervisión o asistencia en el caso de que el paciente no pudiera coger el dispositivo por sí mismo.",
+      "observacionesTecnica": "Técnica que requiere instrucción por parte del personal de rehabilitación ya que según la patología y características del paciente variará su desarrollo.",
+      "saberMas": "Para dudas sobre el uso de este dispositivo, consultar con el personal de rehabilitación.",
+      "videoUrl": "",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Celador",
+        "Médico Rehabilitador",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Fisioterapia",
+        "Rehabilitación (facultativo)"
+      ]
     }
+
   ],
   "logopedia": [
     {
@@ -114,7 +345,175 @@
       "videoUrl": "https://www.youtube.com/watch?v=abcd",
       "quienesLaRealizan": ["Logopeda"],
       "areasIntervencion": ["Logopedia"]
+    },
+
+    {
+      "id": "l02",
+      "titulo": "Estimulación con agua gelificada",
+      "objetivo": "Iniciar tolerancia de la vía oral con una textura segura.",
+      "descripcion": "Administrar agua gelificada a volumen bajo y con control postural.",
+      "indicacion": "Pacientes que tras una lesión cerebral cursen con disfagia orofaríngea.",
+      "comoSeRealiza": "La persona que administra (si el paciente no es autónomo para la ingesta) debe situarse a una altura que quede un poco por debajo de la cabeza del paciente e irá controlando que la ingesta sea a volumen bajo (con cuchara pequeña) y con control postural para tratar de proteger la vía aérea de forma natural. Se observará degluciones con tal de dar suficiente tiempo al paciente para limpiar el tracto oral.\nSi el paciente puede realizar la ingesta de forma autónoma, se controlará ritmo, posición y volumen de la misma.",
+      "observacionesProfesionales": "Favorecer autonomía del paciente en la medida de lo posible.",
+      "observacionesTecnica": "Horario: Todos los días a las 8h, 16h y 20h.",
+      "saberMas": "",
+      "videoUrl": "https://youtu.be/l-h_0FBTC1U",
+      "quienesLaRealizan": [
+        "Terapia Ocupacional",
+        "Logopedia",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Logopedia"
+      ]
+    },
+
+    {
+      "id": "l03",
+      "titulo": "Control higiene oral",
+      "objetivo": "Mantener higiene bucal adecuada.",
+      "descripcion": "Limpiar cavidad oral con el material adecuado según el tipo de disfagia.",
+      "indicacion": "Pacientes que tras una lesión cerebral cursen con disfagia orofaríngea.",
+      "comoSeRealiza": "Utilizando cepillo de dientes, rasqueta u otro material adecuado para la higiene bucal, se frotan los dientes y la lengua para eliminar la suciedad o restos de alimentos después de cada comida.",
+      "observacionesProfesionales": "Mantener en el paciente buen control postural.",
+      "observacionesTecnica": "Horario y frecuencia: Todos los días a las 9h, a las 14h y a las 21h, durante dos minutos.",
+      "saberMas": "https://xn--daocerebral-2db.es/publicacion/la-importancia-de-la-higiene-oralendisfagia/\nhttp://logocerebral.es/manejo-la-higiene-oral-disfagia/",
+      "videoUrl": "https://youtu.be/sPlqRhSkiqAx",
+      "quienesLaRealizan": [
+        "Logopedia",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Logopedia"
+      ]
+    },
+
+    {
+      "id": "l04",
+      "titulo": "Ejercicios isométricos",
+      "objetivo": "Aumentar el tono de la musculatura orofacial.",
+      "descripcion": "Ejercicios con contrarresistencia para aumentar el tono de la musculatura orofacial que se encuentra hipotónica.",
+      "indicacion": "Pacientes que tras una lesión cerebral cursen con disartria, disfagia o paresia facial.",
+      "comoSeRealiza": "Con ayuda de un depresor, trabajaremos ejerciendo resistencia a la lengua, mientras el paciente intenta empujar el mismo. Situaremos el depresor en el lado de la cara que el paciente presente paresia facial, haremos fuerza hacia fuera mientras que el paciente ofrece resistencia. No más de 5 segundos cada vez.",
+      "observacionesProfesionales": "Intentar situarse frente a un espejo para que el paciente pueda beneficiarse del feedback visual.",
+      "observacionesTecnica": "Debemos calibrar la resistencia que ofrecemos dependiendo de lo que el paciente pueda tolerar. Para que sea efectivo, deberemos notar que el paciente ofrece resistencia.\nHorario: Por las tardes, entre las 17h y las 19h. Durante unos 15 minutos.",
+      "saberMas": "",
+      "videoUrl": "https://youtu.be/45GX8c4rMlU",
+      "quienesLaRealizan": [
+        "Logopedia",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Logopedia"
+      ]
+    },
+
+    {
+      "id": "l05",
+      "titulo": "Espesar líquidos",
+      "objetivo": "Evitar aspiraciones.",
+      "descripcion": "Utilización de espesantes en los líquidos para que la ingesta de los mismos sea segura. Dependiendo del grado de disfagia, el paciente tendrá pautada una textura específica (néctar, miel, pudding) adecuada.",
+      "indicacion": "Pacientes que tras una lesión cerebral cursen con disfagia orofaríngea.",
+      "comoSeRealiza": "En base a la consistencia que esté indicada para cada paciente, se debe poner una cantidad de espesante (observar indicaciones del fabricante en el envase) y después añadir la cantidad de agua adecuada y remover durante un minuto para conseguir una textura uniforme.",
+      "observacionesProfesionales": "Evitar diluir en poco líquido o realizar la operación a la inversa (primero poner el líquido y tras ello, el polvo), pues se pueden generar grumos.",
+      "observacionesTecnica": "Horario: Todos los días cada 8 horas a las 8h, 16h, 24h.",
+      "saberMas": "",
+      "videoUrl": "https://youtu.be/789gFtcL2tA",
+      "quienesLaRealizan": [
+        "Logopedia",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Logopedia"
+      ]
+    },
+
+    {
+      "id": "l06",
+      "titulo": "Repetición",
+      "objetivo": "Desinhibir el lenguaje oral, mejorar la pronunciación y el aspecto motor del lenguaje con el fin de mejorar la capacidad de comunicación del paciente.",
+      "descripcion": "Palabras funcionales en la vida diaria que mejoran la capacidad de comunicación.",
+      "indicacion": "Pacientes que tras una lesión cerebral cursen con afasia o disartria.",
+      "comoSeRealiza": "Pedir al paciente que repita sonidos aislados, sílabas, palabras cortas, palabras largas, frases cortas, frases largas y discursos.",
+      "observacionesProfesionales": "El ejercicio se podrá realizar frente a un espejo para que el paciente se beneficie del feedback visual del patrón orofacial.",
+      "observacionesTecnica": "El ejercicio se realiza de lo más fácil a lo más complejo, y hasta que no se complete un nivel no pasar al siguiente (hasta que el paciente no repita sonidos, no pasar a sílabas y así sucesivamente).\nPrimero, realizaremos el ejercicio de forma conjunta con el paciente y en segundo lugar, el paciente realizará el ejercicio de forma individual.\nHORARIO: Por las tardes, entre las 17h y las 19h.",
+      "saberMas": "",
+      "videoUrl": "https://youtu.be/l-h_0FBTC1U",
+      "quienesLaRealizan": [
+        "Logopedia",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Logopedia"
+      ]
+    },
+
+    {
+      "id": "l07",
+      "titulo": "SAAC (Sistemas de Comunicación Aumentativa y Alternativa)",
+      "objetivo": "Aumentar y/o compensar las dificultades de comunicación y lenguaje.",
+      "descripcion": "El SAAC incluye diversos sistemas de símbolos, tanto gráficos (fotografías, dibujos, pictogramas, palabras o letras) como gestuales (mímica, gestos o signos manuales) que mejoran la capacidad de comunicación del paciente.",
+      "indicacion": "Pacientes que tras una lesión cerebral cursen con afasia.",
+      "comoSeRealiza": "Pedir al paciente que señale con el dedo, con la mirada o con otras partes del cuerpo, para indicar a través de pictogramas, palabras o letras, aquello que quiere comunicar.",
+      "observacionesProfesionales": "Instruir al paciente durante varias sesiones antes de implementar el sistema.",
+      "observacionesTecnica": "Para el éxito de la intervención con SAAC, lo más importante es conseguir que el paciente tenga algo que comunicar, sepa cómo hacerlo y cuente con alguien que quiera escucharle y sepa entenderle (por ello debemos intentar hacerle saber para qué sirve el SAAC y que vea su utilidad).\nHorario: Por las tardes, entre las 17h y las 19h. En cualquier situación comunicativa.",
+      "saberMas": "",
+      "videoUrl": "https://youtu.be/6Tek4f3rXPwx",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Terapia Ocupacional",
+        "Logopeda",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Celador",
+        "Psicólogo",
+        "Médico Rehabilitador",
+        "Neurólogo",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Logopedia"
+      ]
+    },
+
+    {
+      "id": "l08",
+      "titulo": "SAAC (Sistemas de Comunicación Aumentativa y Alternativa)",
+      "objetivo": "Aumentar y/o compensar las dificultades de comunicación y lenguaje.",
+      "descripcion": "El SAAC incluye diversos sistemas de símbolos, tanto gráficos (fotografías, dibujos, pictogramas, palabras o letras) como gestuales (mímica, gestos o signos manuales) que mejoran la capacidad de comunicación del paciente.",
+      "indicacion": "Pacientes que tras una lesión cerebral cursen con afasia.",
+      "comoSeRealiza": "Pedir al paciente que señale con el dedo, con la mirada o con otras partes del cuerpo, para indicar a través de pictogramas, palabras o letras, aquello que quiere comunicar.",
+      "observacionesProfesionales": "Instruir al paciente durante varias sesiones antes de implementar el sistema.",
+      "observacionesTecnica": "Para el éxito de la intervención con SAAC, lo más importante es conseguir que el paciente tenga algo que comunicar, sepa cómo hacerlo y cuente con alguien que quiera escucharle y sepa entenderle (por ello debemos intentar hacerle saber para qué sirve el SAAC y que vea su utilidad).\nHorario: Por las tardes, entre las 17h y las 19h. En cualquier situación comunicativa.",
+      "saberMas": "",
+      "videoUrl": "https://youtu.be/6Tek4f3rXPwx",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Terapia Ocupacional",
+        "Logopeda",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Celador",
+        "Psicólogo",
+        "Médico Rehabilitador",
+        "Neurólogo",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Logopedia"
+      ]
     }
+
   ],
   "ortopedia": [
     {
