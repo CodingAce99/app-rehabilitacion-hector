@@ -21,7 +21,9 @@ class _DetalleFichaScreenState extends State<DetalleFichaScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     precacheImage(
-      const AssetImage('assets/images/ficha_terapia_background.png'),
+      const AssetImage(
+        'assets/images/backgrounds/ficha_terapia_background.png',
+      ),
       context,
     );
   }
@@ -37,7 +39,7 @@ class _DetalleFichaScreenState extends State<DetalleFichaScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              "assets/images/ficha_terapia_background.png",
+              "assets/images/backgrounds/ficha_terapia_background.png",
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) {
                 return Container(

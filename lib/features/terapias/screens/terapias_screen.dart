@@ -22,7 +22,7 @@ class _TerapiasScreenState extends State<TerapiasScreen>
     Terapia(
       titulo: 'Fisioterapia',
       descripcion: 'Ejercicios para la recuperación física',
-      assetImage: 'assets/images/fisioterapia_icon.png',
+      assetImage: 'assets/images/icons/fisioterapia_icon.png',
       objetivos: [
         'Mejorar la movilidad',
         'Aliviar el dolor',
@@ -37,7 +37,7 @@ class _TerapiasScreenState extends State<TerapiasScreen>
     Terapia(
       titulo: 'Logopedia',
       descripcion: 'Mejora la comunicación y el lenguaje',
-      assetImage: 'assets/images/logopedia_icon.png',
+      assetImage: 'assets/images/icons/logopedia_icon.png',
       objetivos: [
         'Desarrollar habilidades de habla',
         'Mejorar la comprensión del lenguaje',
@@ -52,7 +52,7 @@ class _TerapiasScreenState extends State<TerapiasScreen>
     Terapia(
       titulo: 'Ortopedia',
       descripcion: 'Ayuda a corregir lesiones',
-      assetImage: 'assets/images/ortopedia_icon.png',
+      assetImage: 'assets/images/icons/ortopedia_icon.png',
       objetivos: [
         'Corregir deformidades',
         'Aliviar el dolor',
@@ -67,7 +67,7 @@ class _TerapiasScreenState extends State<TerapiasScreen>
     Terapia(
       titulo: 'Psicología',
       descripcion: 'Apoyo emocional y mental',
-      assetImage: 'assets/images/psicologia_icon.png',
+      assetImage: 'assets/images/icons/psicologia_icon.png',
       objetivos: [
         'Mejorar la salud mental',
         'Desarrollar habilidades de afrontamiento',
@@ -82,7 +82,7 @@ class _TerapiasScreenState extends State<TerapiasScreen>
     Terapia(
       titulo: 'Terapia Ocupacional',
       descripcion: 'Mejora la calidad de vida',
-      assetImage: 'assets/images/terapia_ocupacional_icon.png',
+      assetImage: 'assets/images/icons/terapia_ocupacional_icon.png',
       objetivos: [
         'Desarrollar habilidades para la vida diaria',
         'Mejorar la independencia',

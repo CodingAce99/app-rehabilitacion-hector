@@ -49,28 +49,28 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // Define las páginas como una lista
   final List<Map<String, String>> _paginas = [
     {
-      'imagenPath': "assets/images/onboarding_ilustration1.png",
+      'imagenPath': "assets/images/onboarding/onboarding_ilustration1.png",
       'titulo': 'Bienvenido a la aplicación de Rehabilitación',
       'subtitulo': 'Tu espacio seguro para el bienestar emocional',
       'descripcion':
           'Descubre herramientas y recursos para cuidar tu salud mental.',
     },
     {
-      'imagenPath': "assets/images/onboarding_ilustration2.2.png",
+      'imagenPath': "assets/images/onboarding/onboarding_ilustration2.2.png",
       'titulo': 'Descubre Herramientas Poderosas',
       'subtitulo': 'Diario emocional, ejercicios de respiración y más.',
       'descripcion':
           'Explora nuestras funciones diseñadas para ayudarte a gestionar tus emociones.',
     },
     {
-      'imagenPath': "assets/images/onboarding_ilustration3.1.png",
+      'imagenPath': "assets/images/onboarding/onboarding_ilustration3.1.png",
       'titulo': 'Tu Bienestar, Tu Control',
       'subtitulo': 'Personaliza tu experiencia y protege tu privacidad.',
       'descripcion':
           'Ajusta la app a tus necesidades y ten la tranquilidad de que tus datos están seguros.',
     },
     {
-      'imagenPath': "assets/images/onboarding_ilustration3.3.png",
+      'imagenPath': "assets/images/onboarding/onboarding_ilustration3.3.png",
       'titulo': 'Comparte tu evolución con tu equipo terapéutico',
       'subtitulo': 'Conecta tu progreso con tus profesionales de confianza',
       'descripcion':
@@ -89,7 +89,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           children: [
             // Imagen fija de fondo
             Image.asset(
-              "assets/images/onboarding_theme.png",
+              "assets/images/onboarding/onboarding_theme.png",
               fit: BoxFit.cover,
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
