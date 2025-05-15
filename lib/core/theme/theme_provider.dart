@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ThemeProvider extends ChangeNotifier {
-  ThemeMode _themeMode = ThemeMode.system;
+  ThemeMode _themeMode = ThemeMode.light; // Modo de tema inicial (luz)
 
   // Almacena el tema actual de la aplicación
   ThemeMode get themeMode => _themeMode;

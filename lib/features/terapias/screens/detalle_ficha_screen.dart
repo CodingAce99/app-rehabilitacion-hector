@@ -103,7 +103,6 @@ class _DetalleFichaScreenState extends State<DetalleFichaScreen> {
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: theme.colorScheme.secondary,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -113,7 +112,7 @@ class _DetalleFichaScreenState extends State<DetalleFichaScreen> {
                     (p) => ListTile(
                       leading: Icon(
                         Icons.person,
-                        color: Theme.of(context).colorScheme.secondary,
+                        color: Theme.of(context).colorScheme.primary,
                         size: 28,
                       ),
                       title: Text(p),

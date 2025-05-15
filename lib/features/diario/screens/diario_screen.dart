@@ -29,279 +29,7 @@ class _DiarioScreenState extends State<DiarioScreen> {
   List<String> _etiquetasSeleccionadas = [];
   List<String> _etiquetasFiltro = [];
 
-  Future<void> _seleccionarImagen() async {
-    final picker = ImagePicker();
-    final imagen = await picker.pickImage(source: ImageSource.gallery);
-    if (imagen != null) {
-      setState(() => _imagenSeleccionada = File(imagen.path));
-    }
-  }
-
-  void _guardarEntrada() {
-    final texto = _controller.text.trim();
-    final titulo = _tituloController.text.trim();
-    if (texto.isNotEmpty) {
-      Provider.of<DiarioProvider>(context, listen: false).agregarEntrada(
-        titulo,
-        texto,
-        _estadoSeleccionado,
-        _etiquetasSeleccionadas,
-        imagenPath: _imagenSeleccionada?.path,
-      );
-      _controller.clear();
-      _tituloController.clear();
-      setState(() {
-        _estadoSeleccionado = 'Neutral';
-        _etiquetasSeleccionadas = [];
-        _imagenSeleccionada = null;
-      });
-      Navigator.of(context).pop(); // Cierra el modal
-    }
-  }
-
-  void _abrirFormularioNuevaEntrada() {
-    // variables locales para el modal
-    String estadoSeleccionado = _estadoSeleccionado;
-    List<String> etiquetasSeleccionadas = List.from(_etiquetasSeleccionadas);
-    File? imagenTemporal = _imagenSeleccionada;
-
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) {
-        return StatefulBuilder(
-          builder: (context, setModalState) {
-            return GestureDetector(
-              onTap:
-                  () => FocusScope.of(context).unfocus(), // oculta el teclado
-              child: SafeArea(
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(
-                    16,
-                    20,
-                    16,
-                    MediaQuery.of(context).viewInsets.bottom + 32,
-                  ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        TextField(
-                          controller: _tituloController,
-                          decoration: InputDecoration(
-                            hintText: 'Título de la entrada',
-                            border: OutlineInputBorder(),
-                          ),
-                        ),
-                        SizedBox(height: 12),
-                        TextField(
-                          controller: _controller,
-                          maxLines: 3,
-                          decoration: InputDecoration(
-                            hintText: 'Escribe tu entrada...',
-                            border: OutlineInputBorder(),
-                          ),
-                        ),
-                        SizedBox(height: 12),
-                        Text(
-                          'Estado anímico:',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Wrap(
-                          spacing: 10,
-                          children:
-                              ['Feliz', 'Neutral', 'Triste'].map((estado) {
-                                final seleccionado =
-                                    estadoSeleccionado == estado;
-                                return ChoiceChip(
-                                  label: Text(estado),
-                                  selected: seleccionado,
-                                  onSelected: (_) {
-                                    setModalState(
-                                      () => estadoSeleccionado = estado,
-                                    );
-                                  },
-                                );
-                              }).toList(),
-                        ),
-                        SizedBox(height: 12),
-                        Text(
-                          'Etiquetas:',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Wrap(
-                          spacing: 8,
-                          children:
-                              _etiquetasDisponibles.map((etiqueta) {
-                                final seleccionada = etiquetasSeleccionadas
-                                    .contains(etiqueta);
-                                return FilterChip(
-                                  label: Text(etiqueta),
-                                  selected: seleccionada,
-                                  onSelected: (valor) {
-                                    setModalState(() {
-                                      if (valor) {
-                                        etiquetasSeleccionadas.add(etiqueta);
-                                      } else {
-                                        etiquetasSeleccionadas.remove(etiqueta);
-                                      }
-                                    });
-                                  },
-                                );
-                              }).toList(),
-                        ),
-                        SizedBox(height: 12),
-                        ElevatedButton.icon(
-                          icon: Icon(Icons.image),
-                          label: Text('Seleccionar imagen'),
-                          onPressed: () async {
-                            final picker = ImagePicker();
-                            final image = await picker.pickImage(
-                              source: ImageSource.gallery,
-                            );
-                            if (image != null) {
-                              setModalState(
-                                () => imagenTemporal = File(image.path),
-                              );
-                            }
-                          },
-                        ),
-                        if (imagenTemporal != null)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8),
-                            child: Image.file(imagenTemporal!, height: 150),
-                          ),
-                        SizedBox(height: 16),
-                        Center(
-                          child: ElevatedButton(
-                            child: Text('Guardar entrada'),
-                            onPressed: () {
-                              final titulo = _tituloController.text.trim();
-                              final texto = _controller.text.trim();
-
-                              if (titulo.isNotEmpty && texto.isNotEmpty) {
-                                _estadoSeleccionado = estadoSeleccionado;
-                                _etiquetasSeleccionadas =
-                                    etiquetasSeleccionadas;
-                                _imagenSeleccionada = imagenTemporal;
-
-                                Provider.of<DiarioProvider>(
-                                  context,
-                                  listen: false,
-                                ).agregarEntrada(
-                                  titulo,
-                                  texto,
-                                  _estadoSeleccionado,
-                                  _etiquetasSeleccionadas,
-                                  imagenPath: _imagenSeleccionada?.path,
-                                );
-
-                                _controller.clear();
-                                _tituloController.clear();
-                                _imagenSeleccionada = null;
-
-                                Navigator.of(context).pop(); // Cierra el modal
-                              }
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            );
-          },
-        );
-      },
-    );
-  }
-
-  String _estadoAEmoji(String estado) {
-    switch (estado) {
-      case 'Feliz':
-        return '😃';
-      case 'Triste':
-        return '😞';
-      case 'Neutral':
-      default:
-        return '😐';
-    }
-  }
-
-  Widget _selectorEstadoAnimo() {
-    final estados = ['Feliz', 'Neutral', 'Triste'];
-
-    return Wrap(
-      spacing: 10,
-      children:
-          estados.map((estado) {
-            final seleccionado = _estadoSeleccionado == estado;
-
-            return ChoiceChip(
-              label: Text(estado),
-              selected: seleccionado,
-              selectedColor: Colors.blue[100],
-              onSelected: (_) {
-                setState(() => _estadoSeleccionado = estado);
-              },
-            );
-          }).toList(),
-    );
-  }
-
-  Widget _selectorEtiquetas() {
-    return Wrap(
-      spacing: 8,
-      runSpacing: 4,
-      children:
-          _etiquetasDisponibles.map((etiqueta) {
-            final seleccionada = _etiquetasSeleccionadas.contains(etiqueta);
-            return FilterChip(
-              label: Text(etiqueta),
-              selected: seleccionada,
-              selectedColor: Colors.blue[100],
-              onSelected: (valor) {
-                setState(() {
-                  if (valor) {
-                    _etiquetasSeleccionadas.add(etiqueta);
-                  } else {
-                    _etiquetasSeleccionadas.remove(etiqueta);
-                  }
-                });
-              },
-            );
-          }).toList(),
-    );
-  }
-
-  Widget _filtroEtiquetas() {
-    return Wrap(
-      spacing: 8,
-      children:
-          _etiquetasDisponibles.map((etiqueta) {
-            final seleccionada = _etiquetasFiltro.contains(etiqueta);
-            return FilterChip(
-              label: Text(etiqueta),
-              selected: seleccionada,
-              selectedColor: Colors.lightBlue[100],
-              onSelected: (valor) {
-                setState(() {
-                  if (valor) {
-                    _etiquetasFiltro.add(etiqueta);
-                  } else {
-                    _etiquetasFiltro.remove(etiqueta);
-                  }
-                });
-              },
-            );
-          }).toList(),
-    );
-  }
-
+  // Metodo principal para construir la pantalla
   @override
   Widget build(BuildContext context) {
     final diario = Provider.of<DiarioProvider>(context);
@@ -392,11 +120,216 @@ class _DiarioScreenState extends State<DiarioScreen> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: _abrirFormularioNuevaEntrada,
-        child: Icon(Icons.add),
+        label: Text('Nueva entrada'),
+        icon: Icon(Icons.add),
       ),
     );
+  }
+
+  void _abrirFormularioNuevaEntrada() {
+    // variables locales para el modal
+    String estadoSeleccionado = _estadoSeleccionado;
+    List<String> etiquetasSeleccionadas = List.from(_etiquetasSeleccionadas);
+    File? imagenTemporal = _imagenSeleccionada;
+
+    // Abre el modal para agregar una nueva entrada
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setModalState) {
+            return GestureDetector(
+              onTap:
+                  () => FocusScope.of(context).unfocus(), // oculta el teclado
+              child: SafeArea(
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(
+                    16,
+                    20,
+                    16,
+                    MediaQuery.of(context).viewInsets.bottom + 32,
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextField(
+                          controller: _tituloController,
+                          decoration: InputDecoration(
+                            hintText: 'Título de la entrada',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        SizedBox(height: 12),
+                        TextField(
+                          controller: _controller,
+                          maxLines: 3,
+                          decoration: InputDecoration(
+                            hintText: 'Escribe tu entrada...',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        SizedBox(height: 12),
+                        Text(
+                          'Estado anímico:',
+                          style: Theme.of(context).textTheme.bodyLarge!
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
+                        _buildEstadoAnimicoSelector(estadoSeleccionado, (
+                          valor,
+                        ) {
+                          setModalState(() {
+                            estadoSeleccionado = valor;
+                          });
+                        }),
+
+                        SizedBox(height: 12),
+                        Text(
+                          'Etiquetas:',
+                          style: Theme.of(context).textTheme.bodyLarge!
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
+                        _buildEtiquetasSelector(etiquetasSeleccionadas, (
+                          etiqueta,
+                          seleccionado,
+                        ) {
+                          setModalState(() {
+                            if (seleccionado) {
+                              etiquetasSeleccionadas.add(etiqueta);
+                            } else {
+                              etiquetasSeleccionadas.remove(etiqueta);
+                            }
+                          });
+                        }),
+                        SizedBox(height: 12),
+                        ElevatedButton.icon(
+                          icon: Icon(Icons.image),
+                          label: Text('Seleccionar imagen'),
+                          onPressed: () async {
+                            final picker = ImagePicker();
+                            final image = await picker.pickImage(
+                              source: ImageSource.gallery,
+                            );
+                            if (image != null) {
+                              setModalState(
+                                () => imagenTemporal = File(image.path),
+                              );
+                            }
+                          },
+                        ),
+                        if (imagenTemporal != null)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: Image.file(imagenTemporal!, height: 150),
+                          ),
+                        SizedBox(height: 16),
+                        Center(
+                          child: ElevatedButton(
+                            child: Text('Guardar entrada'),
+                            onPressed: () {
+                              final titulo = _tituloController.text.trim();
+                              final texto = _controller.text.trim();
+
+                              if (titulo.isNotEmpty && texto.isNotEmpty) {
+                                _estadoSeleccionado = estadoSeleccionado;
+                                _etiquetasSeleccionadas =
+                                    etiquetasSeleccionadas;
+                                _imagenSeleccionada = imagenTemporal;
+
+                                Provider.of<DiarioProvider>(
+                                  context,
+                                  listen: false,
+                                ).agregarEntrada(
+                                  titulo,
+                                  texto,
+                                  _estadoSeleccionado,
+                                  _etiquetasSeleccionadas,
+                                  imagenPath: _imagenSeleccionada?.path,
+                                );
+
+                                _controller.clear();
+                                _tituloController.clear();
+                                _imagenSeleccionada = null;
+
+                                Navigator.of(context).pop(); // Cierra el modal
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  // Método que construye el selector de estado anímico
+  Widget _buildEstadoAnimicoSelector(
+    String estadoSeleccionado,
+    void Function(String) onChanged,
+  ) {
+    final estados = ['Feliz', 'Neutral', 'Triste'];
+    return Wrap(
+      spacing: 10,
+      children:
+          estados.map((estado) {
+            final seleccionado = estadoSeleccionado == estado;
+            return ChoiceChip(
+              label: Text(estado),
+              selected: seleccionado,
+              selectedColor: Theme.of(context).colorScheme.primary,
+              labelStyle: TextStyle(
+                color: Theme.of(context).textTheme.bodyLarge?.color,
+              ),
+              onSelected: (valor) {
+                onChanged(estado);
+              },
+            );
+          }).toList(),
+    );
+  }
+
+  // Método que construye el selector de etiquetas
+  Widget _buildEtiquetasSelector(
+    List<String> seleccionadas,
+    void Function(String, bool) onChipTap,
+  ) {
+    return Wrap(
+      spacing: 8,
+      children:
+          _etiquetasDisponibles.map((etiqueta) {
+            final seleccionada = seleccionadas.contains(etiqueta);
+            return FilterChip(
+              label: Text(etiqueta),
+              selected: seleccionada,
+              selectedColor: Theme.of(context).colorScheme.primary,
+              onSelected: (valor) => onChipTap(etiqueta, valor),
+            );
+          }).toList(),
+    );
+  }
+
+  String _estadoAEmoji(String estado) {
+    switch (estado) {
+      case 'Feliz':
+        return '😃';
+      case 'Triste':
+        return '😞';
+      case 'Neutral':
+      default:
+        return '😐';
+    }
   }
 
   void _confirmarEliminar(BuildContext context, String id) {
