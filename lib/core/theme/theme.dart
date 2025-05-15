@@ -10,7 +10,7 @@ class AppTheme {
       foregroundColor: Color(0xFF3E3E3E),
       elevation: 0,
     ),
-    cardColor: const Color(0xFFEFE9E4),
+    cardColor: const Color.fromARGB(255, 248, 244, 241),
     textTheme: const TextTheme(
       titleLarge: TextStyle(
         color: Color(0xFF3E3E3E),
@@ -18,6 +18,7 @@ class AppTheme {
       ),
       bodyMedium: TextStyle(color: Color(0xFF4D4D4D)),
     ),
+    iconTheme: IconThemeData(color: Color.fromARGB(255, 196, 164, 138)),
     colorScheme: ColorScheme.fromSwatch().copyWith(
       secondary: const Color(0xFF91A8B0),
     ),
@@ -26,7 +27,7 @@ class AppTheme {
   static ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     scaffoldBackgroundColor: const Color(0xFF1E1E1E),
-    primaryColor: const Color(0xFF6E5A88),
+    primaryColor: const Color.fromARGB(255, 142, 116, 175),
     appBarTheme: const AppBarTheme(
       backgroundColor: Color(0xFF1E1E1E),
       foregroundColor: Colors.white,
@@ -37,6 +38,7 @@ class AppTheme {
       titleLarge: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       bodyMedium: TextStyle(color: Color(0xFFDADADA)),
     ),
+    iconTheme: IconThemeData(color: Color.fromARGB(255, 142, 116, 175)),
     colorScheme: ColorScheme.fromSwatch(
       brightness: Brightness.dark,
     ).copyWith(secondary: const Color(0xFFB294C7)),

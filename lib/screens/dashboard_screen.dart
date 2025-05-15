@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../features/terapias/screens/terapias_screen.dart';
 import '../features/diario/screens/diario_screen.dart';
 import '../features/videos/screens/videos_screen.dart';
+import 'settings_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -41,12 +42,17 @@ class DashboardScreen extends StatelessWidget {
           children: [
             Text(
               'Hola, Héctor 👋',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             SizedBox(height: 8),
             Text(
               '¿Qué deseas hacer hoy?',
-              style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.copyWith(fontSize: 16),
             ),
             SizedBox(height: 24),
 
@@ -85,6 +91,15 @@ class DashboardScreen extends StatelessWidget {
               onTap: () {
                 // Navegar a Estadísticas
                 Navigator.of(context).push(_crearRuta(EstadisticasScreen()));
+              },
+            ),
+            _buildOption(
+              context: context,
+              icon: Icons.settings_outlined,
+              titulo: 'Ajustes',
+              onTap: () {
+                // Navegar a Ajustes
+                Navigator.of(context).push(_crearRuta(SettingsScreen()));
               },
             ),
           ],

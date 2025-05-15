@@ -38,17 +38,14 @@ class DetalleTerapiaScreen extends StatelessWidget {
                 fit: BoxFit.contain,
               ),
             ),
-            const SizedBox(height: 20),
-            // Título
-            Text(
-              terapia.titulo,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
             const SizedBox(height: 8),
             // Descripción
             Text(
-              terapia.descripcion,
-              style: TextStyle(fontSize: 16, color: Colors.grey[800]),
+              terapia.descripcionCorta,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
             ),
             const SizedBox(height: 24),
 
@@ -106,12 +103,18 @@ class DetalleTerapiaScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 ...terapia.objetivos.map(
-                  (o) => Row(
-                    children: [
-                      Icon(Icons.check_circle, color: Colors.green),
-                      const SizedBox(width: 8),
-                      Expanded(child: Text(o)),
-                    ],
+                  (o) => Builder(
+                    builder:
+                        (context) => Row(
+                          children: [
+                            Icon(
+                              Icons.check_circle,
+                              color: Theme.of(context).iconTheme.color,
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(child: Text(o)),
+                          ],
+                        ),
                   ),
                 ),
               ],
@@ -131,12 +134,18 @@ class DetalleTerapiaScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 ...terapia.beneficios.map(
-                  (b) => Row(
-                    children: [
-                      Icon(Icons.keyboard_arrow_right, color: Colors.blue),
-                      const SizedBox(width: 8),
-                      Expanded(child: Text(b)),
-                    ],
+                  (b) => Builder(
+                    builder:
+                        (context) => Row(
+                          children: [
+                            Icon(
+                              Icons.keyboard_arrow_right,
+                              color: Colors.grey[600],
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(child: Text(b)),
+                          ],
+                        ),
                   ),
                 ),
               ],

@@ -21,8 +21,10 @@ class _TerapiasScreenState extends State<TerapiasScreen>
   final List<Terapia> _terapias = [
     Terapia(
       titulo: 'Fisioterapia',
-      descripcion: 'Ejercicios para la recuperación física',
-      assetImage: 'assets/images/icons/fisioterapia_icon.png',
+      descripcionCorta: 'Ejercicios para la recuperación física',
+      descripcionLarga:
+          "La fisioterapia es una disciplina de la salud que se enfoca en prevenir, tratar y rehabilitar lesiones o disfunciones del movimiento y del sistema musculoesquelético mediante técnicas físicas como el ejercicio terapéutico, masajes, estiramientos, electroterapia y otras intervenciones no farmacológicas. Su objetivo principal es mejorar la calidad de vida del paciente, aliviar el dolor, recuperar la movilidad y funcionalidad del cuerpo, y promover la autonomía e independencia en las actividades diarias.",
+      assetImage: 'assets/images/icons/fisioterapia_icon_2.0.png',
       objetivos: [
         'Mejorar la movilidad',
         'Aliviar el dolor',
@@ -36,8 +38,10 @@ class _TerapiasScreenState extends State<TerapiasScreen>
     ),
     Terapia(
       titulo: 'Logopedia',
-      descripcion: 'Mejora la comunicación y el lenguaje',
-      assetImage: 'assets/images/icons/logopedia_icon.png',
+      descripcionCorta: 'Mejora la comunicación y el lenguaje',
+      descripcionLarga:
+          "La logopedia es la disciplina encargada de la prevención, evaluación, diagnóstico y tratamiento de los trastornos de la comunicación, el lenguaje, el habla, la voz, la audición y la deglución. Los logopedas trabajan con personas de todas las edades, desde bebés hasta adultos mayores, ayudando a desarrollar o recuperar habilidades comunicativas y funciones orales esenciales para la vida diaria, la interacción social y el aprendizaje. Su intervención es clave en casos como retraso del lenguaje, dislexia, tartamudez, afasia, trastornos de la voz o dificultades para tragar.",
+      assetImage: 'assets/images/icons/logopedia_icon_2.0.png',
       objetivos: [
         'Desarrollar habilidades de habla',
         'Mejorar la comprensión del lenguaje',
@@ -51,8 +55,10 @@ class _TerapiasScreenState extends State<TerapiasScreen>
     ),
     Terapia(
       titulo: 'Ortopedia',
-      descripcion: 'Ayuda a corregir lesiones',
-      assetImage: 'assets/images/icons/ortopedia_icon.png',
+      descripcionCorta: 'Ayuda a corregir lesiones',
+      descripcionLarga:
+          "La ortopedia es una especialidad médica dedicada al estudio, diagnóstico, prevención y tratamiento de las alteraciones del sistema musculoesquelético, que incluye huesos, articulaciones, músculos, ligamentos y tendones. Su objetivo es corregir o aliviar problemas que afectan la movilidad y funcionalidad del cuerpo, ya sea por malformaciones congénitas, lesiones traumáticas, enfermedades degenerativas o alteraciones del crecimiento. Los tratamientos pueden ser conservadores, como el uso de ortesis, rehabilitación y medicamentos, o quirúrgicos, como la corrección de deformidades o la sustitución de articulaciones.",
+      assetImage: 'assets/images/icons/ortopedia_icon_2.0.png',
       objetivos: [
         'Corregir deformidades',
         'Aliviar el dolor',
@@ -66,8 +72,10 @@ class _TerapiasScreenState extends State<TerapiasScreen>
     ),
     Terapia(
       titulo: 'Psicología',
-      descripcion: 'Apoyo emocional y mental',
-      assetImage: 'assets/images/icons/psicologia_icon.png',
+      descripcionCorta: 'Apoyo emocional y mental',
+      descripcionLarga:
+          "La psicología es la ciencia que estudia el comportamiento humano y los procesos mentales, como las emociones, la percepción, el pensamiento, el aprendizaje y la memoria. Su objetivo es comprender cómo las personas piensan, sienten y actúan, tanto a nivel individual como en sus relaciones con los demás. A través de la evaluación, el diagnóstico y la intervención terapéutica, los psicólogos ayudan a las personas a enfrentar dificultades emocionales, trastornos mentales, conflictos personales y situaciones de estrés, promoviendo el bienestar psicológico, la salud mental y el desarrollo personal.",
+      assetImage: 'assets/images/icons/psicologia_icon_2.1.png',
       objetivos: [
         'Mejorar la salud mental',
         'Desarrollar habilidades de afrontamiento',
@@ -81,8 +89,10 @@ class _TerapiasScreenState extends State<TerapiasScreen>
     ),
     Terapia(
       titulo: 'Terapia Ocupacional',
-      descripcion: 'Mejora la calidad de vida',
-      assetImage: 'assets/images/icons/terapia_ocupacional_icon.png',
+      descripcionCorta: 'Mejora la calidad de vida',
+      descripcionLarga:
+          "La terapia ocupacional es una disciplina sociosanitaria que se centra en promover la autonomía y la participación de las personas en sus actividades cotidianas, especialmente cuando estas se ven limitadas por una discapacidad física, mental, sensorial o social. Mediante el uso terapéutico de ocupaciones significativas —como el autocuidado, el trabajo, el ocio y la interacción social—, los terapeutas ocupacionales ayudan a recuperar, mantener o desarrollar habilidades funcionales que mejoren la calidad de vida y la inclusión de la persona en su entorno.",
+      assetImage: 'assets/images/icons/terapia_ocupacional_icon_2.0.png',
       objetivos: [
         'Desarrollar habilidades para la vida diaria',
         'Mejorar la independencia',
@@ -154,7 +164,15 @@ class _TerapiasScreenState extends State<TerapiasScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Terapias', style: TextStyle(fontSize: 22))),
+      appBar: AppBar(
+        title: Text(
+          'Terapias',
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
       body: ListView.builder(
         padding: EdgeInsets.all(16),
         itemCount: _terapias.length,
@@ -200,15 +218,17 @@ class _TerapiasScreenState extends State<TerapiasScreen>
                   children: [
                     Text(
                       terapia.titulo,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      terapia.descripcion,
-                      style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                      terapia.descripcionCorta,
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyMedium?.copyWith(fontSize: 20),
                     ),
                   ],
                 ),

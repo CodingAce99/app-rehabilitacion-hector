@@ -37,6 +37,8 @@ class _DetalleFichaScreenState extends State<DetalleFichaScreen> {
     return Scaffold(
       body: Stack(
         children: [
+          // Fondo de la pantalla
+          /*
           Positioned.fill(
             child: Image.asset(
               "assets/images/backgrounds/ficha_terapia_background.png",
@@ -48,7 +50,7 @@ class _DetalleFichaScreenState extends State<DetalleFichaScreen> {
               },
             ),
           ),
-
+          */
           SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(16),
@@ -58,10 +60,10 @@ class _DetalleFichaScreenState extends State<DetalleFichaScreen> {
                   // Secciones principales de la ficha con su respectivo contenido
                   Text(
                     ficha.titulo,
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: const Color.fromARGB(255, 143, 170, 167),
+                      color: Theme.of(context).textTheme.titleLarge?.color,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -98,8 +100,10 @@ class _DetalleFichaScreenState extends State<DetalleFichaScreen> {
                   // Secciñon de profesionales implicados
                   Text(
                     'Profesionales implicados',
-                    style: theme.textTheme.titleMedium!.copyWith(
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
+                      color: theme.colorScheme.secondary,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -107,7 +111,11 @@ class _DetalleFichaScreenState extends State<DetalleFichaScreen> {
                   // Lista de profesionales mostrados como ListTile con ícono
                   ...ficha.quienesLaRealizan.map(
                     (p) => ListTile(
-                      leading: Icon(Icons.person_outline),
+                      leading: Icon(
+                        Icons.person,
+                        color: Theme.of(context).colorScheme.secondary,
+                        size: 28,
+                      ),
                       title: Text(p),
                     ),
                   ),
@@ -138,7 +146,6 @@ class _DetalleFichaScreenState extends State<DetalleFichaScreen> {
     return ClipRRect(
       borderRadius: BorderRadius.circular(12),
       child: Card(
-        color: Color.fromARGB(255, 225, 230, 224),
         margin: const EdgeInsets.only(bottom: 16),
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -154,7 +161,7 @@ class _DetalleFichaScreenState extends State<DetalleFichaScreen> {
                       padding: const EdgeInsets.only(right: 8),
                       child: Icon(
                         icono,
-                        color: Color.fromARGB(255, 224, 173, 145),
+                        color: Theme.of(context).iconTheme.color,
                         size: 20,
                       ),
                     ),
@@ -164,7 +171,7 @@ class _DetalleFichaScreenState extends State<DetalleFichaScreen> {
                       style: GoogleFonts.montserrat(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: Color.fromARGB(255, 119, 140, 139),
+                        color: Theme.of(context).textTheme.titleLarge?.color,
                       ),
                     ),
                   ),
