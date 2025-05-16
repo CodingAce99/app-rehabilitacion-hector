@@ -32,7 +32,6 @@ class _DetalleFichaScreenState extends State<DetalleFichaScreen> {
   @override
   Widget build(BuildContext context) {
     final ficha = widget.ficha;
-    final theme = Theme.of(context); // Accedemos al tema actual para estilos
 
     return Scaffold(
       body: Stack(
@@ -135,6 +134,10 @@ class _DetalleFichaScreenState extends State<DetalleFichaScreen> {
       ),
     );
   }
+
+  /// =========================
+  /// MÉTODOS PRIVADOS
+  /// =========================
 
   // Método para construir una sección
   Widget _buildCard({

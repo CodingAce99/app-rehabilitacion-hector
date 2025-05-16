@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:app_rehab/features/diario/screens/detalle_entrada_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -49,10 +50,7 @@ class _DiarioScreenState extends State<DiarioScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Entradas guardadas:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
+            Text('Entradas guardadas:'),
             SizedBox(height: 10),
             Expanded(
               child:
@@ -127,6 +125,10 @@ class _DiarioScreenState extends State<DiarioScreen> {
       ),
     );
   }
+
+  /// =========================
+  /// MÉTODOS PRIVADOS
+  /// =========================
 
   void _abrirFormularioNuevaEntrada() {
     // variables locales para el modal

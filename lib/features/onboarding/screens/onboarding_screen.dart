@@ -23,6 +23,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
 
+  @override
   void initState() {
     super.initState();
     // Método para inicializar cualquier configuración necesaria. (animaciones, etc.)
@@ -40,8 +41,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     _animationController.forward(); // Inicia la animación
   }
 
+  // Método para liberar recursos.
+  @override
   void dispose() {
-    // Método para liberar recursos.
     _animationController.dispose();
     super.dispose();
   }
@@ -207,8 +209,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     );
   }
 
-  // ... (método _buildPage) ...
-  // Este método construye una página individual del onboarding.
+  /// =========================
+  /// MÉTODOS PRIVADOS
+  /// =========================
+
+  // Construye una página individual del onboarding.
   Widget _buildTextPage({
     required String titulo,
     required String imagenPath,

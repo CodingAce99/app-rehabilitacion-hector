@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-// Tema Beige / Morado
+import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   // Tema claro
@@ -14,14 +13,6 @@ class AppTheme {
       elevation: 0,
     ),
     cardColor: const Color(0xFFF5ECE5),
-    textTheme: const TextTheme(
-      titleLarge: TextStyle(
-        color: Color(0xFF4B4032),
-        fontWeight: FontWeight.bold,
-      ),
-      bodyMedium: TextStyle(color: Color(0xFF5C5244)),
-      bodyLarge: TextStyle(color: Color(0xFF4B4032)),
-    ),
     iconTheme: const IconThemeData(color: Color(0xFFD8BBA1)),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -29,7 +20,7 @@ class AppTheme {
         foregroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-        textStyle: const TextStyle(fontWeight: FontWeight.w600),
+        textStyle: GoogleFonts.nunito(fontWeight: FontWeight.w600),
       ),
     ),
     textButtonTheme: TextButtonThemeData(
@@ -50,11 +41,26 @@ class AppTheme {
       ),
     ),
     colorScheme: ColorScheme.fromSeed(
-      seedColor: Color(0xFFD8BBA1),
+      seedColor: const Color(0xFFD8BBA1),
       brightness: Brightness.light,
     ).copyWith(
       secondary: const Color(0xFFB8C1C2),
       primary: const Color(0xFFD8BBA1),
+    ),
+    textTheme: GoogleFonts.nunitoTextTheme().copyWith(
+      titleLarge: GoogleFonts.nunito(
+        fontSize: 22,
+        fontWeight: FontWeight.bold,
+        color: const Color(0xFF4B4032),
+      ),
+      bodyLarge: GoogleFonts.nunito(
+        fontSize: 16,
+        color: const Color(0xFF4B4032),
+      ),
+      bodyMedium: GoogleFonts.nunito(
+        fontSize: 14,
+        color: const Color(0xFF5C5244),
+      ),
     ),
   );
 
@@ -69,11 +75,6 @@ class AppTheme {
       elevation: 0,
     ),
     cardColor: const Color(0xFF1F1F1F),
-    textTheme: const TextTheme(
-      titleLarge: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-      bodyMedium: TextStyle(color: Color(0xFFDADADA)),
-      bodyLarge: TextStyle(color: Color(0xFFE0E0E0)),
-    ),
     iconTheme: const IconThemeData(color: Color(0xFFB0B0B0)),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -81,7 +82,7 @@ class AppTheme {
         foregroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-        textStyle: const TextStyle(fontWeight: FontWeight.w600),
+        textStyle: GoogleFonts.nunito(fontWeight: FontWeight.w600),
       ),
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -97,6 +98,15 @@ class AppTheme {
       onSecondary: Colors.black,
       onSurface: Colors.white,
       onBackground: Colors.white,
+    ),
+    textTheme: GoogleFonts.nunitoTextTheme(ThemeData.dark().textTheme).copyWith(
+      titleLarge: GoogleFonts.nunito(
+        fontSize: 22,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
+      bodyLarge: GoogleFonts.nunito(fontSize: 16, color: Colors.white),
+      bodyMedium: GoogleFonts.nunito(fontSize: 14, color: Color(0xFFDADADA)),
     ),
   );
 }

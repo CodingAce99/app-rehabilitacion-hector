@@ -12,8 +12,8 @@ class SettingsScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: const [
-            // ...Ajustes configuraciones...
-            ThemeSwitcher(), // Widget para cambiar el tema
+            // Aquí van los ajustes de la aplicación
+            ThemeSwitcher(), // Widget que cambia el tema
           ],
         ),
       ),

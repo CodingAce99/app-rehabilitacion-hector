@@ -6,30 +6,7 @@ import '../features/videos/screens/videos_screen.dart';
 import 'settings_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({Key? key}) : super(key: key);
-
-  // Función para construir cada opción de la lista
-  Widget _buildOption({
-    required BuildContext context,
-    required IconData icon,
-    required String titulo,
-    required VoidCallback onTap,
-  }) {
-    return Card(
-      margin: EdgeInsets.symmetric(vertical: 8),
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: ListTile(
-        leading: Icon(icon, size: 30, color: Theme.of(context).primaryColor),
-        title: Text(
-          titulo,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-        ),
-        trailing: Icon(Icons.arrow_forward_ios, size: 18, color: Colors.grey),
-        onTap: onTap,
-      ),
-    );
-  }
+  const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,17 +19,12 @@ class DashboardScreen extends StatelessWidget {
           children: [
             Text(
               'Hola, Héctor 👋',
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             SizedBox(height: 8),
             Text(
               '¿Qué deseas hacer hoy?',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(fontSize: 16),
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
             SizedBox(height: 24),
 
@@ -108,6 +80,35 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
+  /// =========================
+  /// MÉTODOS PRIVADOS
+  /// =========================
+
+  // Construye cada opción de la lista
+  Widget _buildOption({
+    required BuildContext context,
+    required IconData icon,
+    required String titulo,
+    required VoidCallback onTap,
+  }) {
+    return Card(
+      margin: EdgeInsets.symmetric(vertical: 8),
+      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: ListTile(
+        leading: Icon(icon, size: 30, color: Theme.of(context).iconTheme.color),
+        title: Text(titulo, style: Theme.of(context).textTheme.bodyLarge),
+        trailing: Icon(
+          Icons.arrow_forward_ios,
+          size: 18,
+          color: Theme.of(context).iconTheme.color,
+        ),
+        onTap: onTap,
+      ),
+    );
+  }
+
+  // Crea una ruta personalizada con una animación de deslizamiento
   Route _crearRuta(Widget destino) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => destino,
