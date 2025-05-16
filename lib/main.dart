@@ -6,7 +6,7 @@ import 'core/theme/theme_provider.dart'; // Importa el proveedor de tema
 import 'features/diario/providers/diario_provider.dart';
 import 'features/terapias/providers/fichas_provider.dart';
 import 'features/onboarding/screens/onboarding_screen.dart';
-import 'screens/dashboard_screen.dart';
+import 'features/dashboard/screens/dashboard_screen.dart';
 import 'core/theme/theme.dart';
 
 // Punto de entrada de la aplicación

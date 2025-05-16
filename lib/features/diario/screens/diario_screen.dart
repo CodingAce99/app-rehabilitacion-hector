@@ -68,11 +68,11 @@ class _DiarioScreenState extends State<DiarioScreen> {
                             child: ListTile(
                               leading: Text(
                                 _estadoAEmoji(entrada.estadoAnimo),
-                                style: TextStyle(fontSize: 28),
+                                style: TextStyle(fontSize: 24),
                               ),
                               title: Text(
                                 entrada.titulo,
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: Theme.of(context).textTheme.titleMedium,
                               ),
                               subtitle: Text(
                                 DateFormat(

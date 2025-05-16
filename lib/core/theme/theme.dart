@@ -53,6 +53,11 @@ class AppTheme {
         fontWeight: FontWeight.bold,
         color: const Color(0xFF4B4032),
       ),
+      titleMedium: GoogleFonts.nunito(
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+        color: const Color(0xFF4B4032),
+      ),
       bodyLarge: GoogleFonts.nunito(
         fontSize: 16,
         color: const Color(0xFF4B4032),

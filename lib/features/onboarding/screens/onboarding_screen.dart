@@ -3,7 +3,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:app_rehab/screens/dashboard_screen.dart';
+import 'package:app_rehab/features/dashboard/screens/dashboard_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   @override
