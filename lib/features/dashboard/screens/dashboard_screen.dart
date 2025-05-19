@@ -1,126 +1,165 @@
+// Importaciones de librerías y paquetes
+import 'package:app_rehab/features/dashboard/widgets/resumen_progreso_card.dart';
 import 'package:app_rehab/features/dashboard/widgets/ultima_entrada_card.dart';
 import 'package:app_rehab/features/estadisticas/estadisticas_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// Importaciones de otras pantallas y widgets
 import '../../terapias/screens/terapias_screen.dart';
 import '../../diario/screens/diario_screen.dart';
 import '../../diario/screens/detalle_entrada_screen.dart';
 import '../../diario/providers/diario_provider.dart';
+import '../../terapias/providers/terapias_provider.dart';
 import '../../../screens/settings_screen.dart';
 import '../widgets/acceso_rapido_card.dart';
 import '../widgets/resumen_estado_animo_chart.dart';
 
+// Clase que representa la patalla principal (Dashboard) de la aplicación
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final diarioProvider = Provider.of<DiarioProvider>(context);
-    final ultimaEntrada =
-        diarioProvider.entradas.isNotEmpty
-            ? diarioProvider.entradas.last
-            : null;
+    final terapiasProvider = Provider.of<TerapiasProvider>(context);
+    final isLoading = diarioProvider.isLoading;
+    final entradas = diarioProvider.entradas;
+    final ultimaEntrada = entradas.isNotEmpty ? entradas.first : null;
+    final cantidadEntradas = diarioProvider.entradas.length;
+    final completadas = terapiasProvider.terapiaCompletadasCount;
 
     return Scaffold(
       appBar: AppBar(title: Text('Resumen Diario')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // 1. Encabezado con Saludo
-            _buildSaludo(context),
-            const SizedBox(height: 16),
+      body:
+          isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    /// =========================
+                    // 1. Encabezado con Saludo
+                    /// =========================
+                    _buildSaludo(context),
+                    const SizedBox(height: 16),
 
-            /// =================================
-            /// 2. Gráfico Resumen Estado Animico
-            /// =================================
-            SizedBox(
-              height: 260, // altura fija para gráfico + leyenda
-              child: EstadoAnimoBarChart(
-                resumenEstados: {
-                  'Feliz': 5,
-                  'Triste': 2,
-                  'Enojado': 1,
-                  'Ansioso': 3,
-                  'Neutral': 4,
-                },
-                estadoColores: {
-                  'Feliz': Colors.green, // Éxito / bienestar
-                  'Triste': Colors.blue, // Tranquilidad / tristeza
-                  'Enojado': Colors.red, // Alerta / ira
-                  'Ansioso': Colors.orange, // Energía / ansiedad
-                  'Neutral': Colors.grey, // Estado neutro
-                },
-              ),
-            ),
-            const SizedBox(height: 16),
+                    /// ===========================
+                    /// 2. Resumen de Progreso General
+                    /// ===========================
+                    if (cantidadEntradas > 0) ...[
+                      Text(
+                        'Tu progreso:',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      const SizedBox(height: 8),
+                      ResumenProgresoCard(
+                        texto:
+                            'Has registrado $cantidadEntradas entradas en tu diario.',
+                      ),
+                    ],
+                    if (completadas > 0) ...[
+                      ResumenProgresoCard(
+                        texto: 'Has completado $completadas terapias.',
+                      ),
+                    ],
+                    const SizedBox(height: 16),
 
-            /// =============================
-            /// 3. Última entrada del Diario
-            /// =============================
-            if (ultimaEntrada != null) ...[
-              Text(
-                'Última entrada registrada:',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              UltimaEntradaCard(
-                entrada: ultimaEntrada,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder:
-                          (_) => DetalleEntradaScreen(entrada: ultimaEntrada),
+                    /// =================================
+                    /// 3. Gráfico Resumen Estado Animico
+                    /// =================================
+                    SizedBox(
+                      height: 260, // altura fija para gráfico + leyenda
+                      child: EstadoAnimoBarChart(
+                        resumenEstados: {
+                          'Feliz': 5,
+                          'Triste': 2,
+                          'Enojado': 1,
+                          'Ansioso': 3,
+                          'Neutral': 4,
+                        },
+                        estadoColores: {
+                          'Feliz': const Color(0xFFA8D5BA),
+                          'Triste': const Color(0xFFB5CFE1),
+                          'Enojado': const Color(0xFFF6B6A8),
+                          'Ansioso': const Color(0xFFF7D8AE),
+                          'Neutral': const Color(0xFFDCDCDC),
+                        },
+                      ),
                     ),
-                  );
-                },
+                    const SizedBox(height: 16),
+
+                    /// =============================
+                    /// 4. Última entrada del Diario
+                    /// =============================
+                    if (ultimaEntrada != null) ...[
+                      Text(
+                        'Última entrada registrada:',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      UltimaEntradaCard(
+                        entrada: ultimaEntrada,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (_) => DetalleEntradaScreen(
+                                    entrada: ultimaEntrada,
+                                  ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                    SizedBox(height: 16),
+
+                    /// ==================================
+                    /// 5. Acceso rápido a otras secciones
+                    /// ==================================
+                    Text(
+                      'Acceso rápido:',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    const SizedBox(height: 8),
+
+                    AccesoRapidoCard(
+                      icon: Icons.medical_services_outlined,
+                      titulo: 'Mis Terapias',
+                      onTap:
+                          () => Navigator.of(
+                            context,
+                          ).push(_crearRuta(TerapiasScreen())),
+                    ),
+                    AccesoRapidoCard(
+                      icon: Icons.edit_note_outlined,
+                      titulo: 'Diario Personal',
+                      onTap:
+                          () => Navigator.of(
+                            context,
+                          ).push(_crearRuta(DiarioScreen())),
+                    ),
+                    // acceso a estadisticas
+                    AccesoRapidoCard(
+                      icon: Icons.videocam_outlined,
+                      titulo: 'Estadísticas',
+                      onTap:
+                          () => Navigator.of(
+                            context,
+                          ).push(_crearRuta(EstadisticasScreen())),
+                    ),
+                    AccesoRapidoCard(
+                      icon: Icons.settings_outlined,
+                      titulo: 'Configuración',
+                      onTap:
+                          () => Navigator.of(
+                            context,
+                          ).push(_crearRuta(SettingsScreen())),
+                    ),
+                  ],
+                ),
               ),
-            ],
-            SizedBox(height: 16),
-
-            /// ==================================
-            /// 4. Acceso rápido a otras secciones
-            /// ==================================
-            Text(
-              'Acceso rápido:',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 8),
-
-            AccesoRapidoCard(
-              icon: Icons.medical_services_outlined,
-              titulo: 'Mis Terapias',
-              onTap:
-                  () =>
-                      Navigator.of(context).push(_crearRuta(TerapiasScreen())),
-            ),
-            AccesoRapidoCard(
-              icon: Icons.edit_note_outlined,
-              titulo: 'Diario Personal',
-              onTap:
-                  () => Navigator.of(context).push(_crearRuta(DiarioScreen())),
-            ),
-            // acceso a estadisticas
-            AccesoRapidoCard(
-              icon: Icons.videocam_outlined,
-              titulo: 'Estadísticas',
-              onTap:
-                  () => Navigator.of(
-                    context,
-                  ).push(_crearRuta(EstadisticasScreen())),
-            ),
-            AccesoRapidoCard(
-              icon: Icons.settings_outlined,
-              titulo: 'Configuración',
-              onTap:
-                  () =>
-                      Navigator.of(context).push(_crearRuta(SettingsScreen())),
-            ),
-          ],
-        ),
-      ),
     );
   }
 
@@ -143,30 +182,6 @@ class DashboardScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.bodyLarge,
         ),
       ],
-    );
-  }
-
-  // Construye cada opción de la lista
-  Widget _buildOption({
-    required BuildContext context,
-    required IconData icon,
-    required String titulo,
-    required VoidCallback onTap,
-  }) {
-    return Card(
-      margin: EdgeInsets.symmetric(vertical: 8),
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: ListTile(
-        leading: Icon(icon, size: 30, color: Theme.of(context).iconTheme.color),
-        title: Text(titulo, style: Theme.of(context).textTheme.bodyLarge),
-        trailing: Icon(
-          Icons.arrow_forward_ios,
-          size: 18,
-          color: Theme.of(context).iconTheme.color,
-        ),
-        onTap: onTap,
-      ),
     );
   }
 

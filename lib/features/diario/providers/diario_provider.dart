@@ -6,8 +6,10 @@ import 'package:uuid/uuid.dart';
 
 class DiarioProvider with ChangeNotifier {
   List<EntradaDiario> _entradas = [];
+  bool _isLoading = true;
 
   List<EntradaDiario> get entradas => [..._entradas];
+  bool get isLoading => _isLoading;
 
   DiarioProvider() {
     cargarEntradas();
@@ -77,6 +79,8 @@ class DiarioProvider with ChangeNotifier {
       final decoded = json.decode(data) as List;
       _entradas = decoded.map((e) => EntradaDiario.fromJson(e)).toList();
     }
+    _isLoading = false;
+    notifyListeners();
   }
 
   Future<void> guardarEntradas() async {

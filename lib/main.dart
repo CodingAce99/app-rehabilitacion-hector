@@ -1,12 +1,15 @@
+// Importaciones de librerías y paquetes
 import 'package:flutter/material.dart'; // Importa los widgets basicos de Flutter
 import 'package:provider/provider.dart'; // Necesario para usar el patrón Provider
 import 'package:shared_preferences/shared_preferences.dart'; // permite leer/escribir configuraciones guardadas localmente
 import 'core/theme/theme_provider.dart'; // Importa el proveedor de tema
 
+// Importaciones de otras pantallas y widgets
 import 'features/diario/providers/diario_provider.dart';
 import 'features/terapias/providers/fichas_provider.dart';
 import 'features/onboarding/screens/onboarding_screen.dart';
 import 'features/dashboard/screens/dashboard_screen.dart';
+import 'features/terapias/providers/terapias_provider.dart';
 import 'core/theme/theme.dart';
 
 // Punto de entrada de la aplicación
@@ -34,6 +37,7 @@ class MyApp extends StatelessWidget {
         // ...(Aquí se definen los providers)...
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => DiarioProvider()),
+        ChangeNotifierProvider(create: (_) => TerapiasProvider()),
         Provider<FichasProvider>(create: (_) => FichasProvider()),
       ],
       child: Builder(
