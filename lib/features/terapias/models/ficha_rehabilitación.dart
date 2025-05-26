@@ -45,4 +45,22 @@ class FichaRehabilitacion {
       areasIntervencion: List<String>.from(json['areasIntervencion']),
     );
   }
+
+  // Define un metodo toJson para convertir el objeto a JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'idTerapia': idTerapia,
+      'titulo': titulo,
+      'objetivo': objetivo,
+      'indicaciones': indicaciones,
+      'descripcionTerapia': descripcionTerapia,
+      'comoSeRealiza': comoSeRealiza,
+      'observacionesProfesionales': observacionesProfesionales,
+      'observacionesTecnica': observacionesTecnica,
+      'saberMas': saberMas,
+      'videoUrl': videoURL,
+      'quienesLaRealizan': quienesLaRealizan,
+      'areasIntervencion': areasIntervencion,
+    };
+  }
 }

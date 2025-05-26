@@ -10,6 +10,7 @@ import 'features/terapias/providers/fichas_provider.dart';
 import 'features/onboarding/screens/onboarding_screen.dart';
 import 'features/dashboard/screens/dashboard_screen.dart';
 import 'features/terapias/providers/terapias_provider.dart';
+import 'features/terapias/providers/terapias_seguimiento_provider.dart';
 import 'core/theme/theme.dart';
 
 // Punto de entrada de la aplicación
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => DiarioProvider()),
         ChangeNotifierProvider(create: (_) => TerapiasProvider()),
+        ChangeNotifierProvider(create: (_) => TerapiasSeguimientoProvider()),
         Provider<FichasProvider>(create: (_) => FichasProvider()),
       ],
       child: Builder(

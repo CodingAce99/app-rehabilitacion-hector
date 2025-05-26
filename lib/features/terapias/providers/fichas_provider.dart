@@ -1,5 +1,4 @@
 import 'dart:convert'; // para decodificar el JSON
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // para acceder a rootBundle
 import '../models/ficha_rehabilitación.dart';
 

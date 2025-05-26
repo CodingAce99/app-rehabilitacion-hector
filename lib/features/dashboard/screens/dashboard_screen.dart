@@ -10,10 +10,11 @@ import '../../terapias/screens/terapias_screen.dart';
 import '../../diario/screens/diario_screen.dart';
 import '../../diario/screens/detalle_entrada_screen.dart';
 import '../../diario/providers/diario_provider.dart';
-import '../../terapias/providers/terapias_provider.dart';
 import '../../../screens/settings_screen.dart';
 import '../widgets/acceso_rapido_card.dart';
 import '../widgets/resumen_estado_animo_chart.dart';
+import '../../terapias/providers/terapias_seguimiento_provider.dart';
+import '../../terapias/screens/seguimiento_terapias_screen.dart';
 
 // Clase que representa la patalla principal (Dashboard) de la aplicación
 class DashboardScreen extends StatelessWidget {
@@ -22,12 +23,14 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final diarioProvider = Provider.of<DiarioProvider>(context);
-    final terapiasProvider = Provider.of<TerapiasProvider>(context);
+    final seguimientoProvider = Provider.of<TerapiasSeguimientoProvider>(
+      context,
+    );
     final isLoading = diarioProvider.isLoading;
     final entradas = diarioProvider.entradas;
     final ultimaEntrada = entradas.isNotEmpty ? entradas.first : null;
     final cantidadEntradas = diarioProvider.entradas.length;
-    final completadas = terapiasProvider.terapiaCompletadasCount;
+    final completadas = seguimientoProvider.contarCompletadas();
 
     return Scaffold(
       appBar: AppBar(title: Text('Resumen Diario')),
@@ -139,6 +142,14 @@ class DashboardScreen extends StatelessWidget {
                           () => Navigator.of(
                             context,
                           ).push(_crearRuta(DiarioScreen())),
+                    ),
+                    AccesoRapidoCard(
+                      icon: Icons.track_changes_outlined,
+                      titulo: 'Seguimiento Terapias',
+                      onTap:
+                          () => Navigator.of(
+                            context,
+                          ).push(_crearRuta(SeguimientoTerapiasScreen())),
                     ),
                     // acceso a estadisticas
                     AccesoRapidoCard(

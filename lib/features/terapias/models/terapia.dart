@@ -6,7 +6,7 @@ class Terapia {
   final String assetImage; // Ruta al asset local (imagen PNG o SVG)
   final List<String> objetivos; // Lista de objetivos terapéuticos
   final List<String> beneficios; // Lista de beneficios o resultados
-  final bool completada; // Estado de la terapia (completada o no)
+  bool completada; // Estado de la terapia (completada o no)
 
   // Constructor de la clase Terapia
   Terapia({
@@ -28,6 +28,7 @@ class Terapia {
       assetImage: json['assetImage'] as String,
       objetivos: List<String>.from(json['objetivos']),
       beneficios: List<String>.from(json['beneficios']),
+      completada: json['completada'] ?? false,
     );
   }
 
@@ -39,5 +40,6 @@ class Terapia {
     'assetImage': assetImage,
     'objetivos': objetivos,
     'beneficios': beneficios,
+    'completada': completada,
   };
 }
