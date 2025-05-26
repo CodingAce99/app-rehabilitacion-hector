@@ -34,7 +34,7 @@
       "observacionesProfesionales": "Según el nivel de autonomía física y cognitiva del paciente, puede ser necesario:\n- Simplemente observar y estar atentos.\n- O bien, ayudar más directamente, colocando una mano en su cinturón o pantalón por detrás, o en el brazo (sin tirar de él), para darle más seguridad.",
       "observacionesTecnica": "El asistente debe colocarse del lado más débil del paciente (por ejemplo, si tiene una pierna más afectada). Puede ayudarlo con cuidado, sin forzarlo ni hacer movimientos bruscos.",
       "saberMas": "",
-      "videoUrl": "",
+      "videoUrl": "https://youtu.be/qY24xPXy2HY",
       "quienesLaRealizan": [
         "Fisioterapeuta",
         "Terapia Ocupacional",
@@ -579,7 +579,7 @@
       ]
     }
   ],
-  
+
   "logopedia": [
     {
       "id": "l01",
@@ -733,40 +733,12 @@
       "areasIntervencion": [
         "Logopedia"
       ]
-    },
-
-    {
-      "id": "l08",
-      "titulo": "SAAC (Sistemas de Comunicación Aumentativa y Alternativa)",
-      "objetivo": "Aumentar y/o compensar las dificultades de comunicación y lenguaje.",
-      "descripcion": "El SAAC incluye diversos sistemas de símbolos, tanto gráficos (fotografías, dibujos, pictogramas, palabras o letras) como gestuales (mímica, gestos o signos manuales) que mejoran la capacidad de comunicación del paciente.",
-      "indicacion": "Pacientes que tras una lesión cerebral cursen con afasia.",
-      "comoSeRealiza": "Pedir al paciente que señale con el dedo, con la mirada o con otras partes del cuerpo, para indicar a través de pictogramas, palabras o letras, aquello que quiere comunicar.",
-      "observacionesProfesionales": "Instruir al paciente durante varias sesiones antes de implementar el sistema.",
-      "observacionesTecnica": "Para el éxito de la intervención con SAAC, lo más importante es conseguir que el paciente tenga algo que comunicar, sepa cómo hacerlo y cuente con alguien que quiera escucharle y sepa entenderle (por ello debemos intentar hacerle saber para qué sirve el SAAC y que vea su utilidad).\nHorario: Por las tardes, entre las 17h y las 19h. En cualquier situación comunicativa.",
-      "saberMas": "",
-      "videoUrl": "https://youtu.be/6Tek4f3rXPwx",
-      "quienesLaRealizan": [
-        "Fisioterapeuta",
-        "Terapia Ocupacional",
-        "Logopeda",
-        "Enfermera",
-        "Técnico en Cuidados de Enf.",
-        "Celador",
-        "Psicólogo",
-        "Médico Rehabilitador",
-        "Neurólogo",
-        "Familiar/Cuidador"
-      ],
-      "areasIntervencion": [
-        "Logopedia"
-      ]
     }
 
   ],
   "ortopedia": [
     {
-      "id": "o1",
+      "id": "o01",
       "titulo": "Uso de ortesis de tobillo",
       "objetivo": "Estabilizar la articulación tras esguince o cirugía.",
       "indicacion": "Pacientes con inestabilidad articular.",

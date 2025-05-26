@@ -31,18 +31,22 @@ class FichaRehabilitacion {
 
   factory FichaRehabilitacion.fromJson(Map<String, dynamic> json) {
     return FichaRehabilitacion(
-      idTerapia: json['id'],
-      titulo: json['titulo'],
-      objetivo: json['objetivo'],
-      indicaciones: json['indicacion'],
-      descripcionTerapia: json['descripcion'],
-      comoSeRealiza: json['comoSeRealiza'],
-      observacionesProfesionales: json['observacionesProfesionales'],
-      observacionesTecnica: json['observacionesTecnica'],
-      saberMas: json['saberMas'],
-      videoURL: json['videoUrl'],
-      quienesLaRealizan: List<String>.from(json['quienesLaRealizan']),
-      areasIntervencion: List<String>.from(json['areasIntervencion']),
+      idTerapia: json['id']?.toString() ?? '',
+      titulo: json['titulo']?.toString() ?? '',
+      objetivo: json['objetivo']?.toString() ?? '',
+      indicaciones: json['indicacion']?.toString() ?? '',
+      descripcionTerapia: json['descripcion']?.toString() ?? '',
+      comoSeRealiza: json['comoSeRealiza']?.toString() ?? '',  // Corregido el 'o' extra
+      observacionesProfesionales: json['observacionesProfesionales']?.toString() ?? '',
+      observacionesTecnica: json['observacionesTecnica']?.toString() ?? '',
+      saberMas: json['saberMas']?.toString() ?? '',
+      videoURL: json['videoUrl']?.toString() ?? '',
+      quienesLaRealizan: json['quienesLaRealizan'] != null
+          ? List<String>.from(json['quienesLaRealizan'])
+          : [],
+      areasIntervencion: json['areasIntervencion'] != null
+          ? List<String>.from(json['areasIntervencion'])
+          : [],
     );
   }
 
