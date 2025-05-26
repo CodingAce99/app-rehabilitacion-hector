@@ -5,11 +5,11 @@
       "titulo": "Bicicleta estática",
       "objetivo": "Aumentar la fuerza y la resistencia de miembros inferiores del paciente.",
       "indicacion": "Indicado en pacientes con alteraciones en miembros inferiores y baja resistencia.",
-      "descripcion": "El paciente sentado se coloca delante de los pedales... (truncado)",
-      "comoSeRealiza": "Se puede ajustar la resistencia de los pedales... (truncado)",
-      "observacionesProfesionales": "Dependiendo del grado de dependencia física o cognitiva...",
-      "observacionesTecnica": "En algunos casos se pueden colocar sujeciones para los pies...",
-      "saberMas": "Si hay alguna duda en el uso de esta técnica... Duración aproximada entre 15 y 30 minutos...",
+      "descripcion": "El paciente sentado se coloca delante de los pedales, la distancia dependerá de cada paciente según su altura, se ponen los pies sobre los pedales. Si va en silla de ruedas, se pondrán los frenos y las cuñas detrás de las ruedas para evitar que la silla se mueva.",
+      "comoSeRealiza": "Se puede ajustar la resistencia de los pedales al giro según las necesidades del paciente. Las rodillas no deben quedar ni muy estiradas ni muy flexionadas. En la posición más alejada, la rodilla queda en ligera semi-flexión (unos 10 grados).",
+      "observacionesProfesionales": "Dependiendo del grado de dependencia física o cognitiva del paciente, se debe realizar una supervisión y dar asistencia.",
+      "observacionesTecnica": "En algunos casos se pueden colocar sujeciones para los pies (cintas), para sujetarlos a los pedales. En el caso de que las rodillas se vayan hacia los lados (deberían quedar alineadas), se pueden colocar cojines o similar en la silla al lado de las caderas, para ayudar a mantener una correcta alineación.",
+      "saberMas": "Si hay alguna duda en el uso de esta técnica, por favor, consulta con el fisioterapeuta o el médico responsable. Duración aproximada entre 15 y 30 minutos como tiempo ideal, en caso de no ser posible, se realizará el tiempo que el paciente sea capaz.",
       "videoUrl": "",
       "quienesLaRealizan": [
         "Fisioterapeuta",
@@ -27,17 +27,18 @@
     {
       "id": "f02",
       "titulo": "Bipedestación en espalderas",
-      "objetivo": "La reeducación en las transferencias, el paso a bipedestación, la distribución de cargas en ambos miembros, inferiores y la mejoría del equilibrio.",
-      "indicacion": "Indicado en pacientes con alteración de la deambulación y las transferencias.",
-      "descripcion": "Colocación del paciente frente a las espalderas el cual, cogiéndose de las barras, realiza bipedestación.",
-      "comoSeRealiza": "Colocar la silla del paciente frente a las espalderas, frenada y muy cerca. El paciente se coge de una barra a la altura de los hombros y con las dos manos hace fuerza intentando, como mínimo, despegar la pelvis de la silla y conseguir progresivamente que coloque las rodillas en extensión y se ponga de pie. Cuando consigue ponerse de pie, intentar mantenerse el mayor tiempo posible sin que se produzca un agotamiento.",
-      "observacionesProfesionales": "Dependiendo del grado de dependencia física o cognitiva del paciente, se debe realizar una supervisión, la cual puede incluir una sujeción de seguridad a nivel de la cintura del paciente o simplemente supervisión visual.",
-      "observacionesTecnica": "El profesional está al lado del paciente y puede ayudarlo cogiéndolo por el brazo, pero sin realizar demasiada fuerza",
-      "saberMas": "Si hay alguna duda en el uso de esta técnica... Duración aproximada entre 15 y 30 minutos...",
-      "videoUrl": "https://youtu.be/qY24PXy2HY",
+      "objetivo": "Ayudar al paciente a volver a realizar correctamente los movimientos de levantarse, mantenerse de pie, repartir bien el peso en ambas piernas y mejorar su equilibrio.",
+      "descripcion": "El paciente se coloca frente a unas espalderas (barras fijas en la pared) y, sujetándose con ambas manos, practica ponerse de pie.",
+      "indicacion": "Esta actividad está recomendada para personas que tienen dificultades para caminar o cambiar de posición (por ejemplo, pasar de sentado a de pie).",
+      "comoSeRealiza": "1. Coloca la silla muy cerca y de frente a las espalderas. Asegúrate de que la silla esté frenada o no se deslice.\n2. El paciente se sujeta con ambas manos a una barra a la altura de los hombros.\n3. Con ayuda de los brazos y el impulso del cuerpo, debe intentar levantar la pelvis del asiento.\n4. Poco a poco, debe extender las rodillas (estirarlas) hasta quedar de pie.\n5. Una vez de pie, debe intentar mantenerse en esa posición el mayor tiempo posible, sin llegar a fatigarse demasiado.",
+      "observacionesProfesionales": "Según el nivel de autonomía física y cognitiva del paciente, puede ser necesario:\n- Simplemente observar y estar atentos.\n- O bien, ayudar más directamente, colocando una mano en su cinturón o pantalón por detrás, o en el brazo (sin tirar de él), para darle más seguridad.",
+      "observacionesTecnica": "El asistente debe colocarse del lado más débil del paciente (por ejemplo, si tiene una pierna más afectada). Puede ayudarlo con cuidado, sin forzarlo ni hacer movimientos bruscos.",
+      "saberMas": "",
+      "videoUrl": "",
       "quienesLaRealizan": [
         "Fisioterapeuta",
         "Terapia Ocupacional",
+        "Enfermera",
         "Técnico en Cuidados de Enf.",
         "Celador",
         "Médico Rehabilitador",
@@ -45,21 +46,96 @@
       ],
       "areasIntervencion": [
         "Fisioterapia",
+        "Terapia ocupacional",
         "Rehabilitación (facultativo)"
+      ]
+    },
+
+    {
+      "id": "f03",
+      "titulo": "Ejercicios isométricos para cuádriceps en cama",
+      "objetivo": "Fortalecer el músculo cuádriceps (parte delantera del muslo) en personas que están en cama o tienen movilidad reducida. Esto ayuda a evitar que el músculo se debilite por la falta de uso y mejora el control de la pierna.",
+      "descripcion": "Es un ejercicio muy sencillo donde el paciente, acostado boca arriba y con la pierna estirada, aprieta el músculo del muslo empujando la parte trasera de la rodilla contra el colchón. No se mueve la pierna, solo se activa el músculo. Hay que mantener esta presión unos segundos y repetir varias veces según lo que el cuerpo tolere.",
+      "indicacion": "Recomendado especialmente en etapas tempranas de recuperación después de una cirugía o inmovilización, y para personas que tienen dificultad para mover la pierna por debilidad o falta de fuerza.",
+      "comoSeRealiza": "1. Acueste al paciente boca arriba, con las dos piernas estiradas.\n2. Indique al paciente que apriete el muslo (cuádriceps) empujando suavemente la parte de atrás de la rodilla contra la cama.\n3. Mantener esta presión durante 5 a 10 segundos.\n4. Relajar el músculo y repetir entre 8 y 10 veces por serie.\n5. Realizar 2 a 3 veces al día.\n6. A medida que mejore, ir aumentando poco a poco el tiempo de presión y el número de repeticiones.",
+      "observacionesProfesionales": "Un fisioterapeuta debe enseñar bien la técnica y supervisar al principio. Es importante asegurarse de que el paciente no use otros músculos (como los de la parte de atrás del muslo), ya que eso podría reducir la efectividad del ejercicio.",
+      "observacionesTecnica": "**Progresión:** A medida que el paciente gana fuerza, se puede aumentar el tiempo que mantiene la presión y el número de repeticiones.\n\n**Cuidado con la fatiga:** Si el paciente siente cansancio excesivo o molestias, hay que ajustar el ejercicio para evitar lesiones o sobreesfuerzos.",
+      "saberMas": "",
+      "videoUrl": "",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Enfermera",
+        "Médico Rehabilitador",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Fisioterapia",
+        "Enfermería",
+        "Rehabilitación (facultativo)",
+        "Otras Áreas definidas"
+      ]
+    },
+
+    {
+      "id": "f04",
+      "titulo": "Masaje digestivo",
+      "objetivo": "Ayudar a mejorar el tránsito intestinal y facilitar la evacuación en personas con problemas digestivos, movilidad reducida o lesión medular. El masaje estimula el movimiento natural del intestino, mejora la digestión y puede aliviar el estreñimiento.",
+      "descripcion": "El masaje digestivo es una técnica manual que se realiza sobre el abdomen, con movimientos suaves y rítmicos que siguen el recorrido natural del intestino. Ayuda a mover los gases, los alimentos y las heces, promoviendo una evacuación más fácil.",
+      "indicacion": "Recomendado para personas con lesión medular, daño neurológico, dificultades para evacuar, problemas digestivos o efectos secundarios de medicamentos que afecten el intestino.",
+      "comoSeRealiza": "Posición del paciente: Acostar al paciente boca arriba (decúbito supino), con las piernas algo dobladas para relajar el abdomen.\nLubricación: Aplicar una pequeña cantidad de crema o aceite suave sobre el abdomen para facilitar el masaje.\n\nTécnica del masaje:\n- **Inicio**: Comenzar en la parte inferior derecha del abdomen (donde empieza el intestino grueso).\n- **Movimiento circular**: Hacer movimientos suaves en el sentido de las agujas del reloj.\n- **Ascenso**: Subir lentamente por el lado derecho del abdomen (colon ascendente).\n- **Cruzar**: Mover horizontalmente hacia la izquierda por la parte superior del abdomen (colon transverso).\n- **Descenso**: Bajar por el lado izquierdo hasta la parte inferior del abdomen (colon descendente y zona pélvica).\n- **Duración**: Repetir este recorrido de forma continua y fluida durante 5 a 10 minutos.\n\nFrecuencia: Hacer el masaje una o dos veces al día, preferiblemente antes del momento habitual de ir al baño.",
+      "observacionesProfesionales": "Este masaje debe ser realizado por fisioterapeutas, enfermeros o cuidadores con formación en técnicas de masaje digestivo. Es importante observar cómo responde el paciente y adaptar la presión o los movimientos si es necesario.",
+      "observacionesTecnica": "- **Presión adecuada**: La presión debe ser suave, sin causar dolor. Tiene que ser suficiente para mover el contenido intestinal, pero nunca molesta.\n- **Evitar zonas sensibles**: No hacer presión sobre zonas doloridas, inflamadas, con heridas, úlceras o infecciones.\n- **Atención a reacciones**: Observar si el paciente muestra signos de incomodidad, cambios en la respiración o dolor. Si ocurre, disminuir la intensidad o cambiar la técnica.",
+      "saberMas": "",
+      "videoUrl": "",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Enfermera",
+        "Médico Rehabilitador",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Fisioterapia",
+        "Enfermería",
+        "Rehabilitación (facultativo)"
+      ]
+    },
+
+    {
+      "id": "f05",
+      "titulo": "Transferencia de sedestación a bipedestación con apoyo parcial",
+      "objetivo": "Ayudar al paciente a mejorar su autonomía practicando el movimiento de pasar de estar sentado a ponerse de pie, con apoyo parcial y asistencia si es necesario. Este ejercicio está recomendado para personas con debilidad en las piernas, problemas de equilibrio o que se están recuperando de una cirugía o de un daño neurológico.",
+      "descripcion": "Consiste en enseñar al paciente a levantarse de forma segura desde una silla o la cama, utilizando ayudas como un andador, un bastón, barras de apoyo, o con ayuda directa del terapeuta.",
+      "indicacion": "Personas con debilidad muscular, alteraciones del equilibrio, daño neurológico o en proceso de recuperación tras cirugía.",
+      "comoSeRealiza": "1. Sentar al paciente en el borde de la silla o cama, con los pies bien apoyados en el suelo.\n2. Colocar las manos sobre los apoyos (como un andador, bastones o reposabrazos).\n3. Pedirle que incline el tronco hacia adelante (como si fuera a levantarse) y que empuje con las piernas para ponerse de pie.\n4. Una vez de pie, debe mantenerse en esa posición durante unos segundos, con ayuda si es necesario.\n5. Repetir el ejercicio entre 5 y 10 veces, según lo que tolere el paciente y cómo vaya progresando.",
+      "observacionesProfesionales": "Este ejercicio debe ser supervisado por un fisioterapeuta o profesional capacitado. Es importante evaluar qué tanta ayuda necesita el paciente al inicio, e ir reduciendo esa asistencia poco a poco conforme mejore. La seguridad durante el ejercicio es clave.",
+      "observacionesTecnica": "- **Seguridad ante todo**: Antes de comenzar, asegurarse de que el área esté libre de obstáculos. Si se usan ayudas como andadores o barras, es importante verificar que estén bien colocadas y que el paciente sepa cómo usarlas.\n- **Progresión gradual**: Conforme el paciente gana fuerza y equilibrio, se puede ir reduciendo la ayuda del terapeuta para que el paciente haga más por sí mismo.\n- **Fomentar la independencia**: El objetivo final es que el paciente pueda levantarse por sí solo o con el menor apoyo posible. Para lograrlo, el entrenamiento debe ajustarse continuamente a sus capacidades.",
+      "saberMas": "",
+      "videoUrl": "",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Enfermera",
+        "Médico Rehabilitador",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Fisioterapia",
+        "Enfermería",
+        "Rehabilitación (facultativo)",
+        "Otras Áreas definidas"
       ]
     },
 
     {
       "id": "f06",
       "titulo": "Colocación brazo pléjico o parético en sedestación",
-      "objetivo": "Evitar la subluxación de hombro que generaría un hombro doloroso.",
-      "indicacion": "En pacientes con una plejia y paresia braquial de tipo flácida",
-      "descripcion": "Una técnica postural para la correcta colocación del miembro superior afecto, la cual permite evitar complicaciones.",
-      "comoSeRealiza": "Se debe colocar al paciente en posición de sedestación con la espalda recta y la cabeza apoyada, situar el miembro superior afectado reposando sobre una almohada con el codo ligeramente flexionado, la mano abierta con la palma hacia abajo y el pulgar separado.",
-      "observacionesProfesionales": "Técnica no complicada que se puede realizar con un mínimo aprendizaje.",
-      "observacionesTecnica": "Nunca movilizar al paciente tirando del brazo pléjico. No pinchar las cánulas en el brazo pléjico. Se debe comprobar que el estado del paciente permita la movilización del brazo afecto.",
-      "saberMas": "Transferencias y recomendaciones posturales en pacientes afectados de Ictus. \nDocumento para el curso de cuidadores. \nEl tiempo de aplicación de esta técnica dependerá del tiempo que el paciente permanezca en bipedestación, caminando o haciendo transferencias (en posición sentada o tumbada no está indicada, debiendo colocar almohadas o similar para que el brazo quede en una posición cómoda, indolora y alineada).",
-      "videoUrl": "https://youtu.be/Db_qJjV4HVI",
+      "objetivo": "Prevenir que el hombro se salga parcialmente de su lugar (subluxación), lo que puede causar dolor y otras complicaciones.",
+      "descripcion": "Es una técnica de posicionamiento correcta del brazo afectado mientras el paciente está sentado. Esto ayuda a prevenir problemas en el hombro y a mejorar la comodidad del paciente.",
+      "indicacion": "Recomendado para pacientes que tienen una parálisis o debilidad (plejia o paresia) en el brazo, especialmente cuando el músculo está flácido y no puede sostener la articulación.",
+      "comoSeRealiza": "1. Sentar al paciente con la espalda recta y la cabeza bien apoyada.\n2. Colocar una almohada sobre el regazo o al costado, donde apoyará el brazo afectado.\n3. El brazo debe quedar descansando sobre la almohada, con el codo ligeramente doblado.\n4. La mano debe estar abierta, con la palma hacia abajo y el pulgar separado del resto de los dedos.\n5. Es importante mantener esta posición mientras el paciente esté sentado.",
+      "observacionesProfesionales": "Esta técnica es sencilla y puede ser realizada por cuidadores o familiares después de una breve formación. Sin embargo, debe hacerse con atención para evitar errores.",
+      "observacionesTecnica": "- **Nunca tirar del brazo afectado** para mover al paciente.\n- **No usar el brazo afectado para colocar cánulas o inyecciones**.\n- Antes de mover o posicionar el brazo, asegurarse de que el estado del paciente lo permite y no hay dolor ni rigidez.\n- Comprobar con frecuencia que la postura sea correcta y cómoda.",
+      "saberMas": "",
+      "videoUrl": "",
       "quienesLaRealizan": [
         "Fisioterapeuta",
         "Enfermera",
@@ -69,21 +145,21 @@
       ],
       "areasIntervencion": [
         "Fisioterapia",
-        "Terapia Ocupacional",
+        "Terapia ocupacional",
         "Rehabilitación"
       ]
     },
 
     {
-      "id": "f09",
+      "id": "f07",
       "titulo": "Ejercitador de tobillo",
-      "objetivo": "El objetivo principal es la movilización y activación de la musculatura del pie, tanto dorsiflexores como flexores plantares. El paciente utilizando el dispositivo realiza un ejercicio autoasistido en el cual el lado sano asiste el movimiento del lado parético o debilitado. ",
-      "indicacion": "Indicado en pacientes con hemiparesia o con debilidad en miembros inferiores.",
-      "descripcion": "Se trata de un dispositivo con una polea en el cual se adaptan las dos plantas de los pies. Si un pie sube (dorsiflexión de tobillo) por tracción de la cuerda y de la polea el otro baja (flexión plantar de tobillo) y así sucesivamente. El movimiento debe ser fluido y constante. ",
-      "comoSeRealiza": "Se debe colocar al paciente en posición de sedestación con la espalda recta, caderas y rodillas formando un ángulo de 90º. Ambos pies bien situados sobre el dispositivo con contacto completo de la planta del pie. ",
-      "observacionesProfesionales": "Técnica no complicada que se puede realizar con un mínimo aprendizaje. ",
-      "observacionesTecnica": "Comprobar que pies estén bien adaptados al dispositivo, en caso contrario podemos ayudarnos de cinchas para mantenerlos en la posición correcta. ",
-      "saberMas": "Ejercicios autoasistidos de miembros inferiores",
+      "objetivo": "Estimular el movimiento y fortalecer los músculos del pie, tanto los que levantan el pie (dorsiflexores) como los que lo empujan hacia abajo (flexores plantares). Se realiza un ejercicio autoasistido, donde el pie sano ayuda al movimiento del pie afectado.",
+      "descripcion": "Se utiliza un dispositivo con una polea en la que se colocan ambos pies. Al tirar de la cuerda con un pie, se genera un movimiento combinado: cuando un pie sube, el otro baja. Esto ayuda a que el lado sano ayude al lado más débil a moverse. El movimiento debe ser suave, constante y rítmico.",
+      "indicacion": "Recomendado para personas con hemiparesia (debilidad de un lado del cuerpo) o debilidad en las piernas, especialmente tras un accidente cerebrovascular u otra lesión neurológica.",
+      "comoSeRealiza": "1. Sentar al paciente con la espalda recta y apoyada.\n2. Las caderas y rodillas deben formar un ángulo de 90°, como si estuviera sentado correctamente en una silla.\n3. Colocar ambos pies sobre el dispositivo, asegurándose de que toda la planta del pie esté en contacto con él.\n4. Comenzar el movimiento de forma lenta y controlada: un pie sube mientras el otro baja, alternando.\n5. Mantener un ritmo suave y constante durante el ejercicio.",
+      "observacionesProfesionales": "Es una técnica sencilla que puede aprenderse fácilmente. Un fisioterapeuta puede enseñar cómo hacerlo correctamente al inicio.",
+      "observacionesTecnica": "- Verificar que los pies estén bien posicionados sobre el dispositivo antes de comenzar.\n- Si es necesario, se pueden usar cinchas (correas) para sujetar los pies y mantenerlos bien alineados.\n- Asegurarse de que el movimiento no cause dolor y que el paciente esté cómodo durante la actividad.",
+      "saberMas": "",
       "videoUrl": "",
       "quienesLaRealizan": [
         "Fisioterapeuta",
@@ -101,16 +177,16 @@
     },
 
     {
-      "id": "f10",
+      "id": "f08",
       "titulo": "Incentivador respiratorio",
-      "objetivo": "Aumentar / recuperar el volumen pulmonar; favoreciendo el drenaje de secreciones y mejorando el intercambio de gases. ",
-      "indicacion": "Indicado en pacientes que desarrollan complicaciones pulmonares.",
-      "descripcion": "Técnica que debe adaptarse a las características y patología de cada paciente por lo que antes de entregar el dispositivo paciente y familiares recbiran formación para su correcto uso. ",
-      "comoSeRealiza": "El paciente en sedestación se coloca la boquilla del incentivador en la boca, asegurándose de que se hace un buen sellado de la boquilla con sus labios. \nEl paciente debe conseguir mover las bolas hacia arriba. \nDos posiciones: \n• Con el incentivador hacia arriba → 10 inhalaciones \n• Con el incentivador hacia abajo → 10 exhalaciones",
+      "objetivo": "Mejorar la capacidad pulmonar, facilitar la eliminación de mucosidad (secreciones) de los pulmones y favorecer una mejor respiración y oxigenación.",
+      "descripcion": "Es una técnica respiratoria que se realiza con un dispositivo llamado 'incentivador respiratorio', que ayuda a entrenar los pulmones. Antes de comenzar a usarlo, el paciente y sus familiares deben recibir una explicación clara por parte del profesional para asegurarse de que lo utilizan correctamente.",
+      "indicacion": "Recomendado para personas con problemas respiratorios o que presentan complicaciones pulmonares, como secreciones retenidas, respiración superficial o riesgo de infecciones respiratorias.",
+      "comoSeRealiza": "1. Colocar al paciente sentado, con la espalda recta (en posición de sedestación).\n2. El paciente debe poner la boquilla del incentivador en la boca, cerrando bien los labios alrededor para que no se escape el aire.\n3. El objetivo es conseguir que las bolas del dispositivo suban, lo que indica que el ejercicio se está haciendo correctamente.\n\nHay dos formas de usar el incentivador:\n- **Con el dispositivo en posición vertical (hacia arriba)**: el paciente debe inhalar (inspirar profundamente) y hacer subir las bolas. Realizar 10 repeticiones.\n- **Con el dispositivo en posición invertida (hacia abajo)**: el paciente debe exhalar (soplar) y hacer subir las bolas. Realizar también 10 repeticiones.",
       "observacionesProfesionales": "Dependiendo del grado de dependencia física o cognitiva del paciente, se debe realizar una supervisión y dar asistencia.",
-      "observacionesTecnica": "Técnica que requiere instrucción por parte del personal de rehabilitación ya que según la patología y características del paciente variará su desarrollo. ",
-      "saberMas": "Para dudas sobre el uso de este dispotivo, consultar con el personal de rehabilitación.",
-      "videoUrl": "https://www.youtu.be/oJWKUiqU1SY",
+      "observacionesTecnica": "Técnica que requiere instrucción por parte del personal de rehabilitación ya que según la patología y características del paciente variará su desarrollo.",
+      "saberMas": "",
+      "videoUrl": "",
       "quienesLaRealizan": [
         "Fisioterapeuta",
         "Enfermera",
@@ -125,15 +201,15 @@
     },
 
     {
-      "id": "f12",
-      "titulo": "Marcha en barra fija",
-      "objetivo": "Conseguir una reeducación estable de la marcha del paciente, mejorando el patrón de la marcha.",
-      "indicacion": "Indicado en pacientes que están en la última fase de reeducación de la marcha y tienen una alteración del equilibrio mínima o con un peligro de caída muy bajo y necesitan un apoyo.",
-      "descripcion": "Realizar marcha con ayuda de la barra fija anclada en la pared.",
-      "comoSeRealiza": "El paciente se coloca al lado de la barra fija y se agarra a la barra con la mano. Cada paso que da el paciente tiene que avanzar la mano deslizándola por la barra fija. \n• Con ayuda → el profesional se coloca en el lado libre que le queda al paciente y le da un apoyo desde ese lado (mano, brazo o del pantalón por la parte de atrás. \n• Con supervisión → el profesional se coloca en lado libre que le queda al p",
-      "observacionesProfesionales": "Técnica que implica riesgo de caídas por lo que se pautará desde rehabilitación siempre previo entrenamiento de paciente y/o familiares. Siempre se desarrollará con supervisión u asistencia. ",
-      "observacionesTecnica": "El tiempo de desarrollo de la técnica variará dependiendo la tolerancia de cada paciente. Se recomienda realizar pausas cortas pero frecuentes. ",
-      "saberMas": "Consultar con el personal de rehabilitación para mas información.",
+      "id": "f09",
+      "titulo": "Marcha con 2 muletas",
+      "objetivo": "Reeducar la forma de caminar del paciente para que sea más estable, mejorando su manera de andar y evitando caídas.",
+      "descripcion": "Se utiliza una ayuda técnica para caminar, como los bastones de antebrazo (también llamados bastones canadienses). Estos dispositivos ortopédicos están formados por una abrazadera que se apoya en el antebrazo, una empuñadura (donde se agarra la mano), un tubo largo (caña) y una base de goma antideslizante (contera). Ayudan al paciente a caminar con más estabilidad, a descargar peso de las piernas si es necesario y a tener una base más amplia para equilibrarse mejor.",
+      "indicacion": "Indicado en personas con problemas de equilibrio o riesgo de caída. También recomendado para quienes han tenido fracturas de cadera, amputaciones de una pierna, parálisis parcial (como en hemiplejías) o secuelas graves de enfermedades neurológicas.",
+      "comoSeRealiza": "1. Ajustar la altura de los bastones para que se adapten bien al paciente.\n2. El paciente debe agarrarse con ambas manos a las empuñaduras, de forma segura y cómoda.\n3. Primero debe adelantar los bastones, y luego dar un paso hacia adelante.\n4. Repetir el proceso con control y sin prisas, manteniendo el equilibrio.",
+      "observacionesProfesionales": "Según las capacidades físicas o cognitivas del paciente, puede requerir desde una simple supervisión visual hasta una sujeción más activa, como sujetarlo con un cinturón de seguridad para evitar caídas.",
+      "observacionesTecnica": "- La abrazadera del antebrazo debe quedar unos 5 cm por debajo del codo, sin llegar a bloquear su movimiento.\n- El bastón debe colocarse en la parte superior trasera del antebrazo (zona posteroproximal).\n- Es importante que el paciente tenga fuerza suficiente en los brazos, buen rango de movimiento, pueda agarrar con firmeza los bastones y mantenga el tronco erguido para caminar de forma segura.",
+      "saberMas": "",
       "videoUrl": "",
       "quienesLaRealizan": [
         "Fisioterapeuta",
@@ -147,24 +223,24 @@
       ],
       "areasIntervencion": [
         "Fisioterapia",
-        "Terapia Ocupacional",
         "Rehabilitación (facultativo)"
       ]
     },
 
     {
-      "id": "f13",
-      "titulo": "Marcha sin ayudas técnicas",
-      "objetivo": "Conseguir una reeducación de la marcha del paciente y mejorar su autonomía.",
-      "indicacion": "Indicado en pacientes que poseen una marcha estable pero sigue necesitando supervisión.",
-      "descripcion": "El paciente puede andar por el pasillo o por el hospital sin ayudas técnicas, aunque siempre debería estar supervisado. Acompañar al paciente y dar asistencia si es necesario.",
-      "comoSeRealiza": "La persona que asiste al paciente se coloca a un lado del paciente y camina a su lado al mismo ritmo que el paciente. Es necesario mantener la atención en todo momento en el paciente y evitar las distracciones, ya que en caso de necesitar asistencia, esta debe ser rápida y efectiva. En el caso de observar pequeños desequilibrios en el paciente, será conveniente tener cogido el paciente de la parte trasera del pantalón y colocar una mano en el hombro para equilibrar el tronco en caso de necesidad.",
-      "observacionesProfesionales": "Dependiendo del grado de dependencia física o cognitiva del paciente, se debe realizar una supervisión y dar asistencia.",
-      "observacionesTecnica": "En ocasiones el paciente no tiene dificultad en la marcha, pero puede necesitar orientación en la dirección que debe tomar por sufrir algún tipo de deterioro cognitivo o psicológico.",
-      "saberMas": "El tiempo de aplicación de la técnica dependerá del grado de independencia del paciente y su necesidad de moverse. Normalmente se debería realizar 2-3 veces al día durante 10-15 minutos cada vez, pero este tiempo dependerá de cada paciente. En caso de duda, consultar con el fisioterapeuta o médico rehabilitador.",
+      "id": "f09.2",
+      "titulo": "Marcha con andador 2 ruedas y 2 tacos",
+      "objetivo": "Lograr que el paciente camine con seguridad y de forma autónoma utilizando un andador de 2 ruedas y 2 tacos, favoreciendo la movilidad y evitando caídas.",
+      "descripcion": "Entrenamiento para que el paciente adquiera una marcha segura usando el andador de 2 ruedas y 2 tacos, que ofrece mayor estabilidad que otros modelos.",
+      "indicacion": "Pacientes que, tras una lesión cerebral, presentan dificultad para caminar, inestabilidad o debilidad muscular leve o moderada, y que necesitan un apoyo más estable que el de un andador de 4 ruedas.",
+      "comoSeRealiza": "1. **Colocar al paciente dentro del andador**, asegurándose de que esté bien alineado y con ambos brazos apoyados sobre el manillar.\n2. El andador debe estar ajustado a la **altura adecuada**: los codos del paciente deben quedar ligeramente doblados.\n3. Indicar al paciente que **levante ligeramente el andador desde los tacos traseros** (sin arrastrarlo), para avanzar con cada paso. Las ruedas delanteras ayudan a deslizarlo hacia delante.\n4. Guiar verbalmente con frases simples como “da un paso”, “ahora el otro”, “levanta el andador un poco”.\n5. Supervisar que no **se apoye demasiado hacia delante** ni se encorve. La vista debe ir al frente.\n6. Hacer **pausas cada pocos metros** si el paciente lo necesita, para evitar fatiga o pérdida de equilibrio.",
+      "observacionesProfesionales": "- Supervisar siempre que el paciente mantenga una **buena postura** y un ritmo **lento y controlado**.\n- **Acompañar al paciente al lado**, sin sujetarlo a menos que pierda estabilidad.\n- El andador debe revisarse regularmente para asegurarse de que **las ruedas giran bien** y **los topes de goma (tacos) no estén gastados**.",
+      "observacionesTecnica": "- Empezar el entrenamiento **en zonas amplias, con buen suelo y sin obstáculos**.\n- A medida que el paciente mejora, se pueden incorporar **giros suaves, recorridos más largos o pequeños desniveles**.",
+      "saberMas": "",
       "videoUrl": "",
       "quienesLaRealizan": [
         "Fisioterapeuta",
+        "Terapia Ocupacional",
         "Enfermera",
         "Técnico en Cuidados de Enf.",
         "Celador",
@@ -176,15 +252,15 @@
     },
 
     {
-      "id": "f14",
-      "titulo": "Pedaleador de manos",
-      "objetivo": "El objetivo principal es la movilización y activación de la musculatura de los miembros superiores.",
-      "indicacion": "Indicado en pacientes con déficit de movilidad o debilidad muscular en miembros superiores.",
-      "descripcion": "La técnica consiste en que el paciente mueva los pedales con las manos. La velocidad no debe ser demasiado alta (pacientes impulsivos), es mas beneficioso una velocidad moderada que sea funcional para el paciente. Podría darse el caso de que el paciente necesite asistencia para completar el movimiento en el proceso de aprendizaje.",
-      "comoSeRealiza": "Se debe colocar al paciente en posición de sedestación con la espalda recta, caderas y rodillas formando un ángulo de 90º. La distancia correcta entre el dispositivo y el paciente es la distancia suficiente para que el paciente pueda agarrar bien los pedales y que sus codos queden ligeramente flexionados en el punto más alejado. Es importante también regular la altura a la que se encuentran los pedales siendo esta la ideal a la altura de pecho del paciente.",
-      "observacionesProfesionales": "En ocasiones si el paciente no consigue mantener el agarre del lado parético, se puede poner una venda para sostener el agarre de la mano al pedal.",
-      "observacionesTecnica": "Comprobar la correcta posición del paciente y si está bien adaptado el agarre.",
-      "saberMas": "Se pueden complementar con: Ejercicios autoasistidos de miembros superiores (poleas). \nEl tiempo de aplicación de la técnica será de 1-2 veces al día durante 15 minutos aproximadamente como forma habitual, pero este tiempo dependerá de la capacidad y voluntad del paciente.",
+      "id": "f09.3",
+      "titulo": "Marcha con andador 4 ruedas",
+      "objetivo": "Favorecer que el paciente recupere la capacidad de caminar de forma autónoma y segura utilizando un andador de 4 ruedas.",
+      "descripcion": "Entrenamiento para aprender a caminar de manera segura con un andador de 4 ruedas, adaptando el ritmo, la postura y el entorno a las necesidades del paciente.",
+      "indicacion": "Pacientes que, tras una lesión cerebral, presentan déficit de equilibrio, debilidad en las piernas o dificultades para caminar, pero pueden mantenerse de pie con apoyo y tienen cierto control postural.",
+      "comoSeRealiza": "1. **Colocar al paciente de pie**, bien alineado, dentro del andador (entre las barras laterales). Los brazos deben apoyar suavemente sobre el manillar, sin cargar el peso completamente.\n2. **Revisar el freno** del andador antes de iniciar. Activar los frenos al subir o al sentarse, y soltarlos cuando el paciente empiece a caminar.\n3. Animar al paciente a **mirar al frente** (no al suelo) y dar pasos lentos y regulares.\n4. Se puede dar **indicaciones claras y breves**, como “mira al frente”, “un pie y luego el otro”, “no te apoyes demasiado”, etc.\n5. Si es necesario, **acompañar al lado del paciente**, sin sujetarlo, solo guiándolo verbalmente o con la mano abierta cerca, por si pierde el equilibrio.\n6. Hacer **pausas frecuentes** y respetar los descansos. Si hay una silla con respaldo y freno, puede usarse para sentarse.",
+      "observacionesProfesionales": "- El profesional debe vigilar que el paciente **no avance con prisa** y que mantenga una **postura erguida y relajada**.\n- Es importante comprobar el **ajuste de la altura del andador**, para que los codos queden ligeramente flexionados.",
+      "observacionesTecnica": "- Evitar suelos mojados o con obstáculos.\n- Supervisar siempre los primeros entrenamientos hasta que el paciente tenga **suficiente seguridad y confianza**.\n- Empezar **en espacios amplios, sin distracciones ni personas alrededor**, e ir aumentando la complejidad (giros, rampas, presencia de más gente…).",
+      "saberMas": "",
       "videoUrl": "",
       "quienesLaRealizan": [
         "Fisioterapeuta",
@@ -195,21 +271,20 @@
         "Familiar/Cuidador"
       ],
       "areasIntervencion": [
-        "Fisioterapia",
-        "Rehabilitación (facultativo)"
+        "Fisioterapia"
       ]
     },
 
     {
-      "id": "f15",
-      "titulo": "Poleas de hombro",
-      "objetivo": "El objetivo principal es la movilización y activación de la musculatura de los miembros superiores. ",
-      "descripcion": "La técnica consiste en movimientos activos en flexo-extensión de ambos hombros del paciente utilizando un sistema de poleas correctamente adaptado a las características específicas del enfermo. ",
-      "indicacion": "Indicado en pacientes con déficit de movilidad o debilidad muscular en miembros superiores. \nCONTRAINDICADO EN PACIENTES CON HEMIPLEJIA ",
-      "comoSeRealiza": "Se debe colocar al paciente en posición de sedestación con la espalda recta, caderas y rodillas formando un ángulo de 90º. A continuación se adapta la longitud de la cuerda a las características del paciente para que pueda realizar el movimiento deseado. Los agarres para manos deben estar accesibles dejando el codo del paciente semiflexionado. De esta forma utilizando el sistema de poleas cuando un brazo sube (flexión) el otro brazo baja (extensión) y viceversa. La técnica se debe realizar de manera autónoma por el paciente y de forma dinámica y fluida. ",
-      "observacionesProfesionales": "Técnica no complicada que se puede realizar con un mínimo aprendizaje. Si el paciente refiere dolor en hombros detener actividad.",
-      "observacionesTecnica": "Comprobar posición del paciente y si está bien adaptado el agarre. Utilizando el mismo sistema de poleas se pueden realizar diferentes movimientos por parte del paciente como por ejemplo apertura y cierre de brazos, en tal caso el paciente será instruido para ello y será pautado por rehabilitación. ",
-      "saberMas": "Se pueden complementar con: Ejercicios autoasistidos de miembros superiores (poleas).",
+      "id": "f09.4",
+      "titulo": "Marcha en barra fija",
+      "objetivo": "Ayudar al paciente a caminar de forma más segura y estable, mejorando su forma de andar.",
+      "descripcion": "Consiste en caminar utilizando una barra fija que está anclada a la pared como punto de apoyo.",
+      "indicacion": "Este ejercicio está indicado para pacientes que ya están en la última etapa de recuperación de la marcha. Es decir, tienen un buen equilibrio y un riesgo muy bajo de caídas, pero aún necesitan un pequeño apoyo al caminar.",
+      "comoSeRealiza": "1. El paciente se coloca al lado de la barra, de forma que pueda agarrarla con una mano.\n2. A medida que camina, debe mover la mano hacia adelante deslizándola por la barra.\n3. Hay dos formas de ayudar al paciente durante el ejercicio:\n   - **Con ayuda**: el profesional se sitúa en el lado opuesto al de la barra y da soporte físico, por ejemplo, agarrando la cintura del pantalón o el brazo.\n   - **Con supervisión**: el profesional está del mismo lado (opuesto a la barra) pero solo observa por si el paciente necesita ayuda puntual.",
+      "observacionesProfesionales": "Aunque el ejercicio es para pacientes en buena condición, siempre debe indicarse desde el área de rehabilitación, y tanto el paciente como la familia deben haber sido entrenados previamente. La técnica debe realizarse siempre con algún tipo de supervisión.",
+      "observacionesTecnica": "El tiempo que se dedica al ejercicio dependerá de la resistencia del paciente. Es recomendable hacer pausas frecuentes pero breves para evitar la fatiga.",
+      "saberMas": "",
       "videoUrl": "",
       "quienesLaRealizan": [
         "Fisioterapeuta",
@@ -229,7 +304,181 @@
     },
 
     {
-      "id": "f17",
+      "id": "f10",
+      "titulo": "Pedaleador de manos",
+      "objetivo": "El objetivo principal es la movilización y activación de la musculatura de los miembros superiores.",
+      "descripcion": "La técnica consiste en que el paciente mueva los pedales con las manos. La velocidad no debe ser demasiado alta (pacientes impulsivos), es más beneficioso una velocidad moderada que sea funcional para el paciente. Podría darse el caso de que el paciente necesite asistencia para completar el movimiento en el proceso de aprendizaje.",
+      "indicacion": "Indicado en pacientes con déficit de movilidad o debilidad muscular en miembros superiores.",
+      "comoSeRealiza": "Se debe colocar al paciente en posición de sedestación con la espalda recta, caderas y rodillas formando un ángulo de 90º. La distancia correcta entre el dispositivo y el paciente es la distancia suficiente para que el paciente pueda agarrar bien los pedales y que sus codos queden ligeramente flexionados en el punto más alejado. Es importante también regular la altura a la que se encuentran los pedales siendo esta la ideal a la altura de pecho del paciente.",
+      "observacionesProfesionales": "En ocasiones si el paciente no consigue mantener el agarre del lado parético, se puede poner una venda para sostener el agarre de la mano al pedal.",
+      "observacionesTecnica": "Comprobar la correcta posición del paciente y si está bien adaptado el agarre.",
+      "saberMas": "Se pueden complementar con: Ejercicios autoasistidos de miembros superiores (poleas).\nEl tiempo de aplicación de la técnica será de 1-2 veces al día durante 15 minutos aproximadamente como forma habitual, pero este tiempo dependerá de la capacidad y voluntad del paciente.",
+      "videoUrl": "",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Terapia Ocupacional",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Celador",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Fisioterapia",
+        "Rehabilitación (facultativo)"
+      ]
+    },
+
+    {
+      "id": "f11",
+      "titulo": "Poleas de hombro",
+      "objetivo": "Mover y activar los músculos de los brazos y hombros del paciente.",
+      "descripcion": "Se utiliza un sistema de poleas adaptado al paciente para realizar movimientos de subida y bajada de los brazos. Al subir un brazo, el otro baja, y viceversa.",
+      "indicacion": "Este ejercicio está indicado para personas que tienen debilidad o dificultad para mover los brazos. ¡Importante! No se debe usar en pacientes con hemiplejia (parálisis de un lado del cuerpo).",
+      "comoSeRealiza": "1. El paciente debe estar sentado con la espalda recta y las piernas formando un ángulo de 90º.\n2. Se ajusta la cuerda del sistema de poleas para que los brazos puedan moverse cómodamente.\n3. Las manos deben agarrar las empuñaduras con los codos ligeramente doblados.\n4. El movimiento debe hacerse de forma fluida, alternando la subida de un brazo y la bajada del otro.\n5. Este ejercicio lo realiza el paciente por sí mismo.",
+      "observacionesProfesionales": "Es una técnica sencilla que puede aprenderse fácilmente. Si el paciente siente dolor en los hombros, debe detener el ejercicio y avisar al profesional.",
+      "observacionesTecnica": "Antes de empezar, asegúrese de que el paciente está bien colocado y de que los agarres están ajustados a su medida. Con el mismo sistema de poleas se pueden hacer otros ejercicios, como abrir y cerrar los brazos. En ese caso, debe ser indicado por el equipo de rehabilitación.",
+      "saberMas": "",
+      "videoUrl": "",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Terapia Ocupacional",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Celador",
+        "Médico Rehabilitador",
+        "Neurólogo",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Fisioterapia",
+        "Terapia Ocupacional",
+        "Rehabilitación (facultativo)"
+      ]
+    },
+
+    {
+      "id": "f12",
+      "titulo": "Transferencias",
+      "objetivo": "Fomentar la capacidad del paciente para pasar de la silla de ruedas a la cama y viceversa. También la transferencia al sillón, al baño y al coche si se desarrolla suficiente habilidad por parte del paciente.",
+      "descripcion": "La transferencia se puede realizar con tabla (los pies deben quedar apoyados en un escalón o similar) o con asistencia de una persona que debe situarse de frente al paciente y acompañarlo en el giro una vez se ha puesto de pie. El asistente sostiene al paciente cogiéndolo del pantalón normalmente e indicando al paciente el movimiento que debe realizar, poniéndose de acuerdo en el momento de su realización (por ejemplo, contando hasta tres).",
+      "indicacion": "Pacientes que colaboran de alguna forma en la transferencia y necesitan ligera ayuda o una pequeña asistencia.",
+      "comoSeRealiza": "En primer lugar hay que colocar la silla de ruedas en el lado que el paciente pueda colaborar de forma más fácil (habitualmente el lado sano o más fuerte del lado donde va a pasar). Frenar ambas superficies (silla-cama-sillón). Igualar las dos alturas o un poco más baja la superficie hacia dónde vamos a pasar. Pedir al paciente que realice la transferencia o que colabore en su realización (dar instrucciones precisas de lo que el paciente tiene que hacer en caso de ser necesario).",
+      "observacionesProfesionales": "Evitar traccionar al paciente del lado afecto, especialmente del brazo. Evitar girar a la vez que realizamos un esfuerzo, es mejor acercarse al paciente y dar pequeños pasos acompañando el giro del paciente. Colocar al paciente lo más cerca posible de nuestro cuerpo, en el caso de que el paciente necesite más ayuda.",
+      "observacionesTecnica": "Ante mucha dificultad para realizar la transferencia, consultar con el fisioterapeuta que ha realizado la intervención, que indique cómo se debe realizar. En caso de nula colaboración, riesgo de caídas o imposibilidad de realizarse, utilizar la grúa e informar al fisioterapeuta.",
+      "saberMas": "",
+      "videoUrl": "",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Terapia Ocupacional",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Celador",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Fisioterapia"
+      ]
+    },
+
+    {
+      "id": "f13",
+      "titulo": "Vendaje de muñón",
+      "objetivo": "El objetivo del vendaje compresivo es reducir el riesgo de formación de edema y favorecer la remodelación del muñón post-amputación. Además, ayuda a controlar el dolor, mejorar la circulación sanguínea y proporcionar una forma adecuada para la colocación de una prótesis en el futuro.",
+      "descripcion": "El vendaje compresivo es una técnica que implica la aplicación de presión sobre el muñón de la amputación. Debe adaptarse a las características individuales de cada paciente, considerando su tipo de amputación, la condición del muñón y la presencia de cicatrices. El vendaje debe aplicarse de manera adecuada para promover la circulación sanguínea, reducir el riesgo de infecciones y formar un molde adecuado para la prótesis. Los pacientes y sus familiares deben recibir formación sobre la correcta aplicación y mantenimiento del vendaje.",
+      "indicacion": "Está indicado en pacientes que han sufrido una amputación, tanto en las primeras fases postoperatorias como en etapas posteriores, para mejorar la rehabilitación, la adaptación de la prótesis y la prevención de complicaciones derivadas del mal manejo del muñón.",
+      "comoSeRealiza": [
+        "El paciente debe estar en una posición cómoda, generalmente acostado o semi-sentado.",
+        "Se inicia con la limpieza del muñón para evitar infecciones.",
+        "Se coloca el vendaje desde la base del muñón hacia la parte superior, aplicando una presión progresiva que sea suficiente para la compresión sin causar dolor o dificultad en la circulación.",
+        "El vendaje debe ser envolvente, asegurándose de cubrir completamente la zona afectada, dejando espacio para la cicatrización y evitando la acumulación de fluidos.",
+        "El profesional de salud puede realizar ajustes en el vendaje según las necesidades del paciente, la fase de la rehabilitación y las características específicas del muñón."
+      ],
+      "observacionesProfesionales": "El vendaje debe ser realizado o supervisado por personal de salud capacitado, como enfermeros, fisioterapeutas o médicos. Dependiendo del grado de movilidad y autonomía del paciente, puede ser necesario que un profesional realice el vendaje. Además, el equipo médico debe seguir de cerca la evolución del muñón, observando signos de infecciones o problemas circulatorios.",
+      "observacionesTecnica": "",
+      "saberMas": "",
+      "videoUrl": "",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Enfermera",
+        "Médico Rehabilitador",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Fisioterapia",
+        "Enfermería",
+        "Rehabilitación (facultativo)",
+        "Otras Áreas definidas"
+      ]
+    },
+
+    {
+      "id": "f14",
+      "titulo": "Espalderas: Sentado para ejercicios de tronco dinámico",
+      "objetivo": "Reforzar balance muscular del tronco y mejorar equilibrio en sedestación. Simetría de tronco y lateralidad.",
+      "descripcion": "Colocación del paciente frente a las espalderas sentado sin tocar con las rodillas los barrotes.",
+      "indicacion": "Indicado en pacientes con debilidad muscular generalizada y déficit de control postural en sedestación.",
+      "comoSeRealiza": [
+        "Con mano sana va a tocar los barrotes a diferentes niveles. Desplazamiento vertical.",
+        "Con mano sana, desplazamiento lateral de derecha a izquierda sobre un barrote e ir variando de nivel.",
+        "Con su mano sana se asiste la mano pléjica y realiza el ejercicio 1. Importante: no sobrepasar la altura del hombro (más de 90º).",
+        "Con su mano sana se asiste la mano pléjica y realiza el ejercicio 2. Importante: no sobrepasar la altura del hombro (más de 90º).",
+        "Ambas manos a nivel de los ojos en barrote de espalderas. Se realiza flexión de codos para desplazamiento anterior de tronco y extensión de codos para volver a la posición inicial."
+      ],
+      "observacionesProfesionales": "Dependiendo del grado de dependencia física o cognitiva del paciente, se debe realizar una supervisión o leve asistencia para ayudar al paciente.",
+      "observacionesTecnica": "La duración del ejercicio dependerá de la condición física y cognitiva del paciente. Los ejercicios se desarrollan inicialmente en 3 series de 6 repeticiones. Realizar 30 seg de descanso entre series.",
+      "saberMas": "",
+      "videoUrl": "",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Terapia Ocupacional",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Celador",
+        "Médico Rehabilitador",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Fisioterapia",
+        "Rehabilitación (facultativo)"
+      ]
+    },
+
+
+    {
+      "id": "f15",
+      "titulo": "Fisioterapia Respiratoria. Dispositivo PEP Acapella",
+      "objetivo": "Facilitar la eliminación de las secreciones pulmonares.",
+      "descripcion": "Dispositivo empleado en fisioterapia respiratoria que mediante una presión espiratoria positiva PEP nos ayuda a movilizar las secreciones pulmonares para facilitar su expulsión.\n\nTécnica que debe adaptarse a las características y patología de cada paciente por lo que antes de entregar el dispositivo paciente y familiares recibirán formación para su correcto uso.",
+      "indicacion": "Indicada para pacientes con fibrosis quística, enfermedad pulmonar obstructiva crónica EPOC, asma y enfermedades pulmonares con problemas de secreción.",
+      "comoSeRealiza": [
+        "Nos aseguramos de que el ajuste de dificultad está en la posición indicada.",
+        "Sostenemos el dispositivo con la mano en una posición cómoda, podemos ayudarnos de una mesa para apoyar el brazo.",
+        "Ajustamos bien la boquilla del dispositivo a la boca realizando un cierre hermético con los labios y a continuación cogemos aire por la nariz o por la boca para llenar los pulmones de forma moderada.",
+        "Manteniendo un buen sellado entre labios y boquilla espiramos, es decir, soltamos el aire a través del dispositivo alargando la maniobra hasta unos 4 o 5 segundos. Es recomendable contraer el abdomen suavemente durante la espiración.",
+        "Combina 10 o 20 respiraciones con Acapella con 2 o 3 espiraciones forzadas con glotis abierta (como si quisiera empañar un cristal).",
+        "Realiza el ejercicio varias veces hasta completar el tiempo que tiene indicado."
+      ],
+      "observacionesProfesionales": "Dependiendo del grado de dependencia física o cognitiva del paciente se debe realizar con supervisión o asistencia en el caso de que el paciente no pudiera coger el dispositivo por sí mismo.",
+      "observacionesTecnica": "Técnica que requiere instrucción por parte del personal de rehabilitación ya que según la patología y características del paciente variará su desarrollo.",
+      "saberMas": "",
+      "videoUrl": "",
+      "quienesLaRealizan": [
+        "Fisioterapeuta",
+        "Enfermera",
+        "Técnico en Cuidados de Enf.",
+        "Celador",
+        "Médico Rehabilitador",
+        "Familiar/Cuidador"
+      ],
+      "areasIntervencion": [
+        "Fisioterapia",
+        "Rehabilitación (facultativo)"
+      ]
+    },
+
+
+    {
+      "id": "f16",
       "titulo": "Transferencias",
       "objetivo": "Fomentar la capacidad del paciente para pasar de la silla de ruedas a la cama y viceversa. También la transferencia al sillón, al baño y al coche si se desarrolla suficiente habilidad por parte del paciente.",
       "descripcion": "La transferencia se puede realizar con tabla (los pies deben quedar apoyados en un escalón o similar) o con asistencia de una persona que debe situarse de frente al paciente y acompañarlo en el giro una vez se ha puesto de pie. El asistente sostiene al paciente cogiéndolo del pantalón normalmente e indicando al paciente el movimiento que debe realizar, poniéndose de acuerdo en el momento de su realización (por ejemplo, contando hasta tres).",
@@ -253,7 +502,7 @@
     },
 
     {
-      "id": "f18",
+      "id": "f17",
       "titulo": "Uso de cabestrillo",
       "objetivo": "Evitar o reducir el dolor y la tumefacción del miembro superior afecto (plejico/paretico), así como la subluxación del hombro durante la sedestación del paciente en silla de ruedas o bipedestación/marcha. Inmovilizando el hombro a la abducción y rotación.",
       "descripcion": "Una ayuda técnica que consigue una correcta colocación del brazo e inmovilización del hombro. Consiguiendo un soporte seguro y confortable para el paciente evitando dolor y lesiones.",
@@ -280,7 +529,7 @@
     },
 
     {
-      "id": "f19",
+      "id": "f18",
       "titulo": "Control de tronco en sedestación en espalderas",
       "objetivo": "Reforzar balance muscular del tronco y mejorar equilibrio en sedestación.",
       "descripcion": "Colocación del paciente frente a las espalderas sentado, se coge las manos y realiza flexión anterior de tronco para alcanzar las barras de las espalderas a diferentes alturas y direcciones.",
@@ -306,7 +555,7 @@
     },
 
     {
-      "id": "f20",
+      "id": "f19",
       "titulo": "Fisioterapia Respiratoria. Dispositivo PEP Acapella",
       "objetivo": "Facilitar la eliminación de las secreciones pulmonares.",
       "descripcion": "Dispositivo empleado en fisioterapia respiratoria que mediante una presión espiratoria positiva PEP nos ayuda a movilizar las secreciones pulmonares para facilitar su expulsión.\n\nTécnica que debe adaptarse a las características y patología de cada paciente por lo que antes de entregar el dispositivo paciente y familiares recibirán formación para su correcto uso.",
@@ -329,8 +578,8 @@
         "Rehabilitación (facultativo)"
       ]
     }
-
   ],
+  
   "logopedia": [
     {
       "id": "l01",
