@@ -15,11 +15,26 @@ class EntradaDiario {
   // Estado de ánimo del usuario
   final String estadoAnimo;
 
+  // Estado del dolor del usuario (opcional)
+  final String dolor;
+
+  // Calidad del sueño del usuario
+  final String calidadSueno;
+
+  // Terapia asociada a la entrada
+  final String terapia;
+
   // Etiquetas asociadas a la entrada
   final List<String> etiquetas;
 
   // Ruta de la imagen asociada a la entrada (opcional)
   final String? imagenPath;
+
+  // Áreas del cuerpo donde el usuario siente dolor
+  final List<String> areasDolor;
+
+  // Descripción del dolor
+  final String descripcionDolor;
 
   // Constructor de la clase
   EntradaDiario({
@@ -28,8 +43,13 @@ class EntradaDiario {
     required this.titulo,
     required this.texto,
     required this.estadoAnimo,
+    required this.dolor,
+    required this.calidadSueno,
+    required this.terapia,
     required this.etiquetas,
     this.imagenPath,
+    required this.areasDolor,
+    required this.descripcionDolor,
   });
 
   // Método que convierte esta entrada a un Map (estructura clave-valor)
@@ -40,8 +60,13 @@ class EntradaDiario {
     'titulo': titulo,
     'texto': texto,
     'estadoAnimo': estadoAnimo,
+    'dolor': dolor,
+    'calidadSueno': calidadSueno,
+    'terapia': terapia,
     'etiquetas': etiquetas,
     'imagenPath': imagenPath,
+    'areasDolor': areasDolor,
+    'descripcionDolor': descripcionDolor,
   };
 
   // Método de fábrica que crea una instancia de EntradaDiario desde un Map (JSON)
@@ -52,10 +77,15 @@ class EntradaDiario {
       fecha: DateTime.parse(json['fecha']),
       titulo: json['titulo'],
       texto: json['texto'],
-      estadoAnimo:
-          json['estadoAnimo'] ?? '😐', // Valor por defecto si es antiguo
+      estadoAnimo: json['estadoAnimo'] ?? '😐', // Valor por defecto
+
+      dolor: json['dolor'] ?? 'Ninguno',
+      calidadSueno: json['calidadSueno'] ?? 'Normal',
+      terapia: json['terapia'] ?? 'Ninguna',
       etiquetas: List<String>.from(json['etiquetas'] ?? []),
-      imagenPath: json['imagenPath'], // Recuperamos la lista
+      imagenPath: json['imagenPath'],
+      areasDolor: List<String>.from(json['areasDolor'] ?? []),
+      descripcionDolor: json['descripcionDolor'] ?? '',
     );
   }
 }

@@ -72,16 +72,16 @@ class DashboardScreen extends StatelessWidget {
                     /// =================================
                     /// 3. Gráfico Resumen Estado Animico
                     /// =================================
+                    Text(
+                      'Estado de ánimo reciente:',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 8),
                     SizedBox(
                       height: 260, // altura fija para gráfico + leyenda
                       child: EstadoAnimoBarChart(
-                        resumenEstados: {
-                          'Feliz': 5,
-                          'Triste': 2,
-                          'Enojado': 1,
-                          'Ansioso': 3,
-                          'Neutral': 4,
-                        },
+                        resumenEstados:
+                            diarioProvider.obtenerDistribucionEstadosAnimo(),
                         estadoColores: {
                           'Feliz': const Color(0xFFA8D5BA),
                           'Triste': const Color(0xFFB5CFE1),

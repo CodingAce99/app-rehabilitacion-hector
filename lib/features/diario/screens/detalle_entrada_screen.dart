@@ -25,41 +25,116 @@ class DetalleEntradaScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Detalle de la entrada')),
+      appBar: AppBar(
+        title: Text(
+          entrada.titulo,
+          style: Theme.of(context).textTheme.titleLarge, // Usar el tema
+        ),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Título principal
+            // Tipo de terapia
             Text(
-              entrada.titulo,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              'Terapia: ${entrada.terapia}',
+              style: Theme.of(
+                context,
+              ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 6),
+            SizedBox(height: 10),
 
             // Fecha
             Text(
               DateFormat('dd/MM/yyyy – HH:mm').format(entrada.fecha),
-              style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+              style: Theme.of(context).textTheme.bodySmall,
             ),
             SizedBox(height: 20),
 
             // Estado de ánimo
             EntradaDetalleTile(
-              titulo: 'Estado de ánimo',
+              titulo:
+                  '${_obtenerEmoticono('estadoAnimo', entrada.estadoAnimo)} Estado de ánimo',
               contenido: Text(
-                _estadoDescripcion(entrada.estadoAnimo),
-                style: TextStyle(fontSize: 16),
+                entrada.estadoAnimo.isNotEmpty
+                    ? '${entrada.estadoAnimo} - ${_estadoDescripcion(entrada.estadoAnimo)}'
+                    : 'No se registró el estado de ánimo.',
+                style: Theme.of(context).textTheme.bodyMedium, // Usar el tema
               ),
               delay: 100,
+            ),
+
+            // Calidad del sueño
+            EntradaDetalleTile(
+              titulo:
+                  '${_obtenerEmoticono('calidadSueno', entrada.calidadSueno)} Calidad del sueño',
+              contenido: Text(
+                entrada.calidadSueno.isNotEmpty
+                    ? 'Calidad del sueño: ${entrada.calidadSueno}/10'
+                    : 'No se registró la calidad del sueño.',
+                style: Theme.of(context).textTheme.bodyMedium, // Usar el tema
+              ),
+              delay: 200,
+            ),
+
+            // Nivel de dolor
+            EntradaDetalleTile(
+              titulo:
+                  '${_obtenerEmoticono('dolor', entrada.dolor)} Nivel de dolor',
+              contenido: Text(
+                entrada.dolor.isNotEmpty
+                    ? 'Nivel de dolor: ${entrada.dolor}/10'
+                    : 'No se registró el nivel de dolor.',
+                style: Theme.of(context).textTheme.bodyMedium, // Usar el tema
+              ),
+              delay: 300,
+            ),
+
+            // Áreas de dolor
+            if (entrada.areasDolor.isNotEmpty)
+              EntradaDetalleTile(
+                titulo: 'Áreas de dolor',
+                contenido: Wrap(
+                  spacing: 8,
+                  runSpacing: 4,
+                  children:
+                      entrada.areasDolor.map((area) {
+                        return Chip(
+                          label: Text(
+                            area,
+                            style:
+                                Theme.of(
+                                  context,
+                                ).textTheme.bodySmall, // Usar el tema
+                          ),
+                          backgroundColor: Colors.red[100],
+                        );
+                      }).toList(),
+                ),
+                delay: 400,
+              ),
+
+            // Descripción del dolor
+            EntradaDetalleTile(
+              titulo: 'Descripción del dolor',
+              contenido: Text(
+                entrada.descripcionDolor.isNotEmpty
+                    ? entrada.descripcionDolor
+                    : 'No se registró una descripción del dolor.',
+                style: Theme.of(context).textTheme.bodyMedium, // Usar el tema
+              ),
+              delay: 500,
             ),
 
             // Texto del diario
             EntradaDetalleTile(
               titulo: 'Descripción del día',
-              contenido: Text(entrada.texto, style: TextStyle(fontSize: 16)),
-              delay: 300,
+              contenido: Text(
+                entrada.texto,
+                style: Theme.of(context).textTheme.bodyMedium, // Usar el tema
+              ),
+              delay: 600,
             ),
 
             // Etiquetas (si existen)
@@ -72,12 +147,18 @@ class DetalleEntradaScreen extends StatelessWidget {
                   children:
                       entrada.etiquetas.map((etiqueta) {
                         return Chip(
-                          label: Text(etiqueta),
+                          label: Text(
+                            etiqueta,
+                            style:
+                                Theme.of(
+                                  context,
+                                ).textTheme.bodySmall, // Usar el tema
+                          ),
                           backgroundColor: Colors.grey[200],
                         );
                       }).toList(),
                 ),
-                delay: 500,
+                delay: 700,
               ),
 
             // Imagen (solo si existe)
@@ -96,12 +177,45 @@ class DetalleEntradaScreen extends StatelessWidget {
                             Center(child: Text('No se pudo cargar la imagen.')),
                   ),
                 ),
-                delay: 700,
+                delay: 800,
               ),
           ],
         ),
       ),
     );
+  }
+
+  String _obtenerEmoticono(String campo, String valor) {
+    switch (campo) {
+      case 'estadoAnimo':
+        switch (valor) {
+          case 'Feliz':
+            return '😊';
+          case 'Neutral':
+            return '😐';
+          case 'Triste':
+            return '😢';
+          case 'Enfadado':
+            return '😠';
+          case 'Ansioso':
+            return '😟';
+          default:
+            return '❓';
+        }
+      case 'calidadSueno':
+        final calidad = int.tryParse(valor) ?? 0;
+        if (calidad >= 8) return '😴'; // Excelente calidad de sueño
+        if (calidad >= 5) return '😌'; // Calidad de sueño aceptable
+        return '😟'; // Mala calidad de sueño
+      case 'dolor':
+        final nivelDolor = int.tryParse(valor) ?? 0;
+        if (nivelDolor == 0) return '😄'; // Sin dolor
+        if (nivelDolor <= 3) return '🙂'; // Dolor leve
+        if (nivelDolor <= 6) return '😕'; // Dolor moderado
+        return '😖'; // Dolor severo
+      default:
+        return ''; // Sin emoticono
+    }
   }
 }
 
@@ -172,11 +286,9 @@ class _EntradaDetalleTileState extends State<EntradaDetalleTile>
             children: [
               Text(
                 widget.titulo,
-                style: TextStyle(
-                  fontSize: 18,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
+                ), // Usar el tema
               ),
               SizedBox(height: 6),
               widget.contenido,

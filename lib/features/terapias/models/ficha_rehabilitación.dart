@@ -31,38 +31,44 @@ class FichaRehabilitacion {
 
   factory FichaRehabilitacion.fromJson(Map<String, dynamic> json) {
     return FichaRehabilitacion(
-      idTerapia: json['id']?.toString() ?? '',
-      titulo: json['titulo']?.toString() ?? '',
-      objetivo: json['objetivo']?.toString() ?? '',
-      indicaciones: json['indicacion']?.toString() ?? '',
-      descripcionTerapia: json['descripcion']?.toString() ?? '',
-      comoSeRealiza: json['comoSeRealiza']?.toString() ?? '',  // Corregido el 'o' extra
-      observacionesProfesionales: json['observacionesProfesionales']?.toString() ?? '',
-      observacionesTecnica: json['observacionesTecnica']?.toString() ?? '',
-      saberMas: json['saberMas']?.toString() ?? '',
-      videoURL: json['videoUrl']?.toString() ?? '',
-      quienesLaRealizan: json['quienesLaRealizan'] != null
-          ? List<String>.from(json['quienesLaRealizan'])
-          : [],
-      areasIntervencion: json['areasIntervencion'] != null
-          ? List<String>.from(json['areasIntervencion'])
-          : [],
+      idTerapia: json['id'] ?? '', // Podría ser 'id' en lugar de 'idTerapia'
+      titulo: json['titulo'] ?? '',
+      objetivo: json['objetivo'] ?? '',
+      indicaciones:
+          json['indicacion'] ?? '', // Corregido: 'indicacion' en el JSON
+      descripcionTerapia:
+          json['descripcion'] ?? '', // Corregido: 'descripcion' en el JSON
+      comoSeRealiza: json['comoSeRealiza'] ?? '',
+      observacionesProfesionales: json['observacionesProfesionales'] ?? '',
+      observacionesTecnica: json['observacionesTecnica'] ?? '',
+      saberMas: json['saberMas'] ?? '',
+      videoURL:
+          json['videoUrl'] ??
+          '', // Ya estaba correcto en tu código, pero he añadido el operador ??
+      quienesLaRealizan:
+          json['quienesLaRealizan'] != null
+              ? List<String>.from(json['quienesLaRealizan'])
+              : [],
+      areasIntervencion:
+          json['areasIntervencion'] != null
+              ? List<String>.from(json['areasIntervencion'])
+              : [],
     );
   }
 
   // Define un metodo toJson para convertir el objeto a JSON
   Map<String, dynamic> toJson() {
     return {
-      'idTerapia': idTerapia,
+      'id': idTerapia, // Cambiado para coincidir con el JSON
       'titulo': titulo,
       'objetivo': objetivo,
-      'indicaciones': indicaciones,
-      'descripcionTerapia': descripcionTerapia,
+      'indicacion': indicaciones, // Cambiado para coincidir con el JSON
+      'descripcion': descripcionTerapia, // Cambiado para coincidir con el JSON
       'comoSeRealiza': comoSeRealiza,
       'observacionesProfesionales': observacionesProfesionales,
       'observacionesTecnica': observacionesTecnica,
       'saberMas': saberMas,
-      'videoUrl': videoURL,
+      'videoUrl': videoURL, // Cambiado para coincidir con el JSON
       'quienesLaRealizan': quienesLaRealizan,
       'areasIntervencion': areasIntervencion,
     };
