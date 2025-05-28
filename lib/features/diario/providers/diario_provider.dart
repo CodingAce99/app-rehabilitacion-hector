@@ -19,17 +19,27 @@ class DiarioProvider with ChangeNotifier {
     String titulo,
     String texto,
     String estadoAnimo,
-    List<String> etiquetas, {
+    String dolor,
+    String calidadSueno,
+    String terapia,
+    List<String> etiquetas,
     String? imagenPath,
-  }) {
+    List<String> areasDolorSeleccionadas,
+    String descripcionDolor,
+  ) {
     final nueva = EntradaDiario(
       id: const Uuid().v4(),
       fecha: DateTime.now(),
       titulo: titulo,
       texto: texto,
       estadoAnimo: estadoAnimo,
+      dolor: dolor,
+      calidadSueno: calidadSueno,
+      terapia: terapia,
       etiquetas: etiquetas,
       imagenPath: imagenPath,
+      areasDolor: areasDolorSeleccionadas,
+      descripcionDolor: descripcionDolor,
     );
     _entradas.insert(0, nueva);
     guardarEntradas();
@@ -42,9 +52,15 @@ class DiarioProvider with ChangeNotifier {
     String titulo,
     String texto,
     String estadoAnimo,
-    List<String> etiquetas, [
+    String dolor,
+    String calidadSueno,
+    String terapia,
+    List<String> etiquetas,
+    List<String> areasDolorSeleccionadas,
     String? imagenPath,
-  ]) {
+    List<String> areasDolor,
+    String descripcionDolor,
+  ) {
     // Nota: indexWhere busca el primer elemento que cumple la condición
     // en este caso, el indice de la entrada cuyo id coincida con el que se quiere editar
     final index = _entradas.indexWhere((entradas) => entradas.id == id);
@@ -57,8 +73,13 @@ class DiarioProvider with ChangeNotifier {
         titulo: titulo, // Usa el nuevo título original
         texto: texto,
         estadoAnimo: estadoAnimo,
+        dolor: dolor,
+        calidadSueno: calidadSueno,
+        terapia: terapia,
         etiquetas: etiquetas,
         imagenPath: imagenPath,
+        areasDolor: areasDolorSeleccionadas,
+        descripcionDolor: descripcionDolor,
       );
       guardarEntradas(); // Guarda en SharedPreferences
       notifyListeners(); // Actualiza la UI donde se usa el provider
@@ -87,5 +108,26 @@ class DiarioProvider with ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     final jsonData = json.encode(_entradas.map((e) => e.toJson()).toList());
     await prefs.setString('diario', jsonData);
+  }
+
+  // Obtiene la distribución de estados de ánimo presentes en las entradas del diario
+  Map<String, int> obtenerDistribucionEstadosAnimo() {
+    final distribucion = <String, int>{
+      'Feliz': 0,
+      'Triste': 0,
+      'Enojado': 0,
+      'Ansioso': 0,
+      'Neutral': 0,
+    };
+
+    for (var entrada in entradas) {
+      if (entrada.estadoAnimo.isNotEmpty &&
+          distribucion.containsKey(entrada.estadoAnimo)) {
+        distribucion[entrada.estadoAnimo] =
+            (distribucion[entrada.estadoAnimo] ?? 0) + 1;
+      }
+    }
+
+    return distribucion;
   }
 }
