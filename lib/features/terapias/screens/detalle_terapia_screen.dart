@@ -67,7 +67,7 @@ class DetalleTerapiaScreen extends StatelessWidget {
                   leading: Icon(Icons.assignment_outlined),
 
                   title: Text(
-                    '${ficha.idTerapia.toUpperCase()} - ${ficha.titulo}',
+                    '${ficha.id.toUpperCase()} - ${ficha.titulo}',
                     style: TextStyle(fontSize: 16),
                   ),
                   trailing: Icon(Icons.arrow_forward_ios_outlined),

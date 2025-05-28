@@ -74,7 +74,7 @@ class _DetalleFichaScreenState extends State<DetalleFichaScreen> {
                   ),
                   _buildCard(
                     titulo: 'Indicación',
-                    contenido: ficha.indicaciones,
+                    contenido: ficha.indicacion,
                     icono: Icons.info,
                   ),
 
@@ -121,9 +121,9 @@ class _DetalleFichaScreenState extends State<DetalleFichaScreen> {
                   const SizedBox(height: 30),
 
                   // Botón opcional para abrir el video en el navegador
-                  if (ficha.videoURL.isNotEmpty)
+                  if (ficha.videoUrl.isNotEmpty)
                     VideoCard(
-                      videoUrl: ficha.videoURL,
+                      videoUrl: ficha.videoUrl,
                       titulo: 'Ver video explicativo',
                     ),
                 ],

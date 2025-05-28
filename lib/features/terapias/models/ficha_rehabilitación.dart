@@ -1,50 +1,48 @@
 class FichaRehabilitacion {
-  final String idTerapia; // para enlazar con la terapia
-  final String titulo; // Título principal
-  final String objetivo; // Objetivo de la terapia
-  final String indicaciones; // Casos en los que se recomienda la terapia
-  final String descripcionTerapia; // Explicaciónn general de la terapia
-  final String comoSeRealiza; // Procedimiento o pasos para realizar la terapia
-  final String
-  observacionesProfesionales; // Recomendaciones profesionales adicionales
-  final String observacionesTecnica; // Observaciones técnicas
-  final String saberMas; // Información extra o consejos
-  final String videoURL; // URL del video relacionado (opcional)
-  final List<String>
-  quienesLaRealizan; // Lista de profesionales que la realizan
-  final List<String> areasIntervencion; // Áreas de intervención
+  final String id; // para enlazar con la terapia
+  final String titulo;
+  final String objetivo;
+  final String indicacion; // Casos en los que se recomienda la terapia
+  final String descripcionTerapia;
+  final String comoSeRealiza;
+  final String observacionesProfesionales;
+  final String observacionesTecnica;
+  final String saberMas;
+  final String videoUrl;
+  final List<String> quienesLaRealizan;
+  final List<String> areasIntervencion;
 
   FichaRehabilitacion({
-    required this.idTerapia,
+    required this.id,
     required this.titulo,
     required this.objetivo,
-    required this.indicaciones,
+    required this.indicacion,
     required this.descripcionTerapia,
     required this.observacionesProfesionales,
     required this.observacionesTecnica,
     required this.comoSeRealiza,
     required this.saberMas,
-    required this.videoURL,
+    required this.videoUrl,
     required this.quienesLaRealizan,
     required this.areasIntervencion,
   });
 
   factory FichaRehabilitacion.fromJson(Map<String, dynamic> json) {
     return FichaRehabilitacion(
-      idTerapia: json['id'] ?? '', // Podría ser 'id' en lugar de 'idTerapia'
+      id: json['id'] ?? '',
       titulo: json['titulo'] ?? '',
       objetivo: json['objetivo'] ?? '',
-      indicaciones:
-          json['indicacion'] ?? '', // Corregido: 'indicacion' en el JSON
-      descripcionTerapia:
-          json['descripcion'] ?? '', // Corregido: 'descripcion' en el JSON
-      comoSeRealiza: json['comoSeRealiza'] ?? '',
+      indicacion: json['indicacion'] ?? '',
+      descripcionTerapia: json['descripcion'] ?? '',
+      // Manejar el campo comoSeRealiza que puede ser lista o string
+      comoSeRealiza:
+          json['comoSeRealiza'] is List
+              ? (json['comoSeRealiza'] as List).join('\n')
+              : json['comoSeRealiza']?.toString() ?? '',
       observacionesProfesionales: json['observacionesProfesionales'] ?? '',
       observacionesTecnica: json['observacionesTecnica'] ?? '',
       saberMas: json['saberMas'] ?? '',
-      videoURL:
-          json['videoUrl'] ??
-          '', // Ya estaba correcto en tu código, pero he añadido el operador ??
+      videoUrl: json['videoUrl'] ?? '',
       quienesLaRealizan:
           json['quienesLaRealizan'] != null
               ? List<String>.from(json['quienesLaRealizan'])
@@ -59,16 +57,16 @@ class FichaRehabilitacion {
   // Define un metodo toJson para convertir el objeto a JSON
   Map<String, dynamic> toJson() {
     return {
-      'id': idTerapia, // Cambiado para coincidir con el JSON
+      'id': id,
       'titulo': titulo,
       'objetivo': objetivo,
-      'indicacion': indicaciones, // Cambiado para coincidir con el JSON
-      'descripcion': descripcionTerapia, // Cambiado para coincidir con el JSON
+      'indicacion': indicacion,
+      'descripcion': descripcionTerapia,
       'comoSeRealiza': comoSeRealiza,
       'observacionesProfesionales': observacionesProfesionales,
       'observacionesTecnica': observacionesTecnica,
       'saberMas': saberMas,
-      'videoUrl': videoURL, // Cambiado para coincidir con el JSON
+      'videoUrl': videoUrl,
       'quienesLaRealizan': quienesLaRealizan,
       'areasIntervencion': areasIntervencion,
     };
