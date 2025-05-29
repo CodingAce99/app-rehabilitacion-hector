@@ -1,18 +1,150 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'dart:math';
 import '../diario/providers/diario_provider.dart';
 import '../diario/models/entrada_diario.dart';
 
-class EstadisticasScreen extends StatelessWidget {
+// Extensión para obtener tonos mas oscuros o claros de un color
+extension ColorExtension on Color {
+  Color get darker {
+    const amount = 0.1;
+    final HSLColor hsl = HSLColor.fromColor(this);
+    final adjustedLightness = (hsl.lightness - amount).clamp(0.0, 1.0);
+    return hsl.withLightness(adjustedLightness).toColor();
+  }
+
+  Color get lighter {
+    const amount = 0.1;
+    final HSLColor hsl = HSLColor.fromColor(this);
+    final adjustedLightness = (hsl.lightness + amount).clamp(0.0, 1.0);
+    return hsl.withLightness(adjustedLightness).toColor();
+  }
+}
+
+enum PeriodoEstadisticas { dias7, dias30, dias90, completo }
+
+class EstadisticasScreen extends StatefulWidget {
+  const EstadisticasScreen({super.key});
+
+  @override
+  _EstadisticasScreenState createState() => _EstadisticasScreenState();
+}
+
+class _EstadisticasScreenState extends State<EstadisticasScreen> {
+  PeriodoEstadisticas _periodoSeleccionado =
+      PeriodoEstadisticas.dias30; // Periodo por defecto
+
+  // Filtrar entradas según el período seleccionado
+  List<EntradaDiario> _filtrarEntradasPorPeriodo(
+    List<EntradaDiario> entradas,
+    PeriodoEstadisticas periodo,
+  ) {
+    if (periodo == PeriodoEstadisticas.completo) {
+      return entradas;
+    }
+
+    final ahora = DateTime.now();
+    int diasAtras;
+
+    switch (periodo) {
+      case PeriodoEstadisticas.dias7:
+        diasAtras = 7;
+        break;
+      case PeriodoEstadisticas.dias30:
+        diasAtras = 30;
+        break;
+      case PeriodoEstadisticas.dias90:
+        diasAtras = 90;
+        break;
+      default:
+        diasAtras = 30; // Por defecto
+    }
+
+    final fechaLimite = ahora.subtract(Duration(days: diasAtras));
+    return entradas.where((entrada) {
+      return entrada.fecha.isAfter(fechaLimite);
+    }).toList();
+  }
+
+  // Método para construir el selector de período
+  Widget _buildPeriodoSelector() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            _buildPeriodoChip(PeriodoEstadisticas.dias7, '7 días'),
+            const SizedBox(width: 8),
+            _buildPeriodoChip(PeriodoEstadisticas.dias30, '30 días'),
+            const SizedBox(width: 8),
+            _buildPeriodoChip(PeriodoEstadisticas.dias90, '90 días'),
+            const SizedBox(width: 8),
+            _buildPeriodoChip(PeriodoEstadisticas.completo, 'Todo'),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Construye cada chip de selección de período
+  Widget _buildPeriodoChip(PeriodoEstadisticas periodo, String label) {
+    final isSelected = _periodoSeleccionado == periodo;
+    final theme = Theme.of(context);
+
+    return FilterChip(
+      label: Text(label),
+      selected: isSelected,
+      checkmarkColor: theme.colorScheme.onPrimary,
+      selectedColor: theme.colorScheme.primary,
+      labelStyle: TextStyle(
+        color:
+            isSelected
+                ? theme.colorScheme.onPrimary
+                : theme.textTheme.bodyMedium?.color,
+        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(
+          color: isSelected ? theme.colorScheme.primary : theme.dividerColor,
+        ),
+      ),
+      onSelected: (selected) {
+        if (selected) {
+          setState(() {
+            _periodoSeleccionado = periodo;
+          });
+        }
+      },
+    );
+  }
+
   // Uso de FutureBuilder para manejar la carga de datos
   Future<Map<String, dynamic>> _calcularEstadisticas(
     List<EntradaDiario> entradas,
   ) async {
+    // Filtrar entradas según el período seleccionado
+    final entradasFiltradas = _filtrarEntradasPorPeriodo(
+      entradas,
+      _periodoSeleccionado,
+    );
+
+    // Imprimir información para depuración
+    print('Periodo seleccionado: $_periodoSeleccionado');
+    print('Entradas filtradas: ${entradasFiltradas.length}');
+
     return Future.delayed(Duration(milliseconds: 100), () {
-      final estadosAnimo = _calcularDistribucionEstadosAnimo(entradas);
-      final promedioCalidadSueno = _calcularPromedioCalidadSueno(entradas);
-      final promedioNivelDolor = _calcularPromedioNivelDolor(entradas);
+      final estadosAnimo = _calcularDistribucionEstadosAnimo(entradasFiltradas);
+      final promedioCalidadSueno = _calcularPromedioCalidadSueno(
+        entradasFiltradas,
+      );
+      final promedioNivelDolor = _calcularPromedioNivelDolor(entradasFiltradas);
+
+      // Imprimir estadísticas calculadas para depuración
+      print('Estados de ánimo: $estadosAnimo');
+
       return {
         'estadosAnimo': estadosAnimo,
         'promedioCalidadSueno': promedioCalidadSueno,
@@ -20,8 +152,6 @@ class EstadisticasScreen extends StatelessWidget {
       };
     });
   }
-
-  const EstadisticasScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +176,8 @@ class EstadisticasScreen extends StatelessWidget {
       appBar: AppBar(title: Text('Estadísticas')),
       body: SafeArea(
         child: FutureBuilder(
+          // Clave que cambia cuando cambia el período para forzar la reconstrucción
+          key: ValueKey(_periodoSeleccionado),
           future: _calcularEstadisticas(entradas),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -75,6 +207,26 @@ class EstadisticasScreen extends StatelessWidget {
             final promedioCalidadSueno = data['promedioCalidadSueno'] as double;
             final promedioNivelDolor = data['promedioNivelDolor'] as double;
 
+            // Determinar si hay datos suficientes para mostrar
+            final hayDatos =
+                estadosAnimo.isNotEmpty ||
+                promedioCalidadSueno > 0 ||
+                promedioNivelDolor > 0;
+
+            if (!hayDatos) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildPeriodoSelector(),
+                  const SizedBox(height: 24),
+                  Text(
+                    'No hay datos suficientes para el período seleccionado.',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                ],
+              );
+            }
+
             return SingleChildScrollView(
               physics: AlwaysScrollableScrollPhysics(),
               child: ConstrainedBox(
@@ -89,42 +241,71 @@ class EstadisticasScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // Añadir selector de período al principio
+                      _buildPeriodoSelector(),
+
                       Text(
-                        'Distribución de estados de ánimo',
+                        'Estado de ánimo',
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       SizedBox(height: 4),
-                      Container(
-                        height: 270,
-                        child: _crearGraficoCircular(context, estadosAnimo),
+                      SizedBox(
+                        height: 280,
+                        child:
+                            estadosAnimo.isNotEmpty
+                                ? _crearGraficoCircular(context, estadosAnimo)
+                                : Center(
+                                  child: Text(
+                                    'No hay datos de estados de ánimo para este período.',
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
                       ),
                       Divider(height: 24),
+
                       Text(
-                        'Promedio de calidad del sueño',
+                        'Calidad del sueño',
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
-                      SizedBox(height: 4),
-                      Container(
-                        height: 270,
-                        child: _crearGraficoBarra(
-                          context,
-                          'Calidad del sueño',
-                          promedioCalidadSueno,
-                        ),
+                      SizedBox(height: 16),
+                      SizedBox(
+                        height: 280,
+                        child:
+                            promedioCalidadSueno > 0
+                                ? _crearGraficoLinea(
+                                  context,
+                                  'Calidad del sueño',
+                                  promedioCalidadSueno,
+                                )
+                                : Center(
+                                  child: Text(
+                                    'No hay datos de calidad de sueño para este período.',
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
                       ),
                       Divider(height: 24),
+
                       Text(
-                        'Promedio del nivel de dolor',
+                        'Nivel de dolor',
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       SizedBox(height: 4),
-                      Container(
-                        height: 270,
-                        child: _crearGraficoBarra(
-                          context,
-                          'Nivel de dolor',
-                          promedioNivelDolor,
-                        ),
+                      SizedBox(
+                        height: 280,
+                        child:
+                            promedioNivelDolor > 0
+                                ? _crearGraficoLinea(
+                                  context,
+                                  'Nivel de dolor',
+                                  promedioNivelDolor,
+                                )
+                                : Center(
+                                  child: Text(
+                                    'No hay datos de nivel de dolor para este período.',
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
                       ),
                       SizedBox(height: 4), // Espacio adicional al final
                     ],
@@ -188,8 +369,10 @@ class EstadisticasScreen extends StatelessWidget {
   }
 
   // Crear gráfico circular para estados de ánimo
+  // Crear gráfico circular para estados de ánimo
   Widget _crearGraficoCircular(BuildContext context, Map<String, int> data) {
     final total = data.values.fold(0, (sum, value) => sum + value);
+
     if (total == 0) {
       return Center(
         child: Text(
@@ -199,79 +382,90 @@ class EstadisticasScreen extends StatelessWidget {
       );
     }
 
+    // Ordenar los estados de ánimo por frecuencia (de mayor a menor)
+    final List<MapEntry<String, int>> sortedEntries =
+        data.entries.toList()..sort((a, b) => b.value.compareTo(a.value));
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         AspectRatio(
-          aspectRatio: 1.8, // Relación de aspecto más ancha
+          aspectRatio: 1.8, // Proporción horizontal del gráfico
           child: PieChart(
             PieChartData(
-              sectionsSpace: 2,
-              centerSpaceRadius:
-                  35, // Reducir para hacer el gráfico más pequeño
+              sectionsSpace: 3, // Espacio entre secciones
+              centerSpaceRadius: 40, // Radio del espacio central
               sections:
-                  data.entries.map((entry) {
+                  sortedEntries.map((entry) {
                     final porcentaje = (entry.value / total) * 100;
                     return PieChartSectionData(
-                      value: porcentaje,
+                      value: entry.value.toDouble(),
                       title: '${porcentaje.toStringAsFixed(0)}%',
                       titleStyle: TextStyle(
-                        fontSize: 14, // Texto más pequeño
+                        fontSize: 14,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
+                        shadows: [Shadow(color: Colors.black26, blurRadius: 2)],
                       ),
                       color: _obtenerColorEstadoAnimo(entry.key),
-                      radius: 45, // Reducir el radio
+                      radius: 50, // Radio de la sección
+                      borderSide: BorderSide(color: Colors.white, width: 1.5),
                     );
                   }).toList(),
+              // Información opcional al tocar
+              pieTouchData: PieTouchData(
+                touchCallback: (FlTouchEvent event, pieTouchResponse) {},
+                enabled: true,
+              ),
             ),
           ),
         ),
-        SizedBox(height: 4),
-        // Leyenda como una fila centrada
-        Center(
+        SizedBox(height: 16),
+        // Leyenda de colores y estados
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 8),
           child: Wrap(
-            spacing: 12, // Menos espacio horizontal
-            runSpacing: 4, // Menos espacio vertical
+            spacing: 16, // Espacio horizontal entre elementos
+            runSpacing: 8, // Espacio vertical entre filas
             alignment: WrapAlignment.center,
             children:
-                data.keys
-                    .map(
-                      (estado) => Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 3,
-                          vertical: 1,
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              width: 10, // Más pequeño
-                              height: 10, // Más pequeño
-                              decoration: BoxDecoration(
-                                color: _obtenerColorEstadoAnimo(estado),
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                            SizedBox(width: 3), // Menos espacio
-                            Text(
-                              estado,
-                              style: Theme.of(context).textTheme.bodyMedium,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
+                sortedEntries.map((entry) {
+                  final estado = entry.key;
+                  final cantidad = entry.value;
+                  final color = _obtenerColorEstadoAnimo(estado);
+
+                  return Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 12,
+                        height: 12,
+                        decoration: BoxDecoration(
+                          color: color,
+                          shape: BoxShape.circle,
                         ),
                       ),
-                    )
-                    .toList(),
+                      SizedBox(width: 4),
+                      Text(
+                        "$estado ($cantidad)",
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ],
+                  );
+                }).toList(),
           ),
         ),
       ],
     );
   }
 
-  Widget _crearGraficoBarra(BuildContext context, String titulo, double valor) {
-    if (valor <= 0) {
+  // Gráfico de líneas para mostrar valores históricos
+  Widget _crearGraficoLinea(
+    BuildContext context,
+    String titulo,
+    double valorPromedio,
+  ) {
+    if (valorPromedio <= 0) {
       return Center(
         child: Text(
           'No hay datos suficientes para mostrar el gráfico.',
@@ -279,84 +473,151 @@ class EstadisticasScreen extends StatelessWidget {
         ),
       );
     }
-    return BarChart(
-      BarChartData(
-        alignment: BarChartAlignment.center,
-        maxY: 10,
-        minY: 0,
+
+    final diarioProvider = Provider.of<DiarioProvider>(context);
+    List<EntradaDiario> entradasFiltradas = _filtrarEntradasPorPeriodo(
+      diarioProvider.entradas,
+      _periodoSeleccionado,
+    );
+
+    // Colores pastel para el gráfico
+    final Color lineColor =
+        titulo.contains('sueño')
+            ? const Color(0xFFB5CFE1) // Azul pastel
+            : const Color(0xFFF6B6A8); // Rojo/naranja pastel
+
+    // Obtener datos históricos reales
+    final tipoMedicion = titulo.contains('sueño') ? 'sueño' : 'dolor';
+    final spots = _prepararDatosHistoricos(entradasFiltradas, tipoMedicion);
+
+    if (spots.isEmpty) {
+      return Center(
+        child: Text(
+          'No hay suficientes datos históricos para este período.',
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
+      );
+    }
+
+    // Obtener las fechas para las etiquetas
+    final fechas = _obtenerFechasFormateadas(entradasFiltradas);
+
+    return LineChart(
+      LineChartData(
         gridData: FlGridData(
           show: true,
-          horizontalInterval: 2, // Menos líneas horizontales para no saturar
+          horizontalInterval: 2,
+          drawVerticalLine: false,
+          getDrawingHorizontalLine: (value) {
+            return FlLine(
+              color: Colors.grey.withOpacity(0.2), // Línea horizontal sutil
+              strokeWidth: 1,
+            );
+          },
         ),
-        barGroups: [
-          BarChartGroupData(
-            x: 0,
-            barRods: [
-              BarChartRodData(
-                toY: valor,
-                color: Colors.blue,
-                width: 30, // Un poco más estrecho
-                borderRadius: BorderRadius.circular(4),
-              ),
-            ],
-            showingTooltipIndicators: [0],
-          ),
-        ],
         titlesData: FlTitlesData(
           show: true,
           topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
           rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
           bottomTitles: AxisTitles(
+            axisNameWidget: Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Text(
+                titulo,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
             sideTitles: SideTitles(
               showTitles: true,
-              reservedSize: 24, // Un poco menor
+              reservedSize: 24,
               getTitlesWidget: (value, meta) {
-                return Padding(
-                  padding: const EdgeInsets.only(top: 5.0), // Menos padding
-                  child: Text(
-                    titulo,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontSize: 14, // Texto más pequeño
-                      fontWeight: FontWeight.bold,
+                final int idx = value.toInt();
+                if (idx >= 0 && idx < fechas.length) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 5.0),
+                    child: Text(
+                      fechas[idx],
+                      style: const TextStyle(fontSize: 10),
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                );
+                  );
+                }
+                return const SizedBox.shrink();
               },
             ),
           ),
           leftTitles: AxisTitles(
             sideTitles: SideTitles(
               showTitles: true,
-              reservedSize: 24, // Un poco menor
-              interval: 2, // Mostrar números cada 2 unidades
+              reservedSize: 24,
+              interval: 2,
               getTitlesWidget: (value, meta) {
                 if (value % 2 == 0) {
-                  // Solo mostrar números pares
                   return Text(
                     value.toInt().toString(),
                     style: Theme.of(context).textTheme.bodySmall,
                   );
-                } else {
-                  return const SizedBox.shrink();
                 }
+                return const SizedBox.shrink();
               },
             ),
           ),
         ),
-        barTouchData: BarTouchData(
-          enabled: true,
-          touchTooltipData: BarTouchTooltipData(
-            tooltipBgColor: Colors.grey[200]!,
-            tooltipPadding: EdgeInsets.symmetric(
-              horizontal: 8,
-              vertical: 3,
-            ), // Un poco menor
-            getTooltipItem: (group, groupIndex, rod, rodIndex) {
-              return BarTooltipItem(
-                '${rod.toY.toStringAsFixed(1)}',
-                TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-              );
+        borderData: FlBorderData(show: false),
+        minX: 0,
+        maxX: spots.length - 1.0,
+        minY: 0,
+        maxY: 10,
+        lineBarsData: [
+          LineChartBarData(
+            spots: spots,
+            isCurved: true,
+            color: lineColor,
+            barWidth: 3,
+            isStrokeCapRound: true,
+            dotData: FlDotData(
+              show: true,
+              getDotPainter: (spot, percent, barData, index) {
+                // Destacar el último punto (valor más reciente)
+                if (index == spots.length - 1) {
+                  return FlDotCirclePainter(
+                    radius: 6,
+                    color: lineColor,
+                    strokeWidth: 2,
+                    strokeColor: Colors.white,
+                  );
+                }
+                return FlDotCirclePainter(
+                  radius: 4,
+                  color: lineColor.withOpacity(0.8),
+                  strokeWidth: 1,
+                  strokeColor: Colors.white,
+                );
+              },
+            ),
+            belowBarData: BarAreaData(
+              show: true,
+              color: lineColor.withOpacity(0.2),
+            ),
+          ),
+        ],
+        lineTouchData: LineTouchData(
+          touchTooltipData: LineTouchTooltipData(
+            tooltipBgColor: Colors.white,
+            tooltipRoundedRadius: 8,
+            tooltipPadding: const EdgeInsets.all(8),
+            getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
+              return touchedBarSpots.map((barSpot) {
+                return LineTooltipItem(
+                  '${barSpot.y.toStringAsFixed(1)}',
+                  TextStyle(
+                    color: lineColor.darker,
+                    fontWeight: FontWeight.bold,
+                  ),
+                );
+              }).toList();
             },
           ),
         ),
@@ -364,21 +625,80 @@ class EstadisticasScreen extends StatelessWidget {
     );
   }
 
+  // Prepara los datos históricos para el gráfico de líneas
+  List<FlSpot> _prepararDatosHistoricos(
+    List<EntradaDiario> entradas,
+    String tipoMedicion, // 'sueño' o 'dolor'
+  ) {
+    if (entradas.isEmpty) return [];
+
+    // Ordena las entradas por fecha (de más antigua a más reciente)
+    final entradasOrdenadas = List<EntradaDiario>.from(entradas)
+      ..sort((a, b) => a.fecha.compareTo(b.fecha));
+
+    // Limite a mostrar un máximo de 8 puntos para no sobrecargar el gráfico
+    final cantidadPuntos =
+        entradasOrdenadas.length > 8 ? 8 : entradasOrdenadas.length;
+    final entradasMostradas =
+        entradasOrdenadas.length > 8
+            ? entradasOrdenadas.sublist(entradasOrdenadas.length - 8)
+            : entradasOrdenadas;
+
+    List<FlSpot> spots = [];
+
+    // Crea los puntos para el gráfico
+    for (int i = 0; i < entradasMostradas.length; i++) {
+      final entrada = entradasMostradas[i];
+      double valor;
+
+      if (tipoMedicion == 'sueño') {
+        valor = double.tryParse(entrada.calidadSueno) ?? 0;
+      } else {
+        // dolor
+        valor = double.tryParse(entrada.dolor) ?? 0;
+      }
+
+      spots.add(FlSpot(i.toDouble(), valor));
+    }
+
+    return spots;
+  }
+
+  // Obtiene las fechas formateadas para las etiquetas del eje X
+  List<String> _obtenerFechasFormateadas(List<EntradaDiario> entradas) {
+    if (entradas.isEmpty) return [];
+
+    // Ordena las entradas por fecha
+    final entradasOrdenadas = List<EntradaDiario>.from(entradas)
+      ..sort((a, b) => a.fecha.compareTo(b.fecha));
+
+    // Limita a 8 fechas
+    final entradasMostradas =
+        entradasOrdenadas.length > 8
+            ? entradasOrdenadas.sublist(entradasOrdenadas.length - 8)
+            : entradasOrdenadas;
+
+    // Formatea las fechas como dd/MM
+    return entradasMostradas.map((entrada) {
+      return '${entrada.fecha.day}/${entrada.fecha.month}';
+    }).toList();
+  }
+
   // Obtener color para cada estado de ánimo
   Color _obtenerColorEstadoAnimo(String estado) {
     switch (estado) {
       case 'Feliz':
-        return Colors.green;
+        return const Color(0xFFA8D5BA); // Verde pastel
       case 'Neutral':
-        return Colors.blue;
+        return const Color(0xFFB5CFE1); // Azul pastel
       case 'Triste':
-        return Colors.red;
+        return const Color(0xFFE2B6CF); // Rosa pastel
       case 'Enfadado':
-        return Colors.orange;
+        return const Color(0xFFF6B6A8); // Naranja/Rojo pastel
       case 'Ansioso':
-        return Colors.purple;
+        return const Color(0xFFF7D8AE); // Amarillo pastel
       default:
-        return Colors.grey;
+        return const Color(0xFFDCDCDC); // Gris claro pastel
     }
   }
 }

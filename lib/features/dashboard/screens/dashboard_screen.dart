@@ -79,9 +79,10 @@ class DashboardScreen extends StatelessWidget {
                     const SizedBox(height: 8),
                     SizedBox(
                       height: 260, // altura fija para gráfico + leyenda
-                      child: EstadoAnimoBarChart(
-                        resumenEstados:
-                            diarioProvider.obtenerDistribucionEstadosAnimo(),
+                      child: EstadoAnimoLineChart(
+                        /// Obtiene la distribución de estados de ánimo de los últimos 7 días
+                        resumenEstados: diarioProvider
+                            .obtenerDistribucionEstadosAnimoFiltrados(dias: 7),
                         estadoColores: {
                           'Feliz': const Color(0xFFA8D5BA),
                           'Triste': const Color(0xFFB5CFE1),

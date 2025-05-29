@@ -13,6 +13,9 @@ import 'features/terapias/providers/terapias_provider.dart';
 import 'features/terapias/providers/terapias_seguimiento_provider.dart';
 import 'core/theme/theme.dart';
 
+// Importacion de archivo de pruebas
+import 'test/estado_animo_chart_test.dart';
+
 // Punto de entrada de la aplicación
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Asegura que los widgets estén inicializados
@@ -62,6 +65,8 @@ class MyApp extends StatelessWidget {
                 showOnboarding
                     ? OnboardingScreen() // Pantalla de onboarding si no se ha visto
                     : DashboardScreen(), // Pantalla principal si ya se vio el onboarding
+            // ...(Rutas Tests)...
+            //home: EstadoAnimoChartTest(),
           );
         },
       ),

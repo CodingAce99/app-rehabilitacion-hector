@@ -130,4 +130,29 @@ class DiarioProvider with ChangeNotifier {
 
     return distribucion;
   }
+
+  // Añadir este nuevo método
+
+  // Obtener distribución de estados de ánimo filtrados por período (para el dashboard)
+  Map<String, int> obtenerDistribucionEstadosAnimoFiltrados({int dias = 7}) {
+    final ahora = DateTime.now();
+    final fechaLimite = ahora.subtract(Duration(days: dias));
+
+    // Filtrar entradas por fecha
+    final entradasFiltradas =
+        entradas.where((entrada) {
+          return entrada.fecha.isAfter(fechaLimite);
+        }).toList();
+
+    // Calcular distribución con las entradas filtradas
+    final distribucion = <String, int>{};
+    for (var entrada in entradasFiltradas) {
+      if (entrada.estadoAnimo.isNotEmpty) {
+        distribucion[entrada.estadoAnimo] =
+            (distribucion[entrada.estadoAnimo] ?? 0) + 1;
+      }
+    }
+
+    return distribucion;
+  }
 }
