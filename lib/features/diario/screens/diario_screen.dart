@@ -48,7 +48,10 @@ class _DiarioScreenState extends State<DiarioScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Entradas guardadas:'),
+            Text(
+              'Entradas guardadas:',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
             SizedBox(height: 10),
             Expanded(
               child:

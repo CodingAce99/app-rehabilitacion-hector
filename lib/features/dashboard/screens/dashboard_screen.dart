@@ -15,6 +15,7 @@ import '../widgets/acceso_rapido_card.dart';
 import '../widgets/resumen_estado_animo_chart.dart';
 import '../../terapias/providers/terapias_seguimiento_provider.dart';
 import '../../terapias/screens/seguimiento_terapias_screen.dart';
+import '../../user/providers/user_provider.dart';
 
 // Clase que representa la patalla principal (Dashboard) de la aplicación
 class DashboardScreen extends StatelessWidget {
@@ -181,11 +182,14 @@ class DashboardScreen extends StatelessWidget {
 
   // Saludo inicial
   Widget _buildSaludo(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+    final nombre = userProvider.user?.nombre ?? 'Usuario';
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '¡Hola, [Nombre]! 👋',
+          '¡Hola, $nombre! 👋',
           style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 24),
         ),
         const SizedBox(height: 4),
