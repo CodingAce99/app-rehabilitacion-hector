@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // ==========================================================================
-// Todavia no se ha implementado la lógica correspondiente en esta pantalla
+// Pantall de Ayuda y Soporte
 // ==========================================================================
 
 class HelpSupportScreen extends StatelessWidget {

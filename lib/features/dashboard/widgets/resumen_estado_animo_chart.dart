@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
+// Widget para mostrar un gráfico circular de esatados de ánimo
 class EstadoAnimoLineChart extends StatelessWidget {
-  final Map<String, int> resumenEstados;
-  final Map<String, Color> estadoColores;
+  final Map<String, int> resumenEstados; // Datos de los estados de ánimo
+  final Map<String, Color> estadoColores; // Colores asociados a cada estado
 
   const EstadoAnimoLineChart({
-    Key? key,
+    super.key,
     required this.resumenEstados,
     required this.estadoColores,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    // Verifica que haya datos
+    // Verifica que haya datos disponibles
     if (resumenEstados.isEmpty) {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              Icons.mood,
+              Icons.mood, // Icono para indicar ausencia de datos
               size: 48,
+              // ignore: deprecated_member_use
               color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
             ),
             const SizedBox(height: 16),
@@ -31,6 +33,7 @@ class EstadoAnimoLineChart extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: Theme.of(
                   context,
+                  // ignore: deprecated_member_use
                 ).textTheme.bodyLarge?.color?.withOpacity(0.7),
               ),
             ),
@@ -61,19 +64,18 @@ class EstadoAnimoLineChart extends StatelessWidget {
         ),
         const SizedBox(height: 4),
 
+        // Gráfico circular
         Expanded(
           child: PieChart(
             PieChartData(
-              sectionsSpace:
-                  2, // Espacio más pequeño entre secciones para el dashboard
-              centerSpaceRadius:
-                  35, // Radio del espacio central, más pequeño para el dashboard
+              sectionsSpace: 2, // Espacio entre secciones
+              centerSpaceRadius: 35, // Radio del espacio central
               sections:
                   sortedEntries.map((entry) {
                     final porcentaje = (entry.value / total) * 100;
                     return PieChartSectionData(
                       value: entry.value.toDouble(),
-                      title: '${porcentaje.toStringAsFixed(0)}%',
+                      title: '${porcentaje.toStringAsFixed(0)}%', // Porcentaje
                       titleStyle: TextStyle(
                         fontSize: 13, // Tamaño menor para el dashboard
                         fontWeight: FontWeight.bold,
@@ -88,7 +90,7 @@ class EstadoAnimoLineChart extends StatelessWidget {
               // Información opcional al tocar
               pieTouchData: PieTouchData(
                 touchCallback: (FlTouchEvent event, pieTouchResponse) {},
-                enabled: true,
+                enabled: true, // Interacción habilitada
               ),
             ),
           ),
@@ -102,6 +104,7 @@ class EstadoAnimoLineChart extends StatelessWidget {
     );
   }
 
+  // Construye la leyenda del gráfico
   Widget _buildLeyenda(
     BuildContext context,
     List<MapEntry<String, int>> entradas,

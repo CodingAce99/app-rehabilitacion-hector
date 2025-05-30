@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-import 'VideoPlayerScreen.dart';
+import 'video_player_screen.dart';
 
 // Pantalla principal que muestra los videos por categoría
 class VideosScreen extends StatefulWidget {
+  const VideosScreen({super.key});
+
   @override
   State<VideosScreen> createState() => _VideosScreenState();
 }
@@ -46,7 +48,7 @@ class _VideosScreenState extends State<VideosScreen> {
         'url': 'https://www.youtube.com/watch?v=zzAJCuMhft8',
       },
     ],
-    // Añadir mas categorias
+    // Aquí se pueden agregar más categorias
   };
 
   @override
@@ -178,7 +180,7 @@ class _VideosScreenState extends State<VideosScreen> {
                               ),
                             ),
                           );
-                        }).toList(),
+                        }),
                       ],
                     );
                   }).toList(),

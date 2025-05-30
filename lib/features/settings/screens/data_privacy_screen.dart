@@ -3,7 +3,7 @@ import '../../../core/services/preferences_service.dart';
 import '../widgets/custom_notification.dart';
 
 // ==========================================================================
-// Todavia no se ha implementado la lógica correspondiente en esta pantalla
+// Pantalla de configuración de datos y privacidad
 // ==========================================================================
 class DataPrivacyScreen extends StatefulWidget {
   const DataPrivacyScreen({super.key});
@@ -13,17 +13,19 @@ class DataPrivacyScreen extends StatefulWidget {
 }
 
 class _DataPrivacyScreenState extends State<DataPrivacyScreen> {
-  bool _dataRespaldoAutomatico = false;
-  bool _dataCompartirEstadisticas = false;
-  bool _exportacionEnCurso = false;
-  bool _importacionEnCurso = false;
+  // Variable para las opciones de configuración
+  bool _dataRespaldoAutomatico = false; // Opción de respaldo automático
+  bool _dataCompartirEstadisticas = false; // Opción de compartir estadísticas
+  bool _exportacionEnCurso = false; // Indica si se está exportando datos
+  bool _importacionEnCurso = false; // Indica si se está importando datos
 
   @override
   void initState() {
     super.initState();
-    _cargarPreferencias();
+    _cargarPreferencias(); // Cargar preferencias al iniciar
   }
 
+  // Carga las preferencias guardadas al iniciar la pantalla
   Future<void> _cargarPreferencias() async {
     final prefs = await PreferencesService.instance;
     setState(() {
@@ -34,6 +36,7 @@ class _DataPrivacyScreenState extends State<DataPrivacyScreen> {
     });
   }
 
+  // Guarda una preferencia específica
   Future<void> _guardarPreferencia(String clave, dynamic valor) async {
     final prefs = await PreferencesService.instance;
     if (valor is bool) {
@@ -252,6 +255,7 @@ class _DataPrivacyScreenState extends State<DataPrivacyScreen> {
     }
   }
 
+  // Importa datos desde un respaldo (en desarrollo)
   Future<void> _importarDatos(BuildContext context) async {
     // Mostrar diálogo de confirmación
     final confirmar = await showDialog<bool>(
@@ -295,6 +299,7 @@ class _DataPrivacyScreenState extends State<DataPrivacyScreen> {
     }
   }
 
+  // Muestra la política de privacidad
   void _mostrarPoliticaPrivacidad(BuildContext context) {
     showDialog(
       context: context,
@@ -342,6 +347,7 @@ class _DataPrivacyScreenState extends State<DataPrivacyScreen> {
     );
   }
 
+  // Descarga de datos personales (en desarrollo)
   void _descargarDatosPersonales(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
@@ -350,6 +356,7 @@ class _DataPrivacyScreenState extends State<DataPrivacyScreen> {
     );
   }
 
+  // Métodos para eliminar datos específicos y todos los datos
   void _eliminarDatosEspecificos(BuildContext context) {
     showDialog(
       context: context,
@@ -422,6 +429,7 @@ class _DataPrivacyScreenState extends State<DataPrivacyScreen> {
     );
   }
 
+  // Confirma la eliminación total de datos
   void _confirmarEliminacionTotal(BuildContext context) {
     // En una implementación real, aquí habría que validar que el usuario
     // escribió "ELIMINAR" antes de proceder con la eliminación

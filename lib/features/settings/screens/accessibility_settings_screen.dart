@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../core/services/preferences_service.dart';
 
 // ==========================================================================
-// Todavia no se ha implementado la lógica correspondiente en esta pantalla
+// Pantalla de configuración de accesibilidad
 // ==========================================================================
 
 class AccessibilitySettingsScreen extends StatefulWidget {
@@ -16,17 +16,18 @@ class AccessibilitySettingsScreen extends StatefulWidget {
 class _AccessibilitySettingsScreenState
     extends State<AccessibilitySettingsScreen> {
   // Valores de las opciones de accesibilidad
-  bool _altoContraste = false;
-  bool _reducirAnimaciones = false;
-  bool _textoGrande = false;
-  double _escalaDeFuente = 1.0;
+  bool _altoContraste = false; // Opción de alto contraste
+  bool _reducirAnimaciones = false; // Opción para reducir animaciones
+  bool _textoGrande = false; // Opción para texto grande
+  double _escalaDeFuente = 1.0; // Escala de fuente (porcentaje)
 
   @override
   void initState() {
     super.initState();
-    _cargarPreferencias();
+    _cargarPreferencias(); // Cargar preferencias guardadas al iniciar
   }
 
+  // Carga las preferencias de accesibilidad desde el servicio de preferencias
   Future<void> _cargarPreferencias() async {
     final prefs = await PreferencesService.instance;
     setState(() {
@@ -38,6 +39,7 @@ class _AccessibilitySettingsScreenState
     });
   }
 
+  // Guarda una preferencia específica en el servicio de preferencias
   Future<void> _guardarPreferencia(String clave, dynamic valor) async {
     final prefs = await PreferencesService.instance;
     if (valor is bool) {
@@ -66,7 +68,7 @@ class _AccessibilitySettingsScreenState
             ),
           ),
 
-          // Alto contraste
+          // Opción: Alto contraste
           SwitchListTile(
             title: const Text('Alto contraste'),
             subtitle: const Text(
@@ -82,7 +84,7 @@ class _AccessibilitySettingsScreenState
             },
           ),
 
-          // Texto grande
+          // Opción: Texto grande
           SwitchListTile(
             title: const Text('Texto más grande'),
             subtitle: const Text('Aumenta el tamaño del texto en toda la app'),
@@ -96,7 +98,7 @@ class _AccessibilitySettingsScreenState
             },
           ),
 
-          // Escala de fuente
+          // Opción: Escala de fuente
           ListTile(
             title: const Text('Escala de fuente'),
             subtitle: Text('${(_escalaDeFuente * 100).toStringAsFixed(0)}%'),
@@ -135,7 +137,7 @@ class _AccessibilitySettingsScreenState
             ),
           ),
 
-          // Reducir animaciones
+          // Opción: Reducir animaciones
           SwitchListTile(
             title: const Text('Reducir animaciones'),
             subtitle: const Text(
@@ -151,7 +153,7 @@ class _AccessibilitySettingsScreenState
             },
           ),
 
-          // Tiempo de presión prolongada
+          // Opción: Tiempo de presión prolongada
           ListTile(
             leading: const Icon(Icons.touch_app),
             title: const Text('Tiempo de presión prolongada'),
@@ -213,13 +215,13 @@ class _AccessibilitySettingsScreenState
             ),
           ),
 
+          // Opción: Asistente de voz
           ListTile(
             leading: const Icon(Icons.record_voice_over),
             title: const Text('Asistente de voz'),
             subtitle: const Text('Configuración de lectura de pantalla'),
             trailing: const Icon(Icons.chevron_right),
             onTap: () {
-              // Esto típicamente llevaría a la configuración del sistema
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text(

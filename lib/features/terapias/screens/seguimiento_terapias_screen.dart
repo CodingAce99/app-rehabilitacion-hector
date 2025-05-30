@@ -66,6 +66,7 @@ class SeguimientoTerapiasScreen extends StatelessWidget {
   /// METODOS PRIVADOS
   ///==================
 
+  /// Muestra un modal para agregar una nueva terapia al seguimiento.
   void _mostrarModalAgregarTerapia(BuildContext context) async {
     String? categoriaSeleccionada;
     FichaRehabilitacion? fichaSeleccionada;

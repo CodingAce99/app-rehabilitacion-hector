@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/entrada_diario.dart';
 
+// Pantalla para mostrar los detalles de una entrada del diario
 class DetalleEntradaScreen extends StatelessWidget {
   final EntradaDiario entrada;
 
-  const DetalleEntradaScreen({Key? key, required this.entrada})
-    : super(key: key);
+  const DetalleEntradaScreen({super.key, required this.entrada});
 
+  // Devuelve una descripción basada en el estado de ánimo
   String _estadoDescripcion(String estado) {
     switch (estado) {
       case 'Feliz':
@@ -27,12 +28,12 @@ class DetalleEntradaScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          entrada.titulo,
+          entrada.titulo, // Título de la entrada
           style: Theme.of(context).textTheme.titleLarge, // Usar el tema
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16), // Espaciado interno
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -45,7 +46,7 @@ class DetalleEntradaScreen extends StatelessWidget {
             ),
             SizedBox(height: 10),
 
-            // Fecha
+            // Fecha de la entrada
             Text(
               DateFormat('dd/MM/yyyy – HH:mm').format(entrada.fecha),
               style: Theme.of(context).textTheme.bodySmall,
@@ -137,7 +138,7 @@ class DetalleEntradaScreen extends StatelessWidget {
               delay: 600,
             ),
 
-            // Etiquetas (si existen)
+            // Etiquetas asociadas
             if (entrada.etiquetas.isNotEmpty)
               EntradaDetalleTile(
                 titulo: 'Etiquetas asociadas',
@@ -161,7 +162,7 @@ class DetalleEntradaScreen extends StatelessWidget {
                 delay: 700,
               ),
 
-            // Imagen (solo si existe)
+            // Imagen adjunta (solo si existe)
             if (entrada.imagenPath != null)
               EntradaDetalleTile(
                 titulo: 'Imagen adjunta',
@@ -185,6 +186,7 @@ class DetalleEntradaScreen extends StatelessWidget {
     );
   }
 
+  // Devuleve un emoticono basado en el campo y valor
   String _obtenerEmoticono(String campo, String valor) {
     switch (campo) {
       case 'estadoAnimo':
@@ -219,17 +221,18 @@ class DetalleEntradaScreen extends StatelessWidget {
   }
 }
 
+// Widget para mostrar un detalle de la entrada con animación
 class EntradaDetalleTile extends StatefulWidget {
-  final String titulo;
-  final Widget contenido;
-  final int delay;
+  final String titulo; // Título del detalle
+  final Widget contenido; // Contenido del detalle
+  final int delay; // Retraso de la animación
 
   const EntradaDetalleTile({
-    Key? key,
+    super.key,
     required this.titulo,
     required this.contenido,
     required this.delay,
-  }) : super(key: key);
+  });
 
   @override
   State<EntradaDetalleTile> createState() => _EntradaDetalleTileState();

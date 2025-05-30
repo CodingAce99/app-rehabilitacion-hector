@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/terapia.dart';
 import 'detalle_ficha_screen.dart';
 import 'package:provider/provider.dart';
-import '../providers/fichas_provider.dart'; // Ensure this is the correct path
+import '../providers/fichas_provider.dart';
 
 class DetalleTerapiaScreen extends StatelessWidget {
   // Creamos una variable final para almacenar la terapia seleccionada.

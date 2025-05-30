@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'dart:math';
 import '../diario/providers/diario_provider.dart';
 import '../diario/models/entrada_diario.dart';
 
@@ -22,18 +21,22 @@ extension ColorExtension on Color {
   }
 }
 
+// Enum para definir los períodos de estadísticas
 enum PeriodoEstadisticas { dias7, dias30, dias90, completo }
 
+// Pantalla para mostrar estadísticas del diario
 class EstadisticasScreen extends StatefulWidget {
   const EstadisticasScreen({super.key});
 
   @override
-  _EstadisticasScreenState createState() => _EstadisticasScreenState();
+  EstadisticasScreenState createState() => EstadisticasScreenState();
 }
 
-class _EstadisticasScreenState extends State<EstadisticasScreen> {
+class EstadisticasScreenState extends State<EstadisticasScreen> {
   PeriodoEstadisticas _periodoSeleccionado =
       PeriodoEstadisticas.dias30; // Periodo por defecto
+
+  List<String> fechas = []; // Lista para almacenar las fechas
 
   // Filtrar entradas según el período seleccionado
   List<EntradaDiario> _filtrarEntradasPorPeriodo(
@@ -67,7 +70,7 @@ class _EstadisticasScreenState extends State<EstadisticasScreen> {
     }).toList();
   }
 
-  // Método para construir el selector de período
+  // Construye el selector de período
   Widget _buildPeriodoSelector() {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
@@ -121,7 +124,7 @@ class _EstadisticasScreenState extends State<EstadisticasScreen> {
     );
   }
 
-  // Uso de FutureBuilder para manejar la carga de datos
+  // Calcula las estadísticas basadas en las entradas del diario
   Future<Map<String, dynamic>> _calcularEstadisticas(
     List<EntradaDiario> entradas,
   ) async {
@@ -131,19 +134,12 @@ class _EstadisticasScreenState extends State<EstadisticasScreen> {
       _periodoSeleccionado,
     );
 
-    // Imprimir información para depuración
-    print('Periodo seleccionado: $_periodoSeleccionado');
-    print('Entradas filtradas: ${entradasFiltradas.length}');
-
     return Future.delayed(Duration(milliseconds: 100), () {
       final estadosAnimo = _calcularDistribucionEstadosAnimo(entradasFiltradas);
       final promedioCalidadSueno = _calcularPromedioCalidadSueno(
         entradasFiltradas,
       );
       final promedioNivelDolor = _calcularPromedioNivelDolor(entradasFiltradas);
-
-      // Imprimir estadísticas calculadas para depuración
-      print('Estados de ánimo: $estadosAnimo');
 
       return {
         'estadosAnimo': estadosAnimo,
@@ -176,7 +172,7 @@ class _EstadisticasScreenState extends State<EstadisticasScreen> {
       appBar: AppBar(title: Text('Estadísticas')),
       body: SafeArea(
         child: FutureBuilder(
-          // Clave que cambia cuando cambia el período para forzar la reconstrucción
+          // Clave para reconstrucción
           key: ValueKey(_periodoSeleccionado),
           future: _calcularEstadisticas(entradas),
           builder: (context, snapshot) {
@@ -239,14 +235,17 @@ class _EstadisticasScreenState extends State<EstadisticasScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       // Añadir selector de período al principio
                       _buildPeriodoSelector(),
 
-                      Text(
-                        'Estado de ánimo',
-                        style: Theme.of(context).textTheme.titleLarge,
+                      // Sección de estados de ánimo
+                      Center(
+                        child: Text(
+                          'Estado de ánimo',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
                       ),
                       SizedBox(height: 4),
                       SizedBox(
@@ -263,13 +262,16 @@ class _EstadisticasScreenState extends State<EstadisticasScreen> {
                       ),
                       Divider(height: 24),
 
-                      Text(
-                        'Calidad del sueño',
-                        style: Theme.of(context).textTheme.titleLarge,
+                      // Sección de calidad del sueño
+                      Center(
+                        child: Text(
+                          'Calidad del sueño',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
                       ),
                       SizedBox(height: 16),
                       SizedBox(
-                        height: 280,
+                        height: 300,
                         child:
                             promedioCalidadSueno > 0
                                 ? _crearGraficoLinea(
@@ -286,13 +288,16 @@ class _EstadisticasScreenState extends State<EstadisticasScreen> {
                       ),
                       Divider(height: 24),
 
-                      Text(
-                        'Nivel de dolor',
-                        style: Theme.of(context).textTheme.titleLarge,
+                      // Sección de nivel de dolor
+                      Center(
+                        child: Text(
+                          'Nivel de dolor',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
                       ),
                       SizedBox(height: 4),
                       SizedBox(
-                        height: 280,
+                        height: 300,
                         child:
                             promedioNivelDolor > 0
                                 ? _crearGraficoLinea(
@@ -333,7 +338,7 @@ class _EstadisticasScreenState extends State<EstadisticasScreen> {
       }
       return distribucion;
     } catch (e) {
-      print('Error al calcular la distribución de estados de ánimo: $e');
+      ('Error al calcular la distribución de estados de ánimo: $e');
       return {};
     }
   }
@@ -348,7 +353,7 @@ class _EstadisticasScreenState extends State<EstadisticasScreen> {
       );
       return total / entradas.length;
     } catch (e) {
-      print('Error al calcular el promedio de calidad del sueño: $e');
+      ('Error al calcular el promedio de calidad del sueño: $e');
       return 0;
     }
   }
@@ -363,12 +368,11 @@ class _EstadisticasScreenState extends State<EstadisticasScreen> {
       );
       return total / entradas.length;
     } catch (e) {
-      print('Error al calcular el promedio del nivel de dolor: $e');
+      ('Error al calcular el promedio del nivel de dolor: $e');
       return 0;
     }
   }
 
-  // Crear gráfico circular para estados de ánimo
   // Crear gráfico circular para estados de ánimo
   Widget _crearGraficoCircular(BuildContext context, Map<String, int> data) {
     final total = data.values.fold(0, (sum, value) => sum + value);
@@ -382,19 +386,19 @@ class _EstadisticasScreenState extends State<EstadisticasScreen> {
       );
     }
 
-    // Ordenar los estados de ánimo por frecuencia (de mayor a menor)
-    final List<MapEntry<String, int>> sortedEntries =
+    // Ordenar las entradas por valor descendente
+    final sortedEntries =
         data.entries.toList()..sort((a, b) => b.value.compareTo(a.value));
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         AspectRatio(
-          aspectRatio: 1.8, // Proporción horizontal del gráfico
+          aspectRatio: 1.8, // Relación de aspecto del gráfico
           child: PieChart(
             PieChartData(
-              sectionsSpace: 3, // Espacio entre secciones
-              centerSpaceRadius: 40, // Radio del espacio central
+              sectionsSpace: 3,
+              centerSpaceRadius: 40,
               sections:
                   sortedEntries.map((entry) {
                     final porcentaje = (entry.value / total) * 100;
@@ -510,6 +514,7 @@ class _EstadisticasScreenState extends State<EstadisticasScreen> {
           drawVerticalLine: false,
           getDrawingHorizontalLine: (value) {
             return FlLine(
+              // ignore: deprecated_member_use
               color: Colors.grey.withOpacity(0.2), // Línea horizontal sutil
               strokeWidth: 1,
             );
@@ -520,26 +525,17 @@ class _EstadisticasScreenState extends State<EstadisticasScreen> {
           topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
           rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
           bottomTitles: AxisTitles(
-            axisNameWidget: Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Text(
-                titulo,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
             sideTitles: SideTitles(
               showTitles: true,
-              reservedSize: 24,
+              reservedSize: 20, // Espacio reservado para las etiquetas
               getTitlesWidget: (value, meta) {
                 final int idx = value.toInt();
+                // Se asegura de que el índice esté dentro del rango de fechas
                 if (idx >= 0 && idx < fechas.length) {
                   return Padding(
                     padding: const EdgeInsets.only(top: 5.0),
                     child: Text(
-                      fechas[idx],
+                      fechas[idx], // Usa solo las fechas formateadas
                       style: const TextStyle(fontSize: 10),
                     ),
                   );
@@ -591,6 +587,7 @@ class _EstadisticasScreenState extends State<EstadisticasScreen> {
                 }
                 return FlDotCirclePainter(
                   radius: 4,
+                  // ignore: deprecated_member_use
                   color: lineColor.withOpacity(0.8),
                   strokeWidth: 1,
                   strokeColor: Colors.white,
@@ -599,6 +596,7 @@ class _EstadisticasScreenState extends State<EstadisticasScreen> {
             ),
             belowBarData: BarAreaData(
               show: true,
+              // ignore: deprecated_member_use
               color: lineColor.withOpacity(0.2),
             ),
           ),
@@ -611,7 +609,7 @@ class _EstadisticasScreenState extends State<EstadisticasScreen> {
             getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
               return touchedBarSpots.map((barSpot) {
                 return LineTooltipItem(
-                  '${barSpot.y.toStringAsFixed(1)}',
+                  barSpot.y.toStringAsFixed(1),
                   TextStyle(
                     color: lineColor.darker,
                     fontWeight: FontWeight.bold,
@@ -637,31 +635,26 @@ class _EstadisticasScreenState extends State<EstadisticasScreen> {
       ..sort((a, b) => a.fecha.compareTo(b.fecha));
 
     // Limite a mostrar un máximo de 8 puntos para no sobrecargar el gráfico
-    final cantidadPuntos =
-        entradasOrdenadas.length > 8 ? 8 : entradasOrdenadas.length;
     final entradasMostradas =
         entradasOrdenadas.length > 8
             ? entradasOrdenadas.sublist(entradasOrdenadas.length - 8)
             : entradasOrdenadas;
 
-    List<FlSpot> spots = [];
+    // Limpia y sincroniza las fechas
+    fechas = [];
 
-    // Crea los puntos para el gráfico
-    for (int i = 0; i < entradasMostradas.length; i++) {
+    return List.generate(entradasMostradas.length, (i) {
       final entrada = entradasMostradas[i];
-      double valor;
+      final valor =
+          tipoMedicion == 'sueño'
+              ? double.tryParse(entrada.calidadSueno) ?? 0
+              : double.tryParse(entrada.dolor) ?? 0;
 
-      if (tipoMedicion == 'sueño') {
-        valor = double.tryParse(entrada.calidadSueno) ?? 0;
-      } else {
-        // dolor
-        valor = double.tryParse(entrada.dolor) ?? 0;
-      }
+      // Agrega la fecha correspondiente
+      fechas.add('${entrada.fecha.day}/${entrada.fecha.month}');
 
-      spots.add(FlSpot(i.toDouble(), valor));
-    }
-
-    return spots;
+      return FlSpot(i.toDouble(), valor);
+    });
   }
 
   // Obtiene las fechas formateadas para las etiquetas del eje X

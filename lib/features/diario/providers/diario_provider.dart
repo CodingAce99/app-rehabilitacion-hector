@@ -4,17 +4,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/entrada_diario.dart';
 import 'package:uuid/uuid.dart';
 
+// Provider para gestionar las entradas del diario
 class DiarioProvider with ChangeNotifier {
-  List<EntradaDiario> _entradas = [];
-  bool _isLoading = true;
+  List<EntradaDiario> _entradas = []; // Lista de entradas del diario
+  bool _isLoading = true; // Estado de carga
 
+  // Obtiene una copia de las entradas
   List<EntradaDiario> get entradas => [..._entradas];
+
+  // Obtiene el estado de carga
   bool get isLoading => _isLoading;
 
+  // Constructor del provider
   DiarioProvider() {
     cargarEntradas();
   }
 
+  // Agrega una nueva entrada al diario
   void agregarEntrada(
     String titulo,
     String texto,
@@ -28,7 +34,7 @@ class DiarioProvider with ChangeNotifier {
     String descripcionDolor,
   ) {
     final nueva = EntradaDiario(
-      id: const Uuid().v4(),
+      id: const Uuid().v4(), // Genera un ID único
       fecha: DateTime.now(),
       titulo: titulo,
       texto: texto,
@@ -41,12 +47,12 @@ class DiarioProvider with ChangeNotifier {
       areasDolor: areasDolorSeleccionadas,
       descripcionDolor: descripcionDolor,
     );
-    _entradas.insert(0, nueva);
-    guardarEntradas();
-    notifyListeners();
+    _entradas.insert(0, nueva); // Inserta la nueva entrada al inicio
+    guardarEntradas(); // Guarda las entradas en almacenamiento (SharedPreferences)
+    notifyListeners(); // Notifica a los Widgets que usan este provider
   }
 
-  // Reemplaza una entrada por otra con el mismo ID
+  // Edita una entrada existente por su ID
   void editarEntrada(
     String id,
     String titulo,
@@ -61,16 +67,15 @@ class DiarioProvider with ChangeNotifier {
     List<String> areasDolor,
     String descripcionDolor,
   ) {
-    // Nota: indexWhere busca el primer elemento que cumple la condición
-    // en este caso, el indice de la entrada cuyo id coincida con el que se quiere editar
-    final index = _entradas.indexWhere((entradas) => entradas.id == id);
-    // El if (index != -1) verifica es una verificación de seguridad.
-    // En Dart, indexWhere devuelve -1 si no encuentra el elemento.
+    final index = _entradas.indexWhere(
+      (entradas) => entradas.id == id,
+    ); // Busca la entrada por ID
+
     if (index != -1) {
       _entradas[index] = EntradaDiario(
         id: id,
-        fecha: _entradas[index].fecha, // Mantenemos la fecha original
-        titulo: titulo, // Usa el nuevo título original
+        fecha: _entradas[index].fecha, // Mantiene la fecha original
+        titulo: titulo,
         texto: texto,
         estadoAnimo: estadoAnimo,
         dolor: dolor,
@@ -81,18 +86,19 @@ class DiarioProvider with ChangeNotifier {
         areasDolor: areasDolorSeleccionadas,
         descripcionDolor: descripcionDolor,
       );
-      guardarEntradas(); // Guarda en SharedPreferences
-      notifyListeners(); // Actualiza la UI donde se usa el provider
+      guardarEntradas(); // Guarda los cambios
+      notifyListeners(); // Notifica los cambios
     }
   }
 
   // Elimina una entrada por su ID
   void eliminarEntrada(String id) {
     _entradas.removeWhere((entrada) => entrada.id == id);
-    guardarEntradas();
-    notifyListeners();
+    guardarEntradas(); // Guarda los cambios
+    notifyListeners(); // Notifica los cambios
   }
 
+  // Carga las entradas desde SharedPreferences
   Future<void> cargarEntradas() async {
     final prefs = await SharedPreferences.getInstance();
     final data = prefs.getString('diario');
@@ -100,10 +106,11 @@ class DiarioProvider with ChangeNotifier {
       final decoded = json.decode(data) as List;
       _entradas = decoded.map((e) => EntradaDiario.fromJson(e)).toList();
     }
-    _isLoading = false;
-    notifyListeners();
+    _isLoading = false; // Cambia el estado de carga
+    notifyListeners(); // Notifica los cambios
   }
 
+  // Guarda las entradas en SharedPreferences
   Future<void> guardarEntradas() async {
     final prefs = await SharedPreferences.getInstance();
     final jsonData = json.encode(_entradas.map((e) => e.toJson()).toList());
@@ -131,9 +138,7 @@ class DiarioProvider with ChangeNotifier {
     return distribucion;
   }
 
-  // Añadir este nuevo método
-
-  // Obtener distribución de estados de ánimo filtrados por período (para el dashboard)
+  // Obtener distribución de estados de ánimo filtrados por período
   Map<String, int> obtenerDistribucionEstadosAnimoFiltrados({int dias = 7}) {
     final ahora = DateTime.now();
     final fechaLimite = ahora.subtract(Duration(days: dias));

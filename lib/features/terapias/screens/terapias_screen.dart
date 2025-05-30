@@ -4,9 +4,11 @@ import '../models/terapia.dart';
 import 'package:provider/provider.dart';
 import '../providers/fichas_provider.dart'; // Ensure this path is correct
 
+// Pantalla que muestra una lista de terapias disponibles
+
 class TerapiasScreen extends StatefulWidget {
   // Constructor de la clase TerapiasScreen
-  TerapiasScreen({Key? key}) : super(key: key);
+  const TerapiasScreen({super.key});
 
   @override
   // Método para crear el estado de la pantalla
@@ -186,6 +188,7 @@ class _TerapiasScreenState extends State<TerapiasScreen>
     );
   }
 
+  // Método para construir la tarjeta de cada terapia.
   Widget _buildTerapiaCard(BuildContext context, Terapia terapia) {
     return Card(
       margin: EdgeInsets.symmetric(vertical: 10),

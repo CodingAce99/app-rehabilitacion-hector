@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../models/ficha_rehabilitación.dart';
-import '../../videos/widgets/video_card.dart';
+import '../../videos/screens/video_player_screen.dart';
 
 // Pantalla que muestra el detalle completo de una ficha de rehabilitación
 class DetalleFichaScreen extends StatefulWidget {
@@ -20,12 +20,6 @@ class _DetalleFichaScreenState extends State<DetalleFichaScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    precacheImage(
-      const AssetImage(
-        'assets/images/backgrounds/ficha_terapia_background.png',
-      ),
-      context,
-    );
   }
 
   // Método build para construir la interfaz de usuario
@@ -36,20 +30,6 @@ class _DetalleFichaScreenState extends State<DetalleFichaScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          // Fondo de la pantalla
-          /*
-          Positioned.fill(
-            child: Image.asset(
-              "assets/images/backgrounds/ficha_terapia_background.png",
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  color: Colors.grey,
-                ); // color de fondo de respaldo
-              },
-            ),
-          ),
-          */
           SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(16),
@@ -117,15 +97,69 @@ class _DetalleFichaScreenState extends State<DetalleFichaScreen> {
                       title: Text(p),
                     ),
                   ),
-
                   const SizedBox(height: 30),
 
-                  // Botón opcional para abrir el video en el navegador
-                  if (ficha.videoUrl.isNotEmpty)
-                    VideoCard(
-                      videoUrl: ficha.videoUrl,
-                      titulo: 'Ver video explicativo',
+                  // Sección de video explicativo
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 8.0,
                     ),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            Theme.of(
+                              context,
+                            ).colorScheme.primary, // Color de fondo
+                        foregroundColor:
+                            Theme.of(
+                              context,
+                            ).colorScheme.onPrimary, // Color del texto
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 12.0,
+                          horizontal: 24.0,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            12,
+                          ), // Bordes redondeados
+                        ),
+                        elevation: 2, // Sombra ligera
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (_) => VideoPlayerScreen(
+                                  videoId: ficha.videoUrl,
+                                  titulo: 'Video explicativo',
+                                ),
+                          ),
+                        );
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.play_circle_fill,
+                            size: 20,
+                          ), // Icono de reproducción
+                          const SizedBox(
+                            width: 8,
+                          ), // Espaciado entre el icono y el texto
+                          Text(
+                            'Ver video explicativo',
+                            style: GoogleFonts.montserrat(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

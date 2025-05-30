@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import '../../../core/services/preferences_service.dart';
 import '../../../core/services/reminder_service.dart';
 
+// ==========================================================================
+// Pantalla de configuración de días de terapia
+// ==========================================================================
+
 class TherapyDaysSettingScreen extends StatefulWidget {
   const TherapyDaysSettingScreen({super.key});
 
@@ -11,13 +15,15 @@ class TherapyDaysSettingScreen extends StatefulWidget {
 }
 
 class _TherapyDaysSettingScreenState extends State<TherapyDaysSettingScreen> {
+  // Lista de días seleccionados (Lunes a Domingo)
   final List<bool> _diasSeleccionados = List.generate(7, (_) => false);
+  // Hora predeterminada para las terapias
   String _horaTerapia = '10:00';
 
   @override
   void initState() {
     super.initState();
-    _cargarPreferencias();
+    _cargarPreferencias(); // Cargar preferencias al iniciar
   }
 
   Future<void> _cargarPreferencias() async {
@@ -33,10 +39,12 @@ class _TherapyDaysSettingScreenState extends State<TherapyDaysSettingScreen> {
       _diasSeleccionados[5] = prefs.getBool('terapia_sabado') ?? false;
       _diasSeleccionados[6] = prefs.getBool('terapia_domingo') ?? false;
 
+      // Cargar hora de terapia guardada o usar la predeterminada
       _horaTerapia = prefs.getString('terapia_hora') ?? '10:00';
     });
   }
 
+  // Guarda las preferencias de días y hora de terapia
   Future<void> _guardarPreferencias() async {
     await ReminderService.instance.guardarDiasTerapia(
       _diasSeleccionados,
@@ -44,6 +52,7 @@ class _TherapyDaysSettingScreenState extends State<TherapyDaysSettingScreen> {
     );
   }
 
+  // Convierte una cadena de hora en formato "HH:mm" a TimeOfDay
   TimeOfDay _parseTimeOfDay(String time) {
     final parts = time.split(':');
     return TimeOfDay(hour: int.parse(parts[0]), minute: int.parse(parts[1]));
@@ -52,7 +61,9 @@ class _TherapyDaysSettingScreenState extends State<TherapyDaysSettingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Días de terapia')),
+      appBar: AppBar(
+        title: const Text('Días de terapia'),
+      ), // Título de la pantalla
       body: ListView(
         children: [
           Padding(
@@ -63,6 +74,7 @@ class _TherapyDaysSettingScreenState extends State<TherapyDaysSettingScreen> {
             ),
           ),
 
+          // Checkboxes para cada día de la semana
           CheckboxListTile(
             title: const Text('Lunes'),
             value: _diasSeleccionados[0],
@@ -127,8 +139,7 @@ class _TherapyDaysSettingScreenState extends State<TherapyDaysSettingScreen> {
             },
           ),
 
-          const Divider(),
-
+          const Divider(), // Línea separadora
           // Selección de hora
           ListTile(
             leading: Icon(
@@ -163,6 +174,7 @@ class _TherapyDaysSettingScreenState extends State<TherapyDaysSettingScreen> {
 
           const SizedBox(height: 20),
 
+          // Botón para guardar la configuración
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
@@ -177,7 +189,7 @@ class _TherapyDaysSettingScreenState extends State<TherapyDaysSettingScreen> {
                     ),
                   );
 
-                  Navigator.pop(context);
+                  Navigator.pop(context); // Regresar a la pantalla anterior
                 }
               },
               child: const Text('Guardar'),

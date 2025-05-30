@@ -8,55 +8,66 @@ import '../providers/diario_provider.dart';
 import '../models/entrada_diario.dart';
 
 class DiarioScreen extends StatefulWidget {
+  const DiarioScreen({super.key});
+
   @override
-  _DiarioScreenState createState() => _DiarioScreenState();
+  DiarioScreenState createState() => DiarioScreenState();
 }
 
-class _DiarioScreenState extends State<DiarioScreen> {
+class DiarioScreenState extends State<DiarioScreen> {
   final _controller = TextEditingController();
   final _tituloController = TextEditingController();
   String _estadoSeleccionado = 'Neutral';
   File? _imagenSeleccionada;
 
-  final List<String> _etiquetasDisponibles = [
-    'Dolor',
-    'Mejora',
-    'Cansancio',
-    'Terapia',
-  ];
-
-  List<String> _etiquetasSeleccionadas = [];
-  List<String> _etiquetasFiltro = [];
+  List<String> _etiquetasSeleccionadas =
+      []; // Etiquetas seleccionadas por el usuario
+  final List<String> _etiquetasFiltro = [
+    'Fisioterapia',
+    'Logopedia',
+    'Ortopedia',
+    'Psicología',
+    'Terapia Ocupacional',
+  ]; // Etiquetas usadas para filtrar las entradas
 
   // Metodo principal para construir la pantalla
   @override
   Widget build(BuildContext context) {
-    final diario = Provider.of<DiarioProvider>(context);
+    final diario = Provider.of<DiarioProvider>(
+      context,
+    ); // Acceso al provider del diario
     final entradasFiltradas =
         _etiquetasFiltro.isEmpty
             ? diario.entradas
-            : diario.entradas.where((entrada) {
-              return _etiquetasFiltro.every(
-                (tag) => entrada.etiquetas.contains(tag),
-              );
-            }).toList();
+            : diario.entradas.where(
+              (entrada) {
+                return _etiquetasFiltro.every(
+                  (tag) => entrada.etiquetas.contains(tag),
+                );
+              },
+            ).toList(); // Fiiltra las entradas según las etiquetas seleccionadas
 
     return Scaffold(
-      appBar: AppBar(title: Text('Mi diario')),
+      appBar: AppBar(title: Text('Mi diario')), // Título de la pantalla
       body: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12), // Espaciado interno
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Título de la sección de entradas
             Text(
               'Entradas guardadas:',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             SizedBox(height: 10),
+
+            // Lista de entradas o mensaje vacio si no hay entradas
             Expanded(
               child:
                   entradasFiltradas.isEmpty
-                      ? Center(child: Text('No hay entradas todavía.'))
+                      ? Center(
+                        child: Text('No hay entradas todavía.'),
+                      ) // Mensaje si no hay entradas
                       : ListView.builder(
                         padding: EdgeInsets.zero,
                         itemCount: entradasFiltradas.length,
@@ -64,8 +75,10 @@ class _DiarioScreenState extends State<DiarioScreen> {
                           final entrada = entradasFiltradas[index];
 
                           return Card(
-                            margin: EdgeInsets.symmetric(vertical: 6),
-                            elevation: 2,
+                            margin: EdgeInsets.symmetric(
+                              vertical: 6,
+                            ), // Margen entre tarjetas
+                            elevation: 2, // Sombra de la tarjeta
                             child: ListTile(
                               title: Text(
                                 entrada.titulo,
@@ -79,6 +92,7 @@ class _DiarioScreenState extends State<DiarioScreen> {
                               trailing: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
+                                  // Boton para editar la entrada
                                   IconButton(
                                     icon: Icon(Icons.edit),
                                     onPressed:
@@ -87,6 +101,7 @@ class _DiarioScreenState extends State<DiarioScreen> {
                                           entrada,
                                         ),
                                   ),
+                                  // Boton para eliminar la entrada
                                   IconButton(
                                     icon: Icon(Icons.delete),
                                     onPressed:
@@ -98,6 +113,7 @@ class _DiarioScreenState extends State<DiarioScreen> {
                                 ],
                               ),
                               onTap: () {
+                                // Navega a la pantalla de detalles
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder:
@@ -115,6 +131,7 @@ class _DiarioScreenState extends State<DiarioScreen> {
           ],
         ),
       ),
+      // Botón flotante para agregar una nueva entrada
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _abrirFormularioNuevaEntrada,
         label: Text('Nueva entrada'),
@@ -127,6 +144,7 @@ class _DiarioScreenState extends State<DiarioScreen> {
   /// MÉTODOS PRIVADOS
   /// =========================
 
+  // Abre el formulario para agregar una nueva entrada
   void _abrirFormularioNuevaEntrada() {
     // Variables locales para el modal
     String estadoSeleccionado = 'Neutral';
@@ -342,6 +360,7 @@ class _DiarioScreenState extends State<DiarioScreen> {
                                     selected: seleccionada,
                                     selectedColor: Theme.of(
                                       context,
+                                      // ignore: deprecated_member_use
                                     ).colorScheme.primary.withOpacity(0.5),
                                     onSelected: (valor) {
                                       setModalState(() {
@@ -547,6 +566,7 @@ Widget _buildCalidadSuenoSlider(
   );
 }
 
+// Método que muestra un diálogo de confirmación para eliminar una entrada
 void _confirmarEliminar(BuildContext context, String id) {
   showDialog(
     context: context,
@@ -578,6 +598,7 @@ void _confirmarEliminar(BuildContext context, String id) {
   );
 }
 
+// Método que muestra un diálogo para editar una entrada existente
 void _mostrarDialogoEditar(BuildContext context, EntradaDiario entrada) {
   final controller = TextEditingController(text: entrada.texto);
   final tituloController = TextEditingController(text: entrada.titulo);
@@ -589,7 +610,7 @@ void _mostrarDialogoEditar(BuildContext context, EntradaDiario entrada) {
   File? imagenSeleccionada =
       entrada.imagenPath != null ? File(entrada.imagenPath!) : null;
 
-  final List<String> _areasDolorDisponibles = [
+  final List<String> areasDolorDisponibles = [
     'Cabeza',
     'Espalda',
     'Piernas',
@@ -741,7 +762,7 @@ void _mostrarDialogoEditar(BuildContext context, EntradaDiario entrada) {
                       Wrap(
                         spacing: 8,
                         children:
-                            _areasDolorDisponibles.map((area) {
+                            areasDolorDisponibles.map((area) {
                               final seleccionada = areasDolorSeleccionadas
                                   .contains(area);
                               return FilterChip(
@@ -749,6 +770,7 @@ void _mostrarDialogoEditar(BuildContext context, EntradaDiario entrada) {
                                 selected: seleccionada,
                                 selectedColor: Theme.of(
                                   context,
+                                  // ignore: deprecated_member_use
                                 ).colorScheme.primary.withOpacity(0.5),
                                 onSelected: (valor) {
                                   setModalState(() {

@@ -8,7 +8,7 @@ import '../widgets/custom_notification.dart'; // Asegúrate de que la ruta sea c
 import 'therapy_days_settings_screen.dart';
 
 // ==========================================================================
-// Todavia no se ha implementado la lógica correspondiente en esta pantalla
+// Pantalla de configuración de notificaciones
 // ==========================================================================
 
 class NotificationSettingsScreen extends StatefulWidget {
@@ -36,6 +36,7 @@ class _NotificationSettingsScreenState
     _cargarPreferencias();
   }
 
+  // Carga las preferencias de notificaciones al iniciar la pantalla
   Future<void> _cargarPreferencias() async {
     final prefs = await PreferencesService.instance;
 
@@ -50,6 +51,7 @@ class _NotificationSettingsScreenState
     });
   }
 
+  // Guarda las preferencias de notificaciones
   Future<void> _guardarPreferencia(String clave, dynamic valor) async {
     final prefs = await PreferencesService.instance;
 
@@ -59,7 +61,7 @@ class _NotificationSettingsScreenState
       await prefs.setString(clave, valor);
     }
 
-    // Guardar todas las preferencias de una sola vez
+    // Guardar todas las preferencias relacionadas con recordatorios
     await ReminderService.instance.guardarPreferenciasRecordatorios(
       notificacionesActivadas: _notificacionesActivadas,
       notificacionesTerapias: _notificacionesTerapias,
@@ -71,7 +73,7 @@ class _NotificationSettingsScreenState
     );
   }
 
-  // Función auxiliar para manejar cambios de switch
+  // Función auxiliar para manejar cambios en los switches
   void Function(bool)? _onSwitchChanged(
     String prefKey,
     Function(bool) updateState,
@@ -89,7 +91,9 @@ class _NotificationSettingsScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Notificaciones')),
+      appBar: AppBar(
+        title: const Text('Notificaciones'),
+      ), // Título de la pantalla
       body: ListView(
         children: [
           // Control maestro de notificaciones
@@ -124,8 +128,7 @@ class _NotificationSettingsScreenState
             },
           ),
 
-          const Divider(),
-
+          const Divider(), // Separador entre secciones
           // Sección: Tipo de notificaciones
           Padding(
             padding: const EdgeInsets.only(left: 16, top: 16, bottom: 8),
@@ -336,6 +339,7 @@ class _NotificationSettingsScreenState
     );
   }
 
+  // Método para convertir una cadena de tiempo en objeto TimeOfDay
   TimeOfDay _parseTimeOfDay(String time) {
     final parts = time.split(':');
     return TimeOfDay(hour: int.parse(parts[0]), minute: int.parse(parts[1]));

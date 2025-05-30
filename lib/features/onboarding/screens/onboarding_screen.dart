@@ -8,54 +8,30 @@ import 'package:app_rehab/features/dashboard/screens/dashboard_screen.dart';
 import 'package:app_rehab/features/user/providers/user_provider.dart';
 import 'package:app_rehab/features/user/models/user_model.dart';
 
+// Clase principal del onboarding
 class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
+
   @override
-  _OnboardingScreenState createState() => _OnboardingScreenState();
+  OnboardingScreenState createState() => OnboardingScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen>
+class OnboardingScreenState extends State<OnboardingScreen>
         // Implementamos SingleTickerProviderStateMixin (reloj interno) para controlar las animacion.
         with
         SingleTickerProviderStateMixin {
-  // PageController se utiliza para controlar la página actual del PageView.
-  // Inicialmente, se establece en 0
+  // Controlador para el PageView
   final PageController _pageController = PageController(initialPage: 0);
-  int _currentPage = 0;
+  int _currentPage = 0; // Pagina actual del onboarding
 
-  // Este controlador se utiliza para manejar el texto ingresado por el usuario.
+  // Controlador para manejar el campo de texto del nombre
   final TextEditingController _nombreController = TextEditingController();
 
-  // Declaración de variables para la animación
+  // Controladores para animaciones
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
 
-  @override
-  void initState() {
-    super.initState();
-    // Método para inicializar cualquier configuración necesaria. (animaciones, etc.)
-
-    _animationController = AnimationController(
-      duration: const Duration(milliseconds: 300),
-      vsync: this,
-    );
-
-    _fadeAnimation = CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeIn,
-    );
-
-    _animationController.forward(); // Inicia la animación
-  }
-
-  // Método para liberar recursos.
-  @override
-  void dispose() {
-    _nombreController.dispose();
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  // Define las páginas como una lista
+  // Lista de páginas del onboarding.
   final List<Map<String, String>> _paginas = [
     {
       'imagenPath': "assets/images/onboarding/onboarding_ilustration1.png",
@@ -93,7 +69,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     },
   ];
 
-  // Define la paleta de colores coherente
+  // Paleta de colores personalizada
   final ColorScheme _colorScheme = const ColorScheme(
     primary: Color(0xFFC39397), // Rosa suave para elementos primarios
     onPrimary: Colors.white, // Texto sobre el color primario
@@ -108,6 +84,32 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     brightness: Brightness.light, // Tema claro
   );
 
+  @override
+  void initState() {
+    super.initState();
+    // Método para inicializar cualquier configuración necesaria. (animaciones, etc.)
+
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+
+    _fadeAnimation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeIn,
+    );
+
+    _animationController.forward(); // Inicia la animación
+  }
+
+  // Método para liberar recursos.
+  @override
+  void dispose() {
+    _nombreController.dispose();
+    _animationController.dispose();
+    super.dispose();
+  }
+
   // Este método construye la interfaz de usuario del onboarding.
   @override
   Widget build(BuildContext context) {
@@ -117,7 +119,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         opacity: _fadeAnimation,
         child: Stack(
           children: [
-            // Imagen fija de fondo
+            // Imagen de fondo
             Image.asset(
               "assets/images/onboarding/onboarding_theme.png",
               fit: BoxFit.cover,
@@ -128,7 +130,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             // Capa de color para legibilidad
             Container(color: Colors.white.withOpacity(0.30)),
 
-            // Contenido con transición animada entre páginas
+            // Contenido principal del onboarding
             PageView.builder(
               controller: _pageController,
               itemCount: _paginas.length,
@@ -175,7 +177,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               },
             ),
 
-            // Indicador y boton de "Empezar" en la ultima página
+            // Indicador de página y botón de acción
             Positioned(
               bottom: 80.0,
               left: 0.0,
@@ -185,7 +187,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   // Indicador de página
                   SmoothPageIndicator(
                     controller: _pageController,
-                    count: 4,
+                    count: 5,
                     effect: const WormEffect(
                       dotColor: Color(0xFFEADDD2),
                       activeDotColor: Color.fromARGB(255, 195, 147, 151),
@@ -202,9 +204,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   ),
                   const SizedBox(height: 20),
 
-                  // Botón "Empezar".
-                  // Reservamos un espacio para el botón en la última página.
-                  const SizedBox(height: 20),
                   // Botón dinámico (Continuar/Comenzar)
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -290,10 +289,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     );
   }
 
-  /// =========================
-  /// MÉTODOS PRIVADOS
-  /// =========================
-
   // Construye una página individual del onboarding.
   Widget _buildTextPage({
     required String titulo,
@@ -372,8 +367,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     );
   }
 
-  // Añadir este método a _OnboardingScreenState
-
+  // Metodo para construir la página de formulario.
   Widget _buildFormPage({
     required String titulo,
     required String subtitulo,
@@ -483,24 +477,25 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     );
   }
 
-  // Animación de salida al completar el onboarding.
+  // Metodo para manejar la animación de salida
   Future<void> _animacionSalida(BuildContext context) async {
     final nombre = _nombreController.text.trim();
 
-    // Guardar datos del usuario
+    // Guardar el nombre del usuario si no está vacío
     if (nombre.isNotEmpty) {
       final userProvider = Provider.of<UserProvider>(context, listen: false);
       await userProvider.saveUser(UserModel(nombre: nombre));
     }
 
-    // Guardar que el onboarding se completó
+    // Marca el onboarding como completado
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('seenOnboarding', true);
 
-    // Transición suave a la siguiente pantalla
+    // Navega a la pantalla principal con una transición suave
     if (!mounted) return;
 
     Navigator.pushReplacement(
+      // ignore: use_build_context_synchronously
       context,
       PageRouteBuilder(
         pageBuilder: (_, animation, __) {

@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/user_provider.dart';
-import '../../../core/services/preferences_service.dart';
+
+// ==========================================================================
+// Pantalla de perfil del usuario
+// ==========================================================================
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({super.key});
 
   @override
-  _ProfileScreenState createState() => _ProfileScreenState();
+  ProfileScreenState createState() => ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class ProfileScreenState extends State<ProfileScreen> {
+  // Clave para el formulario
   final _formKey = GlobalKey<FormState>();
+  // Controlador para el campo de nombre
   late TextEditingController _nombreController;
+  // Variables para género y fecha de nacimiento
   String? _genero;
   DateTime? _fechaNacimiento;
 
+  // Inicializa el controlador y las variables al crear el estado
   @override
   void initState() {
     super.initState();
@@ -27,6 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _fechaNacimiento = userProvider.user?.fechaNacimiento;
   }
 
+  // Limpia el controlador al destruir el estado
   @override
   void dispose() {
     _nombreController.dispose();
@@ -44,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Imagen de perfil (opcional)
+              // Imagen de perfil fija
               Center(
                 child: Stack(
                   children: [
@@ -52,6 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       radius: 60,
                       backgroundColor: Theme.of(
                         context,
+                        // ignore: deprecated_member_use
                       ).colorScheme.primary.withOpacity(0.2),
                       child: Icon(
                         Icons.person,
@@ -115,12 +124,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   fillColor: Theme.of(context).colorScheme.surface,
                 ),
                 items:
-                    [
-                      'Masculino',
-                      'Femenino',
-                      'No binario',
-                      'Prefiero no decir',
-                    ].map((String value) {
+                    ['Masculino', 'Femenino', 'Prefiero no decirlo'].map((
+                      String value,
+                    ) {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Text(value),
@@ -207,6 +213,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  // Método para guardar el perfil del usuario
   void _guardarPerfil() {
     if (_formKey.currentState!.validate()) {
       final userProvider = Provider.of<UserProvider>(context, listen: false);
@@ -218,6 +225,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         fechaNacimiento: _fechaNacimiento,
       );
 
+      // Muestra un mensaje de éxito
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Perfil actualizado correctamente')),
       );

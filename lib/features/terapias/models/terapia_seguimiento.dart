@@ -1,6 +1,10 @@
 // Importaciones de otras pantallas y widgets
 import '../models/ficha_rehabilitación.dart';
 
+// ==========================================================================
+// Modelo de datos para el seguimiento de una terapia
+// ==========================================================================
+
 class TerapiaSeguimiento {
   final String id; // Id único para esta instancia de seguimiento
   final String nombre; // Nombre de la terapia
@@ -10,6 +14,7 @@ class TerapiaSeguimiento {
   DateTime? fechaFin;
   String? notas;
 
+  // Constructor de la clase
   TerapiaSeguimiento({
     required this.id,
     required this.nombre,
@@ -24,9 +29,9 @@ class TerapiaSeguimiento {
   Map<String, dynamic> toJson() => {
     'id': id,
     'nombre': nombre,
-    'ficha': ficha.toJson(),
+    'ficha': ficha.toJson(), // Serializa la ficha asociada
     'completada': completada,
-    'fechaInicio': fechaInicio.toIso8601String(),
+    'fechaInicio': fechaInicio.toIso8601String(), // Fecha en formato ISO 8601
     'fechaFin': fechaFin?.toIso8601String(),
     'notas': notas,
   };
@@ -40,7 +45,9 @@ class TerapiaSeguimiento {
         completada: json['completada'],
         fechaInicio: DateTime.parse(json['fechaInicio']),
         fechaFin:
-            json['fechaFin'] != null ? DateTime.parse(json['fechaFin']) : null,
+            json['fechaFin'] != null
+                ? DateTime.parse(json['fechaFin'])
+                : null, // Maneja el caso donde fechaFin puede ser nulo
         notas: json['notas'],
       );
 }
