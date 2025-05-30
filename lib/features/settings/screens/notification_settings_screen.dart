@@ -1,9 +1,11 @@
 // Importaciones necesarias
 import 'package:flutter/material.dart';
 import '../../../core/services/preferences_service.dart';
+import '../../../core/services/reminder_service.dart';
+import '../widgets/custom_notification.dart'; // Asegúrate de que la ruta sea correcta
 
 // Otras importaciones
-import '../widgets/custom_notification.dart';
+import 'therapy_days_settings_screen.dart';
 
 // ==========================================================================
 // Todavia no se ha implementado la lógica correspondiente en esta pantalla
@@ -56,6 +58,17 @@ class _NotificationSettingsScreenState
     } else if (valor is String) {
       await prefs.setString(clave, valor);
     }
+
+    // Guardar todas las preferencias de una sola vez
+    await ReminderService.instance.guardarPreferenciasRecordatorios(
+      notificacionesActivadas: _notificacionesActivadas,
+      notificacionesTerapias: _notificacionesTerapias,
+      notificacionesDiario: _notificacionesDiario,
+      notificacionesLogros: _notificacionesLogros,
+      sonidoActivado: _sonidoActivado,
+      vibracionActivada: _vibracionActivada,
+      horaRecordatorio: _horaRecordatorio,
+    );
   }
 
   // Función auxiliar para manejar cambios de switch
@@ -88,7 +101,9 @@ class _NotificationSettingsScreenState
               decoration: BoxDecoration(
                 color:
                     _notificacionesActivadas
+                        // ignore: deprecated_member_use
                         ? Theme.of(context).colorScheme.primary.withOpacity(0.1)
+                        // ignore: deprecated_member_use
                         : Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
@@ -258,41 +273,6 @@ class _NotificationSettingsScreenState
             ),
           ),
 
-          // Notificaciones de terapias
-          SwitchListTile(
-            title: const Text('Recordatorios de terapias'),
-            subtitle: const Text('Recibe avisos para realizar tus ejercicios'),
-            value: _notificacionesTerapias && _notificacionesActivadas,
-            onChanged: _onSwitchChanged(
-              'notif_terapias',
-              (value) => _notificacionesTerapias = value,
-            ),
-          ),
-
-          // Notificaciones de diario
-          SwitchListTile(
-            title: const Text('Recordatorio de diario'),
-            subtitle: const Text(
-              'Recibe avisos para registrar tu estado anímico',
-            ),
-            value: _notificacionesDiario && _notificacionesActivadas,
-            onChanged: _onSwitchChanged(
-              'notif_diario',
-              (value) => _notificacionesDiario = value,
-            ),
-          ),
-
-          // Notificaciones de logros
-          SwitchListTile(
-            title: const Text('Notificaciones de logros'),
-            subtitle: const Text('Recibe avisos cuando completes objetivos'),
-            value: _notificacionesLogros && _notificacionesActivadas,
-            onChanged: _onSwitchChanged(
-              'notif_logros',
-              (value) => _notificacionesLogros = value,
-            ),
-          ),
-
           // Sonido
           SwitchListTile(
             title: const Text('Sonido de notificaciones'),
@@ -341,9 +321,10 @@ class _NotificationSettingsScreenState
                 icon: const Icon(Icons.send),
                 label: const Text('Probar notificación'),
                 onPressed: () {
-                  // Aquí se enviaría una notificación de prueba
                   CustomNotification.mostrar(
                     context,
+                    titulo: 'Recordatorio de prueba',
+                    mensaje: '¡Las notificaciones funcionan correctamente!',
                     reproducirSonido: _sonidoActivado,
                     vibrar: _vibracionActivada,
                   );
@@ -358,64 +339,5 @@ class _NotificationSettingsScreenState
   TimeOfDay _parseTimeOfDay(String time) {
     final parts = time.split(':');
     return TimeOfDay(hour: int.parse(parts[0]), minute: int.parse(parts[1]));
-  }
-}
-
-// Pantalla para configurar los días de terapia
-class TherapyDaysSettingScreen extends StatelessWidget {
-  const TherapyDaysSettingScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Días de terapia')),
-      body: ListView(
-        children: [
-          CheckboxListTile(
-            title: const Text('Lunes'),
-            value: true,
-            onChanged: (bool? value) {},
-          ),
-          CheckboxListTile(
-            title: const Text('Martes'),
-            value: true,
-            onChanged: (bool? value) {},
-          ),
-          CheckboxListTile(
-            title: const Text('Miércoles'),
-            value: true,
-            onChanged: (bool? value) {},
-          ),
-          CheckboxListTile(
-            title: const Text('Jueves'),
-            value: true,
-            onChanged: (bool? value) {},
-          ),
-          CheckboxListTile(
-            title: const Text('Viernes'),
-            value: true,
-            onChanged: (bool? value) {},
-          ),
-          CheckboxListTile(
-            title: const Text('Sábado'),
-            value: false,
-            onChanged: (bool? value) {},
-          ),
-          CheckboxListTile(
-            title: const Text('Domingo'),
-            value: false,
-            onChanged: (bool? value) {},
-          ),
-          const SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ElevatedButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Guardar'),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }

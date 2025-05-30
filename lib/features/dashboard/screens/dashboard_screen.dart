@@ -16,10 +16,55 @@ import '../widgets/resumen_estado_animo_chart.dart';
 import '../../terapias/providers/terapias_seguimiento_provider.dart';
 import '../../terapias/screens/seguimiento_terapias_screen.dart';
 import '../../user/providers/user_provider.dart';
+import '../../../core/services/reminder_service.dart';
+import '../../settings/widgets/custom_notification.dart';
 
 // Clase que representa la patalla principal (Dashboard) de la aplicación
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
+
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    // Verficar recordatorios al iniciar la pantalla
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _verificarRecordatorios();
+    });
+  }
+
+  // Verifica si hay recordatorios pendientes y los muestra
+  Future<void> _verificarRecordatorios() async {
+    final reminderService = ReminderService.instance;
+
+    // Verificar si es hora de terapia
+    if (await reminderService.esHoraDeMostrarRecordatorio('terapias')) {
+      if (mounted) {
+        CustomNotification.mostrar(
+          context,
+          titulo: 'Recordatorio de terapia',
+          mensaje: 'Es hora de realizar tus ejercicios de rehabilitación',
+        );
+      }
+    }
+
+    // Verificar si es hora del diario
+    if (await reminderService.esHoraDeMostrarRecordatorio('diario')) {
+      if (mounted) {
+        CustomNotification.mostrar(
+          context,
+          titulo: 'Recordatorio de diario',
+          mensaje:
+              '¿Cómo te sientes hoy? Es momento de registrar tu estado de ánimo',
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -169,6 +214,21 @@ class DashboardScreen extends StatelessWidget {
                           () => Navigator.of(
                             context,
                           ).push(_crearRuta(SettingsScreen())),
+                    ),
+                    const SizedBox(height: 16),
+
+                    // Botón flotante para probar recordatorio
+                    FloatingActionButton(
+                      onPressed: () {
+                        // Mostrar recordatorio de prueba
+                        CustomNotification.mostrar(
+                          context,
+                          titulo: 'Recordatorio de prueba',
+                          mensaje: 'Este es un recordatorio de prueba manual',
+                        );
+                      },
+                      tooltip: 'Probar recordatorio',
+                      child: const Icon(Icons.notification_add),
                     ),
                   ],
                 ),
