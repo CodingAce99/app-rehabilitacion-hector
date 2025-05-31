@@ -30,9 +30,14 @@ class UltimaEntradaCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    entrada.titulo, // Título de la entrada
-                    style: Theme.of(context).textTheme.titleMedium,
+                  Expanded(
+                    child: // Título de la entrada
+                        Text(
+                      entrada.titulo, // Título de la entrada
+                      style: Theme.of(context).textTheme.titleMedium,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   Text(
                     DateFormat(
@@ -49,6 +54,7 @@ class UltimaEntradaCard extends StatelessWidget {
                 entrada.texto,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
+                softWrap: true,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               const SizedBox(height: 12),

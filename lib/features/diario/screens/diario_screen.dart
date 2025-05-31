@@ -23,11 +23,6 @@ class DiarioScreenState extends State<DiarioScreen> {
   List<String> _etiquetasSeleccionadas =
       []; // Etiquetas seleccionadas por el usuario
   final List<String> _etiquetasFiltro = [
-    'Fisioterapia',
-    'Logopedia',
-    'Ortopedia',
-    'Psicología',
-    'Terapia Ocupacional',
   ]; // Etiquetas usadas para filtrar las entradas
 
   // Metodo principal para construir la pantalla
