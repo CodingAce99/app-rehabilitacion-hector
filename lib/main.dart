@@ -36,7 +36,8 @@ void main() async {
 
   runApp(
     MyApp(
-      showOnboarding: true, // Muestra el onboarding si no se ha visto
+      // Muestra el onboarding si aún no se ha visto
+      showOnboarding: !seenOnboarding,
       userProvider: userProvider, // Pasa el UserProvider
       navigatorKey: navigatorKey, // Pasa la clave de navegación
     ),
