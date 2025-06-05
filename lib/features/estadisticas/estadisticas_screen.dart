@@ -338,7 +338,7 @@ class EstadisticasScreenState extends State<EstadisticasScreen> {
       }
       return distribucion;
     } catch (e) {
-      ('Error al calcular la distribución de estados de ánimo: $e');
+      debugPrint('Error al calcular la distribución de estados de ánimo: $e');
       return {};
     }
   }
@@ -353,7 +353,7 @@ class EstadisticasScreenState extends State<EstadisticasScreen> {
       );
       return total / entradas.length;
     } catch (e) {
-      ('Error al calcular el promedio de calidad del sueño: $e');
+      debugPrint('Error al calcular el promedio de calidad del sueño: $e');
       return 0;
     }
   }
@@ -368,7 +368,7 @@ class EstadisticasScreenState extends State<EstadisticasScreen> {
       );
       return total / entradas.length;
     } catch (e) {
-      ('Error al calcular el promedio del nivel de dolor: $e');
+      debugPrint('Error al calcular el promedio del nivel de dolor: $e');
       return 0;
     }
   }

@@ -135,7 +135,7 @@ class CustomNotification {
         ).pop(); // Cierra la notificación
       }).catchError((error) {
         // Ignora el error si la notificación ya fue cerrada
-        ('Notificación ya cerrada: $error');
+        debugPrint('Notificación ya cerrada: $error');
       });
 
       // Vibración si está activada
@@ -143,7 +143,7 @@ class CustomNotification {
         HapticFeedback.mediumImpact(); // Vibración de intensidad media
       }
     } catch (e) {
-      ('Error al mostrar notificación: $e');
+      debugPrint('Error al mostrar notificación: $e');
       // Si ocurre un error, muestra un SnackBar como alternativa
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

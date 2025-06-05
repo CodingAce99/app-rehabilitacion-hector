@@ -29,7 +29,7 @@ class UserProvider extends ChangeNotifier {
       }
       notifyListeners();
     } catch (e) {
-      ('Error al cargar datos de usuario: $e');
+      debugPrint('Error al cargar datos de usuario: $e');
       _user = UserModel(nombre: 'Usuario');
       notifyListeners();
     }
@@ -64,7 +64,7 @@ class UserProvider extends ChangeNotifier {
 
       notifyListeners();
     } catch (e) {
-      ('Error al actualizar datos de usuario: $e');
+      debugPrint('Error al actualizar datos de usuario: $e');
     }
   }
 
@@ -73,7 +73,7 @@ class UserProvider extends ChangeNotifier {
     _user = user;
 
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('user_data', json.encode(user.toJson()));
+    await prefs.setString('user', json.encode(user.toJson()));
     notifyListeners();
   }
 }
