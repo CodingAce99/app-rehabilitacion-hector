@@ -165,26 +165,43 @@ class _TerapiasScreenState extends State<TerapiasScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Terapias',
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
+    return Stack(
+      children: [
+        // Fondo de pantalla de la aplicación.
+        Positioned.fill(
+          child: Image.asset(
+            'assets/images/backgrounds/ficha_terapia_background.png',
+            fit: BoxFit.cover,
           ),
         ),
-      ),
-      body: ListView.builder(
-        padding: EdgeInsets.all(16),
-        itemCount: _terapias.length,
-        itemBuilder: (context, index) {
-          return SlideTransition(
-            position: _animations[index],
-            child: _buildTerapiaCard(context, _terapias[index]),
-          );
-        },
-      ),
+        Scaffold(
+          backgroundColor:
+              Colors.transparent, // Fondo transparente para el Scaffold.
+          appBar: AppBar(
+            backgroundColor:
+                Colors.transparent, // Fondo transparente para la AppBar.
+            centerTitle: true,
+            elevation: 0, // Sin sombra en la AppBar.
+            title: Text(
+              'Terapias',
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          body: ListView.builder(
+            padding: EdgeInsets.all(16),
+            itemCount: _terapias.length,
+            itemBuilder: (context, index) {
+              return SlideTransition(
+                position: _animations[index],
+                child: _buildTerapiaCard(context, _terapias[index]),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 

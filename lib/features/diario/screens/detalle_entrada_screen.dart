@@ -25,164 +25,187 @@ class DetalleEntradaScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          entrada.titulo, // Título de la entrada
-          style: Theme.of(context).textTheme.titleLarge, // Usar el tema
+    return Stack(
+      children: [
+        // Fondo de pantalla de la aplicación
+        Positioned.fill(
+          child: Image.asset(
+            'assets/images/backgrounds/ficha_background_light.png',
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16), // Espaciado interno
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Tipo de terapia
-            Text(
-              'Terapia: ${entrada.terapia}',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10),
 
-            // Fecha de la entrada
-            Text(
-              DateFormat('dd/MM/yyyy – HH:mm').format(entrada.fecha),
-              style: Theme.of(context).textTheme.bodySmall,
+        // Contenido de la pantalla
+        Scaffold(
+          backgroundColor: Colors.transparent, // Fondo transparente
+          appBar: AppBar(
+            backgroundColor: Colors.transparent, // Fondo transparente
+            elevation: 0, // Sin sombra
+            title: Text(
+              entrada.titulo, // Título de la entrada
+              style: Theme.of(context).textTheme.titleLarge, // Usar el tema
             ),
-            SizedBox(height: 20),
-
-            // Estado de ánimo
-            EntradaDetalleTile(
-              titulo:
-                  '${_obtenerEmoticono('estadoAnimo', entrada.estadoAnimo)} Estado de ánimo',
-              contenido: Text(
-                entrada.estadoAnimo.isNotEmpty
-                    ? '${entrada.estadoAnimo} - ${_estadoDescripcion(entrada.estadoAnimo)}'
-                    : 'No se registró el estado de ánimo.',
-                style: Theme.of(context).textTheme.bodyMedium, // Usar el tema
-              ),
-              delay: 100,
-            ),
-
-            // Calidad del sueño
-            EntradaDetalleTile(
-              titulo:
-                  '${_obtenerEmoticono('calidadSueno', entrada.calidadSueno)} Calidad del sueño',
-              contenido: Text(
-                entrada.calidadSueno.isNotEmpty
-                    ? 'Calidad del sueño: ${entrada.calidadSueno}/10'
-                    : 'No se registró la calidad del sueño.',
-                style: Theme.of(context).textTheme.bodyMedium, // Usar el tema
-              ),
-              delay: 200,
-            ),
-
-            // Nivel de dolor
-            EntradaDetalleTile(
-              titulo:
-                  '${_obtenerEmoticono('dolor', entrada.dolor)} Nivel de dolor',
-              contenido: Text(
-                entrada.dolor.isNotEmpty
-                    ? 'Nivel de dolor: ${entrada.dolor}/10'
-                    : 'No se registró el nivel de dolor.',
-                style: Theme.of(context).textTheme.bodyMedium, // Usar el tema
-              ),
-              delay: 300,
-            ),
-
-            // Áreas de dolor
-            if (entrada.areasDolor.isNotEmpty)
-              EntradaDetalleTile(
-                titulo: 'Áreas de dolor',
-                contenido: Wrap(
-                  spacing: 8,
-                  runSpacing: 4,
-                  children:
-                      entrada.areasDolor.map((area) {
-                        return Chip(
-                          label: Text(
-                            area,
-                            style:
-                                Theme.of(
-                                  context,
-                                ).textTheme.bodySmall, // Usar el tema
-                          ),
-                          backgroundColor: Colors.red[100],
-                        );
-                      }).toList(),
+            centerTitle: true,
+          ),
+          body: SingleChildScrollView(
+            padding: const EdgeInsets.all(16), // Espaciado interno
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Tipo de terapia
+                Text(
+                  'Terapia: ${entrada.terapia}',
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
-                delay: 400,
-              ),
+                SizedBox(height: 10),
 
-            // Descripción del dolor
-            EntradaDetalleTile(
-              titulo: 'Descripción del dolor',
-              contenido: Text(
-                entrada.descripcionDolor.isNotEmpty
-                    ? entrada.descripcionDolor
-                    : 'No se registró una descripción del dolor.',
-                style: Theme.of(context).textTheme.bodyMedium, // Usar el tema
-              ),
-              delay: 500,
-            ),
-
-            // Texto del diario
-            EntradaDetalleTile(
-              titulo: 'Descripción del día',
-              contenido: Text(
-                entrada.texto,
-                style: Theme.of(context).textTheme.bodyMedium, // Usar el tema
-              ),
-              delay: 600,
-            ),
-
-            // Etiquetas asociadas
-            if (entrada.etiquetas.isNotEmpty)
-              EntradaDetalleTile(
-                titulo: 'Etiquetas asociadas',
-                contenido: Wrap(
-                  spacing: 8,
-                  runSpacing: 4,
-                  children:
-                      entrada.etiquetas.map((etiqueta) {
-                        return Chip(
-                          label: Text(
-                            etiqueta,
-                            style:
-                                Theme.of(
-                                  context,
-                                ).textTheme.bodySmall, // Usar el tema
-                          ),
-                          backgroundColor: Colors.grey[200],
-                        );
-                      }).toList(),
+                // Fecha de la entrada
+                Text(
+                  DateFormat('dd/MM/yyyy – HH:mm').format(entrada.fecha),
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
-                delay: 700,
-              ),
+                SizedBox(height: 20),
 
-            // Imagen adjunta (solo si existe)
-            if (entrada.imagenPath != null)
-              EntradaDetalleTile(
-                titulo: 'Imagen adjunta',
-                contenido: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.file(
-                    File(entrada.imagenPath!),
-                    width: double.infinity,
-                    height: 200,
-                    fit: BoxFit.cover,
-                    errorBuilder:
-                        (context, error, stackTrace) =>
-                            Center(child: Text('No se pudo cargar la imagen.')),
+                // Estado de ánimo
+                EntradaDetalleTile(
+                  titulo:
+                      '${_obtenerEmoticono('estadoAnimo', entrada.estadoAnimo)} Estado de ánimo',
+                  contenido: Text(
+                    entrada.estadoAnimo.isNotEmpty
+                        ? '${entrada.estadoAnimo} - ${_estadoDescripcion(entrada.estadoAnimo)}'
+                        : 'No se registró el estado de ánimo.',
+                    style:
+                        Theme.of(context).textTheme.bodyMedium, // Usar el tema
                   ),
+                  delay: 100,
                 ),
-                delay: 800,
-              ),
-          ],
+
+                // Calidad del sueño
+                EntradaDetalleTile(
+                  titulo:
+                      '${_obtenerEmoticono('calidadSueno', entrada.calidadSueno)} Calidad del sueño',
+                  contenido: Text(
+                    entrada.calidadSueno.isNotEmpty
+                        ? 'Calidad del sueño: ${entrada.calidadSueno}/10'
+                        : 'No se registró la calidad del sueño.',
+                    style:
+                        Theme.of(context).textTheme.bodyMedium, // Usar el tema
+                  ),
+                  delay: 200,
+                ),
+
+                // Nivel de dolor
+                EntradaDetalleTile(
+                  titulo:
+                      '${_obtenerEmoticono('dolor', entrada.dolor)} Nivel de dolor',
+                  contenido: Text(
+                    entrada.dolor.isNotEmpty
+                        ? 'Nivel de dolor: ${entrada.dolor}/10'
+                        : 'No se registró el nivel de dolor.',
+                    style:
+                        Theme.of(context).textTheme.bodyMedium, // Usar el tema
+                  ),
+                  delay: 300,
+                ),
+
+                // Áreas de dolor
+                if (entrada.areasDolor.isNotEmpty)
+                  EntradaDetalleTile(
+                    titulo: 'Áreas de dolor',
+                    contenido: Wrap(
+                      spacing: 8,
+                      runSpacing: 4,
+                      children:
+                          entrada.areasDolor.map((area) {
+                            return Chip(
+                              label: Text(
+                                area,
+                                style:
+                                    Theme.of(
+                                      context,
+                                    ).textTheme.bodySmall, // Usar el tema
+                              ),
+                              backgroundColor: Colors.red[100],
+                            );
+                          }).toList(),
+                    ),
+                    delay: 400,
+                  ),
+
+                // Descripción del dolor
+                EntradaDetalleTile(
+                  titulo: 'Descripción del dolor',
+                  contenido: Text(
+                    entrada.descripcionDolor.isNotEmpty
+                        ? entrada.descripcionDolor
+                        : 'No se registró una descripción del dolor.',
+                    style:
+                        Theme.of(context).textTheme.bodyMedium, // Usar el tema
+                  ),
+                  delay: 500,
+                ),
+
+                // Texto del diario
+                EntradaDetalleTile(
+                  titulo: 'Descripción del día',
+                  contenido: Text(
+                    entrada.texto,
+                    style:
+                        Theme.of(context).textTheme.bodyMedium, // Usar el tema
+                  ),
+                  delay: 600,
+                ),
+
+                // Etiquetas asociadas
+                if (entrada.etiquetas.isNotEmpty)
+                  EntradaDetalleTile(
+                    titulo: 'Etiquetas asociadas',
+                    contenido: Wrap(
+                      spacing: 8,
+                      runSpacing: 4,
+                      children:
+                          entrada.etiquetas.map((etiqueta) {
+                            return Chip(
+                              label: Text(
+                                etiqueta,
+                                style:
+                                    Theme.of(
+                                      context,
+                                    ).textTheme.bodySmall, // Usar el tema
+                              ),
+                              backgroundColor: Colors.grey[200],
+                            );
+                          }).toList(),
+                    ),
+                    delay: 700,
+                  ),
+
+                // Imagen adjunta (solo si existe)
+                if (entrada.imagenPath != null)
+                  EntradaDetalleTile(
+                    titulo: 'Imagen adjunta',
+                    contenido: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.file(
+                        File(entrada.imagenPath!),
+                        width: double.infinity,
+                        height: 200,
+                        fit: BoxFit.cover,
+                        errorBuilder:
+                            (context, error, stackTrace) => Center(
+                              child: Text('No se pudo cargar la imagen.'),
+                            ),
+                      ),
+                    ),
+                    delay: 800,
+                  ),
+              ],
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 

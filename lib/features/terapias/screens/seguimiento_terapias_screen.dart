@@ -14,51 +14,75 @@ class SeguimientoTerapiasScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Seguimiento de Terapias")),
-      body: Consumer<TerapiasSeguimientoProvider>(
-        builder: (context, seguimientoProvider, _) {
-          final terapias = seguimientoProvider.terapias;
+    return Stack(
+      children: [
+        // Fondo de pantalla
+        const Positioned.fill(
+          child: Image(
+            image: AssetImage(
+              'assets/images/backgrounds/ficha_terapia_background.png',
+            ),
+            fit: BoxFit.cover,
+          ),
+        ),
+        // Contenido principal
+        Scaffold(
+          backgroundColor: Colors.transparent, // Fondo transparente
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0, // Sin sombra
+            centerTitle: true,
+            title: const Text("Seguimiento de Terapias"),
+          ),
+          body: Consumer<TerapiasSeguimientoProvider>(
+            builder: (context, seguimientoProvider, _) {
+              final terapias = seguimientoProvider.terapias;
 
-          if (terapias.isEmpty) {
-            return const Center(child: Text('No hay terapias en seguimiento.'));
-          }
-          final enCurso = terapias.where((t) => !t.completada).length;
-          final completadas = terapias.where((t) => t.completada).length;
+              if (terapias.isEmpty) {
+                return const Center(
+                  child: Text('No hay terapias en seguimiento.'),
+                );
+              }
+              final enCurso = terapias.where((t) => !t.completada).length;
+              final completadas = terapias.where((t) => t.completada).length;
 
-          return Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(
-                  'En curso: $enCurso | Completadas: $completadas',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: terapias.length,
-                  itemBuilder: (context, index) {
-                    final terapia = terapias[index];
-                    return TerapiaSeguimientoCard(
-                      terapia: terapia,
-                      onMarcarCompletada: () {
-                        seguimientoProvider.marcarComoCompletada(terapia.id);
+              return Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Text(
+                      'En curso: $enCurso | Completadas: $completadas',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: terapias.length,
+                      itemBuilder: (context, index) {
+                        final terapia = terapias[index];
+                        return TerapiaSeguimientoCard(
+                          terapia: terapia,
+                          onMarcarCompletada: () {
+                            seguimientoProvider.marcarComoCompletada(
+                              terapia.id,
+                            );
+                          },
+                        );
                       },
-                    );
-                  },
-                ),
-              ),
-            ],
-          );
-        },
-      ),
-      // Botón para añadir nuevas terapias
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => _mostrarModalAgregarTerapia(context),
-        label: const Text("Añadir Terapia"),
-        icon: const Icon(Icons.add),
-      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+          // Botón para añadir nuevas terapias
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () => _mostrarModalAgregarTerapia(context),
+            label: const Text("Añadir Terapia"),
+            icon: const Icon(Icons.add),
+          ),
+        ),
+      ],
     );
   }
 

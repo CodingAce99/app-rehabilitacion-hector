@@ -19,72 +19,93 @@ class DetalleTerapiaScreen extends StatelessWidget {
     final List<FichaRehabilitacion> fichas = fichasProvider
         .obtenerFichasPorCategoria(terapia.titulo);
 
-    return Scaffold(
-      appBar: AppBar(title: Text(terapia.titulo)),
-      // Usamos SingleChildScrollView para evitar el desbordamiento vertical.
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // ClipRRect da esquinas redondeadas. fit: BoxFit.cover
-            // para que la imagen ocupe todo el espacio disponible.
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Image.asset(
-                terapia.assetImage,
-                width: double.infinity,
-                height: 180,
-                fit: BoxFit.contain,
-              ),
-            ),
-            const SizedBox(height: 8),
-            // Descripción
-            Text(
-              terapia.descripcionCorta,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 24),
-
-            // Objetivos
-            _buildObjetivosYBeneficios(terapia),
-            const SizedBox(height: 24),
-
-            Text(
-              'Fichas disponibles',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-
-            // Fichas de rehabilitación
-            ...fichas.map(
-              (ficha) => Card(
-                margin: const EdgeInsets.symmetric(vertical: 8),
-                child: ListTile(
-                  leading: Icon(Icons.assignment_outlined),
-
-                  title: Text(
-                    '${ficha.id.toUpperCase()} - ${ficha.titulo}',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  trailing: Icon(Icons.arrow_forward_ios_outlined),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DetalleFichaScreen(ficha: ficha),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-          ],
+    return Stack(
+      children: [
+        // Fondo de pantalla de la aplicación.
+        Positioned.fill(
+          child: Image.asset(
+            'assets/images/backgrounds/ficha_terapia_background.png', // Cambia aquí el fondo
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
+        // Contenido de la pantalla.
+        Scaffold(
+          backgroundColor:
+              Colors.transparent, // Fondo transparente para el Scaffold
+          appBar: AppBar(
+            title: Text(terapia.titulo),
+            centerTitle: true,
+            backgroundColor:
+                Colors.transparent, // Fondo transparente para la AppBar
+            elevation: 0, // Sin sombra
+          ),
+          // Usamos SingleChildScrollView para evitar el desbordamiento vertical.
+          body: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ClipRRect da esquinas redondeadas. fit: BoxFit.cover
+                // para que la imagen ocupe todo el espacio disponible.
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.asset(
+                    terapia.assetImage,
+                    width: double.infinity,
+                    height: 180,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                // Descripción
+                Text(
+                  terapia.descripcionCorta,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // Objetivos
+                _buildObjetivosYBeneficios(terapia),
+                const SizedBox(height: 24),
+
+                Text(
+                  'Fichas disponibles',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+
+                // Fichas de rehabilitación
+                ...fichas.map(
+                  (ficha) => Card(
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    child: ListTile(
+                      leading: Icon(Icons.assignment_outlined),
+
+                      title: Text(
+                        '${ficha.id.toUpperCase()} - ${ficha.titulo}',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      trailing: Icon(Icons.arrow_forward_ios_outlined),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) => DetalleFichaScreen(ficha: ficha),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 

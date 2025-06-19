@@ -1,11 +1,9 @@
 // Importaciones necesarias
-import 'package:app_rehab/widgets/theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // Otras importaciones
 import '../features/user/screens/profile_screen.dart';
-import '../core/theme/theme_provider.dart';
 import '../features/user/providers/user_provider.dart';
 import '../features/settings/screens/appearance_settings_screen.dart';
 import '../features/settings/screens/notification_settings_screen.dart';
@@ -32,6 +30,7 @@ class SettingsScreen extends StatelessWidget {
                   radius: 30,
                   backgroundColor: Theme.of(
                     context,
+                    // ignore: deprecated_member_use
                   ).colorScheme.primary.withOpacity(0.2),
                   child: Icon(
                     Icons.person,

@@ -168,159 +168,181 @@ class EstadisticasScreenState extends State<EstadisticasScreen> {
       );
     }
 
-    return Scaffold(
-      appBar: AppBar(title: Text('Estadísticas')),
-      body: SafeArea(
-        child: FutureBuilder(
-          // Clave para reconstrucción
-          key: ValueKey(_periodoSeleccionado),
-          future: _calcularEstadisticas(entradas),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            }
-
-            if (snapshot.hasError) {
-              return Center(
-                child: Text(
-                  'Error al cargar las estadísticas: ${snapshot.error}',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-              );
-            }
-
-            if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return Center(
-                child: Text(
-                  'No hay datos suficientes para mostrar estadísticas.',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-              );
-            }
-
-            final data = snapshot.data!;
-            final estadosAnimo = data['estadosAnimo'] as Map<String, int>;
-            final promedioCalidadSueno = data['promedioCalidadSueno'] as double;
-            final promedioNivelDolor = data['promedioNivelDolor'] as double;
-
-            // Determinar si hay datos suficientes para mostrar
-            final hayDatos =
-                estadosAnimo.isNotEmpty ||
-                promedioCalidadSueno > 0 ||
-                promedioNivelDolor > 0;
-
-            if (!hayDatos) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildPeriodoSelector(),
-                  const SizedBox(height: 24),
-                  Text(
-                    'No hay datos suficientes para el período seleccionado.',
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ],
-              );
-            }
-
-            return SingleChildScrollView(
-              physics: AlwaysScrollableScrollPhysics(),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight:
-                      MediaQuery.of(context).size.height -
-                      kToolbarHeight -
-                      MediaQuery.of(context).padding.top,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      // Añadir selector de período al principio
-                      _buildPeriodoSelector(),
-
-                      // Sección de estados de ánimo
-                      Center(
-                        child: Text(
-                          'Estado de ánimo',
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                      ),
-                      SizedBox(height: 4),
-                      SizedBox(
-                        height: 280,
-                        child:
-                            estadosAnimo.isNotEmpty
-                                ? _crearGraficoCircular(context, estadosAnimo)
-                                : Center(
-                                  child: Text(
-                                    'No hay datos de estados de ánimo para este período.',
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                      ),
-                      Divider(height: 24),
-
-                      // Sección de calidad del sueño
-                      Center(
-                        child: Text(
-                          'Calidad del sueño',
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                      ),
-                      SizedBox(height: 16),
-                      SizedBox(
-                        height: 300,
-                        child:
-                            promedioCalidadSueno > 0
-                                ? _crearGraficoLinea(
-                                  context,
-                                  'Calidad del sueño',
-                                  promedioCalidadSueno,
-                                )
-                                : Center(
-                                  child: Text(
-                                    'No hay datos de calidad de sueño para este período.',
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                      ),
-                      Divider(height: 24),
-
-                      // Sección de nivel de dolor
-                      Center(
-                        child: Text(
-                          'Nivel de dolor',
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                      ),
-                      SizedBox(height: 4),
-                      SizedBox(
-                        height: 300,
-                        child:
-                            promedioNivelDolor > 0
-                                ? _crearGraficoLinea(
-                                  context,
-                                  'Nivel de dolor',
-                                  promedioNivelDolor,
-                                )
-                                : Center(
-                                  child: Text(
-                                    'No hay datos de nivel de dolor para este período.',
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                      ),
-                      SizedBox(height: 4), // Espacio adicional al final
-                    ],
-                  ),
-                ),
-              ),
-            );
-          },
+    return Stack(
+      children: [
+        // Fondo de pantalla de la aplicación
+        Positioned.fill(
+          child: Image.asset(
+            'assets/images/backgrounds/ficha_terapia_background.png',
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
+
+        // Contenido de la pantalla
+        Scaffold(
+          backgroundColor: Colors.transparent, // Fondo transparente
+          appBar: AppBar(
+            backgroundColor: Colors.transparent, // Fondo transparente
+            elevation: 0, // Sin sombra
+            title: Text('Estadísticas'),
+          ),
+          body: SafeArea(
+            child: FutureBuilder(
+              // Clave para reconstrucción
+              key: ValueKey(_periodoSeleccionado),
+              future: _calcularEstadisticas(entradas),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
+
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text(
+                      'Error al cargar las estadísticas: ${snapshot.error}',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  );
+                }
+
+                if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return Center(
+                    child: Text(
+                      'No hay datos suficientes para mostrar estadísticas.',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  );
+                }
+
+                final data = snapshot.data!;
+                final estadosAnimo = data['estadosAnimo'] as Map<String, int>;
+                final promedioCalidadSueno =
+                    data['promedioCalidadSueno'] as double;
+                final promedioNivelDolor = data['promedioNivelDolor'] as double;
+
+                // Determinar si hay datos suficientes para mostrar
+                final hayDatos =
+                    estadosAnimo.isNotEmpty ||
+                    promedioCalidadSueno > 0 ||
+                    promedioNivelDolor > 0;
+
+                if (!hayDatos) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildPeriodoSelector(),
+                      const SizedBox(height: 24),
+                      Text(
+                        'No hay datos suficientes para el período seleccionado.',
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    ],
+                  );
+                }
+
+                return SingleChildScrollView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight:
+                          MediaQuery.of(context).size.height -
+                          kToolbarHeight -
+                          MediaQuery.of(context).padding.top,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          // Añadir selector de período al principio
+                          _buildPeriodoSelector(),
+
+                          // Sección de estados de ánimo
+                          Center(
+                            child: Text(
+                              'Estado de ánimo',
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          SizedBox(
+                            height: 280,
+                            child:
+                                estadosAnimo.isNotEmpty
+                                    ? _crearGraficoCircular(
+                                      context,
+                                      estadosAnimo,
+                                    )
+                                    : Center(
+                                      child: Text(
+                                        'No hay datos de estados de ánimo para este período.',
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                          ),
+                          Divider(height: 24),
+
+                          // Sección de calidad del sueño
+                          Center(
+                            child: Text(
+                              'Calidad del sueño',
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                          ),
+                          SizedBox(height: 16),
+                          SizedBox(
+                            height: 300,
+                            child:
+                                promedioCalidadSueno > 0
+                                    ? _crearGraficoLinea(
+                                      context,
+                                      'Calidad del sueño',
+                                      promedioCalidadSueno,
+                                    )
+                                    : Center(
+                                      child: Text(
+                                        'No hay datos de calidad de sueño para este período.',
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                          ),
+                          Divider(height: 24),
+
+                          // Sección de nivel de dolor
+                          Center(
+                            child: Text(
+                              'Nivel de dolor',
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          SizedBox(
+                            height: 300,
+                            child:
+                                promedioNivelDolor > 0
+                                    ? _crearGraficoLinea(
+                                      context,
+                                      'Nivel de dolor',
+                                      promedioNivelDolor,
+                                    )
+                                    : Center(
+                                      child: Text(
+                                        'No hay datos de nivel de dolor para este período.',
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                          ),
+                          SizedBox(height: 4), // Espacio adicional al final
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+      ],
     );
   }
 

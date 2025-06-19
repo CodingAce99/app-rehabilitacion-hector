@@ -50,22 +50,41 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       // Este widget separa el reproductor del resto de la UI
       player: YoutubePlayer(controller: _controller),
       builder: (context, player) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(widget.titulo),
-          ), // Muestra el título en la AppBar
-          body: Column(
-            children: [
-              player, // Aquí se muestra el reproductor de video
-              SizedBox(height: 20),
-
-              // Texto informativo debajo del reproductor
-              Text(
-                'Reproduciendo: ${widget.titulo}',
-                style: TextStyle(fontSize: 18),
+        return Stack(
+          children: [
+            // Fondo de pantalla de la aplicación
+            Positioned.fill(
+              child: Image.asset(
+                'assets/images/backgrounds/ficha_terapia_background.png',
+                fit: BoxFit.cover,
               ),
-            ],
-          ),
+            ),
+
+            // Contenido de la pantalla
+            Scaffold(
+              backgroundColor:
+                  Colors.transparent, // Fondo transparente para el Scaffold
+              appBar: AppBar(
+                backgroundColor:
+                    Colors.transparent, // Color de fondo de la AppBar
+                elevation: 0, // Sin sombra en la AppBar
+                centerTitle: true, // Centra el título en la AppBar
+                title: Text(widget.titulo),
+              ), // Muestra el título en la AppBar
+              body: Column(
+                children: [
+                  player, // Aquí se muestra el reproductor de video
+                  SizedBox(height: 20),
+
+                  // Texto informativo debajo del reproductor
+                  Text(
+                    'Reproduciendo: ${widget.titulo}',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
+            ),
+          ],
         );
       },
     );

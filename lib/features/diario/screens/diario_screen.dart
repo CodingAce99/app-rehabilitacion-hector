@@ -42,96 +42,115 @@ class DiarioScreenState extends State<DiarioScreen> {
               },
             ).toList(); // Fiiltra las entradas según las etiquetas seleccionadas
 
-    return Scaffold(
-      appBar: AppBar(title: Text('Mi diario')), // Título de la pantalla
-      body: Padding(
-        padding: const EdgeInsets.all(12), // Espaciado interno
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Título de la sección de entradas
-            Text(
-              'Entradas guardadas:',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            SizedBox(height: 10),
-
-            // Lista de entradas o mensaje vacio si no hay entradas
-            Expanded(
-              child:
-                  entradasFiltradas.isEmpty
-                      ? Center(
-                        child: Text('No hay entradas todavía.'),
-                      ) // Mensaje si no hay entradas
-                      : ListView.builder(
-                        padding: EdgeInsets.zero,
-                        itemCount: entradasFiltradas.length,
-                        itemBuilder: (context, index) {
-                          final entrada = entradasFiltradas[index];
-
-                          return Card(
-                            margin: EdgeInsets.symmetric(
-                              vertical: 6,
-                            ), // Margen entre tarjetas
-                            elevation: 2, // Sombra de la tarjeta
-                            child: ListTile(
-                              title: Text(
-                                entrada.titulo,
-                                style: Theme.of(context).textTheme.titleMedium,
-                              ),
-                              subtitle: Text(
-                                DateFormat(
-                                  'dd/MM/yyyy – HH:mm',
-                                ).format(entrada.fecha),
-                              ),
-                              trailing: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  // Boton para editar la entrada
-                                  IconButton(
-                                    icon: Icon(Icons.edit),
-                                    onPressed:
-                                        () => _mostrarDialogoEditar(
-                                          context,
-                                          entrada,
-                                        ),
-                                  ),
-                                  // Boton para eliminar la entrada
-                                  IconButton(
-                                    icon: Icon(Icons.delete),
-                                    onPressed:
-                                        () => _confirmarEliminar(
-                                          context,
-                                          entrada.id,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                              onTap: () {
-                                // Navega a la pantalla de detalles
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder:
-                                        (_) => DetalleEntradaScreen(
-                                          entrada: entrada,
-                                        ),
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                        },
-                      ),
-            ),
-          ],
+    return Stack(
+      children: [
+        // Fondo de pantalla de la aplicación
+        Positioned.fill(
+          child: Image.asset(
+            'assets/images/backgrounds/ficha_background_light.png',
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
-      // Botón flotante para agregar una nueva entrada
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _abrirFormularioNuevaEntrada,
-        label: Text('Nueva entrada'),
-        icon: Icon(Icons.add),
-      ),
+        // Contenido de la pantalla
+        Scaffold(
+          backgroundColor: Colors.transparent, // Fondo transparente
+          appBar: AppBar(
+            backgroundColor: Colors.transparent, // Fondo transparente
+            elevation: 0, // Sin sombra
+            title: Text('Mi diario'),
+            centerTitle: true,
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(12), // Espaciado interno
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Título de la sección de entradas
+                Text(
+                  'Entradas guardadas:',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                SizedBox(height: 10),
+
+                // Lista de entradas o mensaje vacio si no hay entradas
+                Expanded(
+                  child:
+                      entradasFiltradas.isEmpty
+                          ? Center(
+                            child: Text('No hay entradas todavía.'),
+                          ) // Mensaje si no hay entradas
+                          : ListView.builder(
+                            padding: EdgeInsets.zero,
+                            itemCount: entradasFiltradas.length,
+                            itemBuilder: (context, index) {
+                              final entrada = entradasFiltradas[index];
+
+                              return Card(
+                                margin: EdgeInsets.symmetric(
+                                  vertical: 6,
+                                ), // Margen entre tarjetas
+                                elevation: 2, // Sombra de la tarjeta
+                                child: ListTile(
+                                  title: Text(
+                                    entrada.titulo,
+                                    style:
+                                        Theme.of(context).textTheme.titleMedium,
+                                  ),
+                                  subtitle: Text(
+                                    DateFormat(
+                                      'dd/MM/yyyy – HH:mm',
+                                    ).format(entrada.fecha),
+                                  ),
+                                  trailing: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      // Boton para editar la entrada
+                                      IconButton(
+                                        icon: Icon(Icons.edit),
+                                        onPressed:
+                                            () => _mostrarDialogoEditar(
+                                              context,
+                                              entrada,
+                                            ),
+                                      ),
+                                      // Boton para eliminar la entrada
+                                      IconButton(
+                                        icon: Icon(Icons.delete),
+                                        onPressed:
+                                            () => _confirmarEliminar(
+                                              context,
+                                              entrada.id,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                  onTap: () {
+                                    // Navega a la pantalla de detalles
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder:
+                                            (_) => DetalleEntradaScreen(
+                                              entrada: entrada,
+                                            ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                ),
+              ],
+            ),
+          ),
+          // Botón flotante para agregar una nueva entrada
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: _abrirFormularioNuevaEntrada,
+            label: Text('Nueva entrada'),
+            icon: Icon(Icons.add),
+          ),
+        ),
+      ],
     );
   }
 

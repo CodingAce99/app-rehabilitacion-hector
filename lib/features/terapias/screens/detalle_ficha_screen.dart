@@ -27,145 +27,163 @@ class _DetalleFichaScreenState extends State<DetalleFichaScreen> {
   Widget build(BuildContext context) {
     final ficha = widget.ficha;
 
-    return Scaffold(
-      body: Stack(
-        children: [
-          SafeArea(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Secciones principales de la ficha con su respectivo contenido
-                  Text(
-                    ficha.titulo,
-                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).textTheme.titleLarge?.color,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-
-                  _buildCard(
-                    titulo: 'Descripcion',
-                    contenido: ficha.descripcionTerapia,
-                    icono: Icons.description,
-                  ),
-                  _buildCard(
-                    titulo: 'Indicación',
-                    contenido: ficha.indicacion,
-                    icono: Icons.info,
-                  ),
-
-                  _buildCard(
-                    titulo: 'Cómo se realiza',
-                    contenido: ficha.comoSeRealiza,
-                    icono: Icons.help,
-                  ),
-                  _buildCard(
-                    titulo: 'Observaciones técnicas',
-                    contenido: ficha.observacionesTecnica,
-                    icono: Icons.bookmark,
-                  ),
-                  _buildCard(
-                    titulo: 'Saber más',
-                    contenido: ficha.saberMas,
-                    icono: Icons.book,
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  // Secciñon de profesionales implicados
-                  Text(
-                    'Profesionales implicados',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-
-                  // Lista de profesionales mostrados como ListTile con ícono
-                  ...ficha.quienesLaRealizan.map(
-                    (p) => ListTile(
-                      leading: Icon(
-                        Icons.person,
-                        color: Theme.of(context).colorScheme.primary,
-                        size: 28,
-                      ),
-                      title: Text(p),
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-
-                  // Sección de video explicativo
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                      vertical: 8.0,
-                    ),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            Theme.of(
-                              context,
-                            ).colorScheme.primary, // Color de fondo
-                        foregroundColor:
-                            Theme.of(
-                              context,
-                            ).colorScheme.onPrimary, // Color del texto
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 12.0,
-                          horizontal: 24.0,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                            12,
-                          ), // Bordes redondeados
-                        ),
-                        elevation: 2, // Sombra ligera
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder:
-                                (_) => VideoPlayerScreen(
-                                  videoId: ficha.videoUrl,
-                                  titulo: 'Video explicativo',
-                                ),
-                          ),
-                        );
-                      },
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.play_circle_fill,
-                            size: 20,
-                          ), // Icono de reproducción
-                          const SizedBox(
-                            width: 8,
-                          ), // Espaciado entre el icono y el texto
-                          Text(
-                            'Ver video explicativo',
-                            style: GoogleFonts.montserrat(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+    return Stack(
+      children: [
+        // Fondo de pantalla de la aplicación
+        Positioned.fill(
+          child: Image.asset(
+            'assets/images/backgrounds/ficha_terapia_background.png',
+            fit: BoxFit.cover,
           ),
-        ],
-      ),
+        ), // Contenido de la pantalla
+        Scaffold(
+          backgroundColor:
+              Colors.transparent, // Fondo transparente para el Scaffold
+          body: Stack(
+            children: [
+              SafeArea(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Secciones principales de la ficha con su respectivo contenido
+                      Center(
+                        child: Text(
+                          ficha.titulo,
+                          style: Theme.of(
+                            context,
+                          ).textTheme.headlineLarge?.copyWith(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color:
+                                Theme.of(context).textTheme.titleLarge?.color,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+
+                      _buildCard(
+                        titulo: 'Descripcion',
+                        contenido: ficha.descripcionTerapia,
+                        icono: Icons.description,
+                      ),
+                      _buildCard(
+                        titulo: 'Indicación',
+                        contenido: ficha.indicacion,
+                        icono: Icons.info,
+                      ),
+
+                      _buildCard(
+                        titulo: 'Cómo se realiza',
+                        contenido: ficha.comoSeRealiza,
+                        icono: Icons.help,
+                      ),
+                      _buildCard(
+                        titulo: 'Observaciones técnicas',
+                        contenido: ficha.observacionesTecnica,
+                        icono: Icons.bookmark,
+                      ),
+                      _buildCard(
+                        titulo: 'Saber más',
+                        contenido: ficha.saberMas,
+                        icono: Icons.book,
+                      ),
+
+                      const SizedBox(height: 20),
+
+                      // Secciñon de profesionales implicados
+                      Text(
+                        'Profesionales implicados',
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+
+                      // Lista de profesionales mostrados como ListTile con ícono
+                      ...ficha.quienesLaRealizan.map(
+                        (p) => ListTile(
+                          leading: Icon(
+                            Icons.person,
+                            color: Theme.of(context).colorScheme.primary,
+                            size: 28,
+                          ),
+                          title: Text(p),
+                        ),
+                      ),
+                      const SizedBox(height: 30),
+
+                      // Sección de video explicativo
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                          vertical: 8.0,
+                        ),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(
+                                  context,
+                                ).colorScheme.primary, // Color de fondo
+                            foregroundColor:
+                                Theme.of(
+                                  context,
+                                ).colorScheme.onPrimary, // Color del texto
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 12.0,
+                              horizontal: 24.0,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                12,
+                              ), // Bordes redondeados
+                            ),
+                            elevation: 2, // Sombra ligera
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder:
+                                    (_) => VideoPlayerScreen(
+                                      videoId: ficha.videoUrl,
+                                      titulo: 'Video explicativo',
+                                    ),
+                              ),
+                            );
+                          },
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.play_circle_fill,
+                                size: 20,
+                              ), // Icono de reproducción
+                              const SizedBox(
+                                width: 8,
+                              ), // Espaciado entre el icono y el texto
+                              Text(
+                                'Ver video explicativo',
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
